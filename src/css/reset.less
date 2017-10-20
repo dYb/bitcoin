@@ -1,0 +1,176 @@
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+
+body {
+    line-height:1;
+    font-size: 0.28rem;
+}
+html,body{
+    height: 100%;
+}
+:focus {
+	outline: 1;
+}
+
+article,aside,canvas,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section,summary { 
+    display:block;
+}
+
+nav,ul,li{
+    list-style:none;
+}
+
+blockquote, q {
+    quotes:none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content:'';
+    content:none;
+}
+
+a {
+    margin:0;
+    padding:0;
+    border:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+    text-decoration: none;
+}
+
+ins {
+    background-color:#ff9;
+    color:#000;
+    text-decoration:none;
+}
+
+mark {
+    background-color:#ff9;
+    color:#000; 
+    font-style:italic;
+    font-weight:bold;
+}
+
+del {
+    text-decoration: line-through;
+}
+
+abbr[title], dfn[title] {
+    border-bottom:1px dotted #000;
+    cursor:help;
+}
+
+table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+
+hr {
+    display:block;
+    height:1px;
+    border:0;   
+    border-top:1px solid #cccccc;
+    margin:1em 0;
+    padding:0;
+}
+
+input, select {
+    vertical-align:middle;
+}
+.w-wrapper{
+    background: #fff;
+    padding: 0.3rem;
+    margin-bottom: 0.2rem;
+    &.no-border{
+        margin: 0;
+    }
+}
+.w-wrapper-nt{
+    background: #fff;
+    padding: 0 0.3rem;
+    margin-bottom: 0.2rem;
+    &.no-border{
+        margin: 0;
+    }
+}
+.user-info{
+    // height: 2rem;   
+    display: flex;    
+    flex-direction: row;
+    padding: 0.3rem 0;
+    box-sizing: border-box;
+    align-items: center;
+    p{
+        height: 0.4rem;
+        line-height: 0.4rem;
+    }
+    .headimg{
+        img{
+            width: 1.2rem;
+            height: 1.2rem;   
+            border-radius: 1.2rem;         
+        }
+    }
+    .info{
+        flex:1;
+        margin-left: 0.2rem;
+        p{
+            color: #989DA0;
+            font-size: 0.2rem;
+            margin: 0.04rem 0;
+        }
+        .name{
+            font-weight: bold;
+            color: #000;
+            font-size: 0.38rem;           
+        }
+        .type{
+            margin-left: 0.1rem;
+            background: #04D166;
+            display: inline-block;
+            font-size: 0.2rem;
+            font-weight: normal;
+            padding: 0.08rem;
+            color: #fff;
+            line-height: 0.8;
+            border-radius: 0.05rem;
+        }
+       
+    }
+    .action{
+        .count{
+            color: #21A148;
+            font-size: 0.38rem;
+        }
+        .btn-buy{
+            border: 1px solid #65BDDB;
+            display: inline-block;
+            padding: 0.08rem 0.45rem;
+            border-radius: 0.3rem;
+            color: #65BDDB;
+            margin-top: 0.30rem;
+            float: right;
+        }
+    }
+}
