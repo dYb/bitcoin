@@ -9,8 +9,10 @@
     "lint": "eslint src/**/*.js"
   },
   "pages": [
-    "page1",
-    "page2"
+    "pageBuyList",
+    "pageBuyDetail",
+    "pageAd",
+    "pageHistory"
   ],
   "keywords": [],
   "author": "ybduan <duanyubin2012@gmail.com>",
