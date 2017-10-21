@@ -1,26 +1,26 @@
-import "../js/size.js";
-import Pop from "../js/pop.js";
+import '../js/size.js'
+import Pop from '../js/pop.js'
 import {
-	ajax
-} from "../js/util.js";
-import "../css/reset.less";
-import '../css/list.less';
+  ajax
+} from '../js/util.js'
+import '../css/reset.less'
+import '../css/list.less'
 
-var getList = () => {
-	// debugger;
-	ajax({
-		// url:"/api/ads/list",
-		url: "/mocks/pageBuyList.json",
-		data: {
-			adsType: "",
-			adsStatus: "",
-			page: "",
-			pageSize: ""
-		},
-		success(ajaxData) {
-			var temp = "";
-			[1, 2].forEach((_data) => {
-				temp += `<li class="buycoin-item user-info">
+const getList = () => {
+  // debugger;
+  ajax({
+    // url:"/api/ads/list",
+    url: '/mocks/pageBuyList.json',
+    data: {
+      adsType: '',
+      adsStatus: '',
+      page: '',
+      pageSize: ''
+    },
+    success(ajaxData) {
+      let temp = '';
+      [1, 2].forEach((_data) => {
+        temp += `<li class="buycoin-item user-info">
 			        <div class="headimg">
 			          <img>
 			        </div>
@@ -34,15 +34,15 @@ var getList = () => {
 			          <p><a href="javascript:;" class="btn-buy">购买</a></p>
 			        </div>
 				</li>`
-			})
-			document.getElementsByClassName("buycoin-list")[0].innerHTML = temp;
-		}
-	})
+      })
+      document.getElementsByClassName('buycoin-list')[0].innerHTML = temp
+    }
+  })
 }
-var init = () => {
-	getList();
-	// document.getElementsByClassName("btn-buy")[0].addEventListener("click", () => {
-	// 	Pop.alert();
-	// })
+const init = () => {
+  getList()
+  // document.getElementsByClassName("btn-buy")[0].addEventListener("click", () => {
+  // 	Pop.alert();
+  // })
 }
-init();
+init()

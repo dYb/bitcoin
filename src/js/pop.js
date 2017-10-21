@@ -24,9 +24,9 @@ export default {
     }, 0)
     setTimeout(() => {
       dom.classList.remove('active')
-    }, 2000)
+    }, 4000)
     setTimeout(() => {
       dom.style.display = 'none'
-    }, 2200)
+    }, 4200)
   }
 }

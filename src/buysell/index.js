@@ -1,41 +1,41 @@
-import "../js/size.js";
-import Price from "../js/price.js";
+import '../js/size.js'
+import Price from '../js/price.js'
 import {
-	ajax,
-	$
+  ajax,
+  $
 }
-from "../js/util.js";
-import "../css/reset.less";
-import '../css/detail.less';
+  from '../js/util.js'
+import '../css/reset.less'
+import '../css/detail.less'
 
 new Price({
-	$wrapper: $(".module-price")
-});
-var getDetail = (orderId) => {
-	ajax({
-		url: "/api/order/info/" + orderId,
-		data: {
-			orderId: "",
-			token: ""
-		},
-		success() {
+  $wrapper: $('.module-price')
+})
+const getDetail = (orderId) => {
+  ajax({
+    url: `/api/order/info/${orderId}`,
+    data: {
+      orderId: '',
+      token: ''
+    },
+    success() {
 
-		}
-	})
+    }
+  })
 }
-var submit = () => {
-	ajax({
-		url: "/api/order/createOrder",
-		data: {
-			adsId: "",
-			token: "",
-			orderMoney: ""
-		},
-		success() {
+const submit = () => {
+  ajax({
+    url: '/api/order/createOrder',
+    data: {
+      adsId: '',
+      token: '',
+      orderMoney: ''
+    },
+    success() {
 
-		}
-	})
+    }
+  })
 }
-$(".btn-sellbuy").addEventListener("click",()=>{
-	submit();
+$('.btn-sellbuy').addEventListener('click', () => {
+  submit()
 })

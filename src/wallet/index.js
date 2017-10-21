@@ -1,10 +1,8 @@
-import { ajax, $, localParam } from '../js/util'
-
-const { search } = localParam()
-const token = search.token || localStorage.getItem('token')
+import { ajax, $, localParam, BASE_URL } from '../js/util'
+import '../css/page.less'
 
 ajax({
-  url: `/api/account/info?token?=${token}`,
+  url: `${BASE_URL}/api/account/info`,
   success(data) {
     console.log(data)
     render(data.data)
@@ -13,14 +11,15 @@ ajax({
 
 function render(data) {
   $('.js-wallet').innerHTML = `
-    <div>
+    <div class="form-group">
       总资产：${(data.balance + data.freeze).toFixed(0)}
     </div>
-    <div>
+    <div class="form-group">
       可用资产：${data.balance}
     </div>
-    <div>
+    <div class="form-group">
       冻结资产：${data.freeze}
     </div>
   `
+  $('.js-address').value = data.address
 }

@@ -1,8 +1,8 @@
-import { ajax, $, timer } from '../js/util'
+import { ajax, $, timer, BASE_URL, redirect } from '../js/util'
 import pop from '../js/pop'
 import './index.less'
 
-localStorage.removeItem('token')
+// localStorage.removeItem('token')
 
 const codeBtn = $('.js-code-btn')
 const startTimer = timer(10, (time) => {
@@ -18,34 +18,48 @@ codeBtn.addEventListener('click', () => {
   codeBtn.disabled = true
   startTimer()
   ajax({
-    url: '/api/user/send_code',
+    url: `${BASE_URL}/api/user/send_code`,
     method: 'POST',
+    needToken: false,
     data: { phone, type: 1 },
     success(data) {
       if (data.code === 0) {
-        alert('success')
+        pop.pop.alert('success')
       } else {
-        alert('error')
+        pop.pop.alert('error')
       }
     }
   })
 }, false)
 // 登录
-$('.js-login').addEventListener('click', () => {
-  const phone = $('.js-phone').textContent
-  const code = $('.js-code').textContent
+$('.js-login').addEventListener('click', (e) => {
+  e.preventDefault()
+  e.stopPropagation()
+  const phone = $('.js-phone').value
+  const code = $('.js-code').value
   if (!phone || !code) return
   ajax({
-    url: '/api/user/login',
+    method: 'POST',
+    url: `${BASE_URL}/api/user/login`,
+    needToken: false,
     data: {
       phone,
       verifyCode: code
     },
     success(data) {
-      alert('success')
+      if (data.code !== 0) {
+        pop.alert(data.msg)
+      } else {
+        localStorage.setItem('token', data.data.token)
+        localStorage.setItem('userInfo', JSON.stringify(data.data))
+        if (!data.data.hasFundPwd) {
+          // 未设置密码跳转到设置密码页
+          redirect('../password/?set=1', '设置资金密码')
+        }
+      }
     },
-    error(data) {
-      alert('登录失败')
+    error() {
+      pop.alert('登录失败')
     }
   })
 }, false)

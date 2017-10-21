@@ -1,3 +1,5 @@
+export const BASE_URL = 'http://47.95.234.100:8081'
+
 export function localParam(search, hash) {
   const s = search || window.location.search
   const h = hash || window.location.hash
@@ -28,6 +30,7 @@ export function ajax({
     .map(key => `${key}=${data[key]}`)
     .join('&')
   const token = localStorage.getItem('token')
+  let URL = url
   if (needToken && !token) {
     redirect('./login/', '登录')
     return
@@ -35,8 +38,11 @@ export function ajax({
   if (needToken) {
     body += `&token=${token}`
   }
+  if (method === 'GET') {
+    URL = `${url}?${body}`
+  }
   const request = new XMLHttpRequest()
-  request.open(method, url, true)
+  request.open(method, URL, true)
   if (method.toUpperCase() === 'POST') {
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8')
   }
@@ -81,6 +87,12 @@ export function timer(interval, onProgress, onEnd) {
 export function getToken() {
   const token = localParam().search.token || localStorage.getItem('token')
   return token
+}
+
+export function getUserInfo() {
+  const userInfo = localStorage.getItem('userInfo')
+  if (!userInfo) return false
+  return JSON.parse(userInfo)
 }
 
 export function redirect(href, title) {
