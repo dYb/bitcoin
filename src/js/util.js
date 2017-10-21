@@ -63,7 +63,10 @@ export function ajax({
 }
 
 export const $ = document.querySelector.bind(document)
-export const $$ = document.querySelectorAll.bind(document)
+export const $$ = (selector) => {
+  const doms = document.querySelectorAll(selector)
+  return Array.prototype.slice.call(doms)
+}
 
 export function timer(interval, onProgress, onEnd) {
   let t = null
