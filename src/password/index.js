@@ -1,5 +1,5 @@
 import { ajax, $, localParam, timer } from '../js/util'
-import './index.less'
+import '../css/page.less'
 
 const { search } = localParam()
 const token = search.token || localStorage.getItem('token')
