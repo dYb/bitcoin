@@ -24,9 +24,9 @@ codeBtn.addEventListener('click', () => {
     data: { phone, type: 1 },
     success(data) {
       if (data.code === 0) {
-        pop.pop.alert('success')
+        pop.alert('success')
       } else {
-        pop.pop.alert('error')
+        pop.alert('error')
       }
     }
   })
