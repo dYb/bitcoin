@@ -16,64 +16,67 @@
       <div class="form-item">
         <span class="text">所在地</span>
         <span class="br">|</span>
-        <div class="content">中国</div>
+        <div class="content">
+          <select class="area">
+            <option value="中国">中国</option>
+            <option value="美国">美国</option>
+          </select>
+        </div>
       </div>
       <div class="form-item">
         <span class="text">货币</span>
          <span class="br">|</span>
-        <div class="content">人民币</div>
+        <div class="content">
+          <select class="currency">
+            <option value="人民币">人民币</option>
+            <option value="美元">美元</option>
+          </select>
+        </div>
       </div>
     </div>
     <div class="w-wrapper-nt">
       <div class="form-item">
-        <span class="text">溢价</span>
-        <span class="br">|</span>
-        <div class="content">
-          <input type="text">
-        </div>
-      </div>
-      <div class="form-item">
         <span class="text">价格</span>
          <span class="br">|</span>
         <div class="content">
-          <input type="text">
+          <input class="price" type="text">
         </div>
       </div>
       <div class="form-item">
         <span class="text">最小量</span>
         <span class="br">|</span>
         <div class="content">
-          <input type="text">
+          <input class="minLimitPrice" type="text">
         </div>
       </div>
       <div class="form-item">
         <span class="text">最大量</span>
          <span class="br">|</span>
         <div class="content">
-          <input type="text">
+          <input class="maxLimitPrice" type="text">
         </div>
       </div>
       <div class="form-item">
         <span class="text">付款方式</span>
          <span class="br">|</span>
         <div class="content">
-          <input type="text">
+          <input class="payType" type="text">
         </div>
       </div>
-      <div class="form-item">
+      <!-- <div class="form-item">
         <span class="text">存款期限</span>
          <span class="br">|</span>
         <div class="content">
           <input type="text">
         </div>
-      </div>
+      </div> -->
     </div>  
     <div class="w-wrapper no-border">
-      <textarea></textarea>
+      <textarea class="adsDescribe"></textarea>
     </div>    
   </div>
   <!-- build:page1Script -->
-  <script type="text/javascript" src="//localhost:3100/js/pageAd.bundle.js"></script>
+  <script type="text/javascript" src="//localhost:3100/js/ad.bundle.js"></script>
   <!-- endbuild -->
 </body>
 

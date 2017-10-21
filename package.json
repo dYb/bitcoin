@@ -9,10 +9,10 @@
     "lint": "eslint src/**/*.js"
   },
   "pages": [
-    "pageBuyList",
-    "pageBuyDetail",
-    "pageAd",
-    "pageHistory",
+    "market",
+    "buysell",
+    "ad",
+    "myorder",
     "login",
     "send",
     "accept",
