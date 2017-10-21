@@ -14,3 +14,7 @@ http://localhost:3100/page/page2
 * /login/      登录
 * /password/   设置/修改/重置账号密码
 * /wallet/     我的钱包
+* /myorder/    我的历史订单
+* /buysell/    买卖比特币
+* /market/     交易市场
+* /ad/         发布广告
