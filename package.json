@@ -12,7 +12,13 @@
     "pageBuyList",
     "pageBuyDetail",
     "pageAd",
-    "pageHistory"
+    "pageHistory",
+    "login",
+    "send",
+    "accept",
+    "info",
+    "password",
+    "wallet"
   ],
   "keywords": [],
   "author": "ybduan <duanyubin2012@gmail.com>",

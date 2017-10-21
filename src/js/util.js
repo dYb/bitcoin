@@ -56,3 +56,25 @@ export function ajax(option) {
   }
   request.send(data)
 }
+
+export const $ = document.querySelector.bind(document)
+export const $$ = document.querySelectorAll.bind(document)
+
+export function timer(interval, onProgress, onEnd) {
+  let t = null
+  return () => {
+    let time = interval
+    if (t) return
+    onProgress(time)
+    t = setInterval(() => {
+      time = time - 1
+      if (time <= 0) {
+        clearInterval(t)
+        t = null
+        onEnd()
+      } else {
+        onProgress(time)
+      }
+    }, 1000)
+  }
+}
