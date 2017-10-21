@@ -9,8 +9,7 @@ import '../css/list.less';
 var getList = () => {
 	// debugger;
 	ajax({
-		// url:"/api/ads/list",
-		url: "/mocks/pageBuyList.json",
+		url:"/api/ads/list",
 		data: {
 			adsType: "",
 			adsStatus: "",
