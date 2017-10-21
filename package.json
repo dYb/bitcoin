@@ -18,8 +18,8 @@
     "accept",
     "info",
     "password",
-    "wallet",
-    "mymarket"
+    "extract",
+    "wallet"
   ],
   "keywords": [],
   "author": "ybduan <duanyubin2012@gmail.com>",

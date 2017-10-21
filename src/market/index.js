@@ -1,47 +1,73 @@
-import "../js/size.js";
-import Pop from "../js/pop.js";
+import '../js/size.js'
 import {
-	ajax
-} from "../js/util.js";
-import "../css/reset.less";
-import '../css/list.less';
-
-var getList = () => {
-	// debugger;
-	ajax({
-		url:"/api/ads/list",
-		data: {
-			adsType: "",
-			adsStatus: "",
-			page: "",
-			pageSize: ""
-		},
-		success(ajaxData) {
-			var temp = "";
-			[1, 2].forEach((_data) => {
-				temp += `<li class="buycoin-item user-info">
+  ajax,
+  $,
+  $$,
+  timer,
+  BASE_URL,
+  redirect
+} from '../js/util'
+import '../css/reset.less'
+import '../css/market.less'
+var currentPage = 1;
+var tradeType = 1;
+const getList = (adsType) => {
+  ajax({
+    url: `${BASE_URL}/api/ads/list`,
+    data: {
+      adsType: adsType,
+      adsStatus: '1',
+      page: currentPage,
+      pageSize: '20'
+    },
+    success(ajaxData) {
+      let temp = '',
+        text = adsType == 1 ? '购买' : '出售';
+      ajaxData.data.list.forEach((_data) => {
+        temp += `<li class="buycoin-item user-info">
 			        <div class="headimg">
 			          <img>
 			        </div>
 			        <div class="info">
-			          <p><span class="name">1651234</span><span class="type">支付宝</span></p>
+			          <p><span class="name">${_data.userId}</span><span class="type">${_data.payType}</span></p>
 			          <p>交易74 | 好评100% | 新人36</p>
-			          <p>限额：1000~5000</p>
+			          <p>限额：${_data.minLimitPrice}~${_data.maxLimitPrice}</p>
 			        </div>
 			        <div class="action">
-			          <p class="count">38000 CNY</p>
-			          <p><a href="javascript:;" class="btn-buy">购买</a></p>
+			          <p class="count">${_data.price} CNY</p>
+			          <p><a href="javascript:;" data-id="${_data.id}" class="btn-buy">${text}</a></p>
 			        </div>
 				</li>`
-			})
-			document.getElementsByClassName("buycoin-list")[0].innerHTML = temp;
-		}
-	})
+      })
+      document.getElementsByClassName('buycoin-list')[0].innerHTML = temp
+    }
+  })
 }
-var init = () => {
-	getList();
-	// document.getElementsByClassName("btn-buy")[0].addEventListener("click", () => {
-	// 	Pop.alert();
-	// })
+const init = () => {
+  getList(1);
+  $(".tab").addEventListener("click", (e) => {
+    if (e.target.tagName == "LI") {
+      $$(".tab li").forEach((t) => {
+        t.className = "";
+      })
+      let className = e.target.className;
+      if (className.indexOf("active") == -1) {
+        e.target.className = "active";
+      }
+      let index = e.target.getAttribute('data-index');
+      tradeType = index;
+      if (index == "1") {
+        getList(1);
+      } else if (index == "2") {
+        getList(2)
+      }
+    }
+  })
+  $(".buycoin-list").addEventListener("click", (e) => {
+    if (e.target.className == "btn-buy") {
+      let id = e.target.getAttribute('data-id');
+      redirect(`./buysell/?type=${tradeType}&id=${id}`, '交易');
+    }
+  })
 }
-init();
+init()

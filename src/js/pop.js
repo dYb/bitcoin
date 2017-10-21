@@ -1,33 +1,32 @@
-import "../css/pop.less";
-var _Pop = {
-	init() {
-		var that = this;
-		this.$popAlert = document.getElementsByClassName("pop-alert-wrapper")[0];
-		if (!this.$popAlert) {
-			this.$popAlert = document.createElement("div");
-			this.$popAlert.className = "pop-alert-wrapper";
-			this.$popAlert.innerHTML = `
-				<div class="pop-alert-inner">
-					<div class="text">XXXXXXXXXXXXXX</div>
-					<div class="action">确定</div>
-				</div>	
-			`;
-			document.body.appendChild(this.$popAlert);			
-			this.$popAlert.getElementsByClassName("action")[0].addEventListener("click", (e) => {
-				that.alertClose();
-			})
-		}
+import { $ } from './util'
+import '../css/pop.less'
 
-	},
-	alert() {
-		var className = this.$popAlert.className;
-		this.$popAlert.className = className + " active";
-	},
-	alertClose() {
-		var className = this.$popAlert.className;
-		this.$popAlert.className = className.replace("active", "");
-	},
-	confirm() {}
+function getDom(message) {
+  if ($('.pop-alert')) {
+    $('.pop-alert').textContent = message
+    return $('.pop-alert')
+  }
+  const div = document.createElement('div')
+  div.classList.add('pop-alert-wrap')
+  const inner = document.createElement('div')
+  inner.classList.add('pop-alert')
+  inner.textContent = message
+  div.appendChild(inner)
+  document.body.appendChild(div)
+  return inner
 }
-_Pop.init();
-export default _Pop
+export default {
+  alert(message) {
+    const dom = getDom(message)
+    dom.style.display = 'inline-block'
+    setTimeout(() => {
+      dom.classList.add('active')
+    }, 0)
+    setTimeout(() => {
+      dom.classList.remove('active')
+    }, 4000)
+    setTimeout(() => {
+      dom.style.display = 'none'
+    }, 4200)
+  }
+}

@@ -1,8 +1,8 @@
-import { ajax, $, localParam, timer } from '../js/util'
-import './index.less'
+import { ajax, $, localParam, timer, getUserInfo, BASE_URL } from '../js/util'
+import pop from '../js/pop'
+import '../css/page.less'
 
 const { search } = localParam()
-const token = search.token || localStorage.getItem('token')
 if (search.set) {
   $('.js-has-no-password').style.display = 'block'
 } else if (search.reset) {
@@ -17,9 +17,19 @@ if (search.set) {
   btn.addEventListener('click', () => {
     const pwd = $('.js-has-no-password .js-password').value
     ajax({
-      url: '/api/user/init_fund_pwd',
+      url: BASE_URL + '/api/user/init_fund_pwd',
       method: 'POST',
-      data: { pwd, token }
+      data: { pwd },
+      success(data) {
+        if (data.code !== 0) {
+          pop.alert(data.msg)
+        } else {
+          pop.alert('设置成功')
+        }
+      },
+      error() {
+        pop.alert('设置失败')
+      }
     })
   }, false)
 }
@@ -28,12 +38,22 @@ if (search.set) {
 {
   const btn = $('.js-change-password .js-set')
   btn.addEventListener('click', () => {
-    const oldPwd = $('.js-has-no-password .js-old-password').value
-    const newPwd = $('.js-has-no-password .js-new-password').value
+    const oldPwd = $('.js-change-password .js-old-password').value
+    const newPwd = $('.js-change-password .js-new-password').value
     ajax({
-      url: '/api/user/m_fund_pwd',
+      url: BASE_URL + '/api/user/m_fund_pwd',
       method: 'POST',
-      data: { oldPwd, newPwd, token }
+      data: { oldPwd, newPwd },
+      success(data) {
+        if (data.code !== 0) {
+          pop.alert(data.msg)
+        } else {
+          pop.alert('修改成功')
+        }
+      },
+      error() {
+        pop.alert('修改失败')
+      }
     })
   }, false)
 }
@@ -41,13 +61,27 @@ if (search.set) {
 
 {
   const btn = $('.js-reset-password .js-set')
+  const userInfo = getUserInfo()
+  if (userInfo && userInfo.phone) {
+    $('.js-phone').value = userInfo.phone
+  }
   btn.addEventListener('click', () => {
-    const pwd = $('.js-has-no-password .js-password').value
-    const verifyCode = $('.js-has-no-password .js-code').value
+    const pwd = $('.js-reset-password .js-password').value
+    const verifyCode = $('.js-reset-password .js-code').value
     ajax({
-      url: '/api/user/m_fund_pwd',
+      url: BASE_URL + '/api/user/reset_fund_pwd',
       method: 'POST',
-      data: { pwd, verifyCode, token }
+      data: { pwd, verifyCode },
+      success(data) {
+        if (data.code !== 0) {
+          pop.alert(data.msg)
+        } else {
+          pop.alert('重置成功')
+        }
+      },
+      error() {
+        pop.alert('重置失败')
+      }
     })
   }, false)
   const codeBtn = $('.js-code-btn')
@@ -64,8 +98,9 @@ if (search.set) {
     codeBtn.disabled = true
     startTimer()
     ajax({
-      url: '/api/user/send_code',
+      url: BASE_URL + '/api/user/send_code',
       method: 'POST',
+      needToken: false,
       data: { phone, type: 1 },
       success(data) {
         if (data.code === 0) {

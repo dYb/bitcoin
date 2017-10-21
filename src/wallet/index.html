@@ -6,12 +6,35 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link href="//cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
   <title>我的钱包</title>
+  <style>
+    .card {
+      margin-bottom: 1rem;
+    }
+  </style>
 </head>
 <body>
   <div class="g-container">
-    <div class="js-wallet"></div>
-    <div>接受BTC</div>
-    <div>发送BTC</div>
+    <div class="card">
+      <div class="card-body form js-wallet">
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">我的收获地址</div>
+      <div class="card-body">
+        <div class="form-row">
+          <div class="form-group col-10" style="margin-bottom: 0;">
+            <input type="text" class="js-address form-control" readonly placeholder="Password">
+          </div>
+          <button class="btn btn-primary col-2">复制</button>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">接受BTC</li>
+        <li class="list-group-item">发送BTC</li>
+      </ul>
+    </div>
   </div>
   <!-- build:passwordScript -->
   <script type="text/javascript" src="http://localhost:3100/js/wallet.bundle.js"></script>
