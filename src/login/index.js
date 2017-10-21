@@ -1,4 +1,5 @@
 import { ajax, $, timer } from '../js/util'
+import pop from '../js/pop'
 import './index.less'
 
 localStorage.removeItem('token')
