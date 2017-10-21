@@ -1,6 +1,8 @@
 import { ajax, $, timer } from '../js/util'
 import './index.less'
 
+localStorage.removeItem('token')
+
 const codeBtn = $('.js-code-btn')
 const startTimer = timer(10, (time) => {
   codeBtn.textContent = `${time}秒后重发`
