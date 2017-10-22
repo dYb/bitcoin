@@ -11,15 +11,15 @@ import pop from '../js/pop.js'
 import '../css/reset.less'
 import '../css/ad.less'
 
-var tradeType = 1;
+let tradeType = 1
 
-var payTypeHtml = "";
-PAY_TYPE.forEach((_data,i) => {
-  if(i == 0)return;
-  payTypeHtml += `<option value="${i}">${PAY_TYPE[i]}</option>`;
+let payTypeHtml = ''
+PAY_TYPE.forEach((_data, i) => {
+  if (i == 0) return
+  payTypeHtml += `<option value="${i}">${PAY_TYPE[i]}</option>`
 })
 
-$(".payType").innerHTML = payTypeHtml;
+$('.payType').innerHTML = payTypeHtml
 
 const getSubClass = (dom) => {
   const o = {}
@@ -45,15 +45,11 @@ const submit = () => {
       id: ''
     }, subData),
     success(ajaxData) {
-      if (ajaxData.code == 0) {
-<<<<<<< HEAD
-        pop.alert('发布成功')
-=======
-        pop.success("发布成功");
-        setTimeout(()=>{
-          redirect(`../market/`, '列表')
-        },1000)
->>>>>>> e975f1b85c786c433bd2bb938a1a316a4bba8e17
+      if (ajaxData.code === 0) {
+        pop.success('发布成功')
+        setTimeout(() => {
+          redirect('./market.html', '列表')
+        }, 1000)
       } else {
         pop.alert(ajaxData.msg)
       }
@@ -61,7 +57,7 @@ const submit = () => {
   })
 }
 $('.tab').addEventListener('click', (e) => {
-  if (e.target.tagName == 'LI') {
+  if (e.target.tagName === 'LI') {
     $$('.tab li').forEach((t) => {
       t.className = ''
     })
