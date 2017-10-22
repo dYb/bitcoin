@@ -3,13 +3,24 @@ import {
   ajax,
   $,
   $$,
-  BASE_URL
+  BASE_URL,
+  PAY_TYPE,
+  redirect
 } from '../js/util.js'
 import pop from "../js/pop.js"
 import '../css/reset.less'
 import '../css/ad.less'
 
 var tradeType = 1;
+
+var payTypeHtml = "";
+PAY_TYPE.forEach((_data,i) => {
+  if(i == 0)return;
+  payTypeHtml += `<option value="${i}">${PAY_TYPE[i]}</option>`;
+})
+
+$(".payType").innerHTML = payTypeHtml;
+
 const getSubClass = (dom) => {
   const o = {}
   for (let i = 0; i < dom.length; i++) {
@@ -34,9 +45,12 @@ const submit = () => {
       id: ''
     }, subData),
     success(ajaxData) {
-      if(ajaxData.code == 0){
-        pop.alert("发布成功")
-      }else{
+      if (ajaxData.code == 0) {
+        pop.success("发布成功");
+        setTimeout(()=>{
+          redirect(`../market/`, '列表')
+        },1000)
+      } else {
         pop.alert(ajaxData.msg)
       }
     }

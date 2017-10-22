@@ -5,10 +5,12 @@ import {
   $$,
   timer,
   BASE_URL,
-  redirect
+  redirect,
+  PAY_TYPE
 } from '../js/util'
 import '../css/reset.less'
 import '../css/market.less'
+
 
 const currentPage = 1
 let tradeType = 1
@@ -26,12 +28,12 @@ const getList = (adsType) => {
         text = adsType == 1 ? '购买' : '出售'
       ajaxData.data.list.forEach((_data) => {
         temp += `<li class="buycoin-item user-info">
-			        <div class="headimg">
+			        <!--<div class="headimg">
 			          <img>
-			        </div>
+			        </div>-->
 			        <div class="info">
-			          <p><span class="name">${_data.userId}</span><span class="type">${_data.payType}</span></p>
-			          <p>交易74 | 好评100% | 新人36</p>
+			          <p><span class="name">${_data.userId}</span><span class="type">${PAY_TYPE[_data.payType]}</span></p>
+			          <!--<p>交易74 | 好评100% | 新人36</p>-->
 			          <p>限额：${_data.minLimitPrice}~${_data.maxLimitPrice}</p>
 			        </div>
 			        <div class="action">
@@ -67,7 +69,7 @@ const init = () => {
   $('.buycoin-list').addEventListener('click', (e) => {
     if (e.target.className == 'btn-buy') {
       const id = e.target.getAttribute('data-id')
-      redirect(`./buysell/?type=${tradeType}&id=${id}`, '交易')
+      redirect(`./buysell.html/?type=${tradeType}&id=${id}`, '交易')
     }
   })
 }
