@@ -117,6 +117,30 @@ input, select {
         margin: 0;
     }
 }
+.tab{
+    display: flex;
+    justify-content: center;
+    li{
+        height: 0.8rem;
+        width: 2rem;
+        line-height: 0.8rem;
+        text-align: center;
+        font-size: 0.3rem;
+        border: 0.02rem solid #fff;
+        &:nth-child(1){
+            border-top-left-radius: 0.2rem;
+            border-bottom-left-radius: 0.2rem;
+        }
+        &:nth-child(2){
+            border-top-right-radius: 0.2rem;
+            border-bottom-right-radius: 0.2rem;
+        }
+        &.active{
+            background-color: #329ef7;
+            color: #fff;
+        }
+    }
+}
 .user-info{
     // height: 2rem;   
     display: flex;    
