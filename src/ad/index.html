@@ -11,15 +11,18 @@
 </head>
 
 <body>
-  <div class="ad-wrapper">    
-    <div class="w-wrapper-nt">
+  <div class="ad-wrapper">  
+    <div class="w-wrapper">
+      <ul class="tab">
+        <li data-index="1" class="active">购买比特币</li>
+        <li data-index="2">出售比特币</li>
+      </ul>  
       <div class="form-item">
         <span class="text">所在地</span>
         <span class="br">|</span>
         <div class="content">
           <select class="area">
-            <option value="中国">中国</option>
-            <option value="美国">美国</option>
+            <option value="1">中国</option>
           </select>
         </div>
       </div>
@@ -28,8 +31,7 @@
          <span class="br">|</span>
         <div class="content">
           <select class="currency">
-            <option value="人民币">人民币</option>
-            <option value="美元">美元</option>
+            <option value="1">人民币</option>
           </select>
         </div>
       </div>
@@ -50,21 +52,29 @@
         <span class="text">最小量</span>
         <span class="br">|</span>
         <div class="content">
-          <input class="minLimitPrice" type="text">
+          <input value="10000" class="minLimitPrice" type="text">
+          <div class="fn-right">
+            <span>CNY</span>
+            <span class="notice">?</span>
+          </div>
         </div>
       </div>
       <div class="form-item">
         <span class="text">最大量</span>
          <span class="br">|</span>
         <div class="content">
-          <input class="maxLimitPrice" type="text">
+          <input value="20000" class="maxLimitPrice" type="text">
+          <div class="fn-right">
+            <span>CNY</span>
+            <span class="notice">?</span>
+          </div>
         </div>
       </div>
       <div class="form-item">
         <span class="text">付款方式</span>
          <span class="br">|</span>
         <div class="content">
-          <input class="payType" type="text">
+          <input  class="payType" type="text" value="1">
         </div>
       </div>
       <!-- <div class="form-item">
@@ -76,10 +86,10 @@
       </div> -->
     </div>  
     <div class="w-wrapper no-border">
-      <textarea class="adsDescribe"></textarea>
+      <textarea class="adsDescribe">这是一个测试内容</textarea>
     </div>    
     <div class="action">
-      <a href="javascript:;">发布</a>
+      <a href="javascript:;" class="btn-publish">发布</a>
     </div>
   </div>
   <!-- build:page1Script -->

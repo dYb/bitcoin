@@ -1,10 +1,15 @@
 import '../js/size.js'
 import {
-  ajax
+  ajax,
+  $,
+  $$,
+  BASE_URL
 } from '../js/util.js'
+import pop from "../js/pop.js"
 import '../css/reset.less'
 import '../css/ad.less'
 
+var tradeType = 1;
 const getSubClass = (dom) => {
   const o = {}
   for (let i = 0; i < dom.length; i++) {
@@ -23,13 +28,38 @@ const getSubData = () => {
 const submit = () => {
   const subData = getSubData()
   ajax({
-    url: '/api/ads/user/saveOrUpdate',
+    url: `${BASE_URL}/api/ads/user/saveOrUpdate`,
     data: Object.assign({
+      adsType: tradeType,
       id: ''
     }, subData),
-    success() {
-
+    success(ajaxData) {
+      if(ajaxData.code == 0){
+        pop.alert("发布成功")
+      }else{
+        pop.alert(ajaxData.msg)
+      }
     }
   })
 }
-submit()
+$(".tab").addEventListener("click", (e) => {
+  if (e.target.tagName == "LI") {
+    $$(".tab li").forEach((t) => {
+      t.className = "";
+    })
+    let className = e.target.className;
+    if (className.indexOf("active") == -1) {
+      e.target.className = "active";
+    }
+    let index = e.target.getAttribute('data-index');
+    tradeType = index;
+    if (index == "1") {
+
+    } else if (index == "2") {
+
+    }
+  }
+})
+$(".btn-publish").addEventListener("click", (e) => {
+  submit();
+})
