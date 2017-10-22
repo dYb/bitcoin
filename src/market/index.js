@@ -9,20 +9,21 @@ import {
 } from '../js/util'
 import '../css/reset.less'
 import '../css/market.less'
-var currentPage = 1;
-var tradeType = 1;
+
+const currentPage = 1
+let tradeType = 1
 const getList = (adsType) => {
   ajax({
     url: `${BASE_URL}/api/ads/list`,
     data: {
-      adsType: adsType,
+      adsType,
       adsStatus: '1',
       page: currentPage,
       pageSize: '20'
     },
     success(ajaxData) {
       let temp = '',
-        text = adsType == 1 ? '购买' : '出售';
+        text = adsType == 1 ? '购买' : '出售'
       ajaxData.data.list.forEach((_data) => {
         temp += `<li class="buycoin-item user-info">
 			        <div class="headimg">
@@ -44,29 +45,29 @@ const getList = (adsType) => {
   })
 }
 const init = () => {
-  getList(1);
-  $(".tab").addEventListener("click", (e) => {
-    if (e.target.tagName == "LI") {
-      $$(".tab li").forEach((t) => {
-        t.className = "";
+  getList(1)
+  $('.tab').addEventListener('click', (e) => {
+    if (e.target.tagName == 'LI') {
+      $$('.tab li').forEach((t) => {
+        t.className = ''
       })
-      let className = e.target.className;
-      if (className.indexOf("active") == -1) {
-        e.target.className = "active";
+      const className = e.target.className
+      if (className.indexOf('active') == -1) {
+        e.target.className = 'active'
       }
-      let index = e.target.getAttribute('data-index');
-      tradeType = index;
-      if (index == "1") {
-        getList(1);
-      } else if (index == "2") {
+      const index = e.target.getAttribute('data-index')
+      tradeType = index
+      if (index == '1') {
+        getList(1)
+      } else if (index == '2') {
         getList(2)
       }
     }
   })
-  $(".buycoin-list").addEventListener("click", (e) => {
-    if (e.target.className == "btn-buy") {
-      let id = e.target.getAttribute('data-id');
-      redirect(`./buysell/?type=${tradeType}&id=${id}`, '交易');
+  $('.buycoin-list').addEventListener('click', (e) => {
+    if (e.target.className == 'btn-buy') {
+      const id = e.target.getAttribute('data-id')
+      redirect(`./buysell/?type=${tradeType}&id=${id}`, '交易')
     }
   })
 }

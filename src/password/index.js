@@ -17,18 +17,18 @@ if (search.set) {
   btn.addEventListener('click', () => {
     const pwd = $('.js-has-no-password .js-password').value
     ajax({
-      url: BASE_URL + '/api/user/init_fund_pwd',
+      url: `${BASE_URL}/api/user/init_fund_pwd`,
       method: 'POST',
       data: { pwd },
       success(data) {
         if (data.code !== 0) {
-          pop.alert(data.msg)
+          pop.error(data.msg)
         } else {
-          pop.alert('设置成功')
+          pop.success('设置成功')
         }
       },
       error() {
-        pop.alert('设置失败')
+        pop.error('设置失败')
       }
     })
   }, false)
@@ -41,18 +41,18 @@ if (search.set) {
     const oldPwd = $('.js-change-password .js-old-password').value
     const newPwd = $('.js-change-password .js-new-password').value
     ajax({
-      url: BASE_URL + '/api/user/m_fund_pwd',
+      url: `${BASE_URL}/api/user/m_fund_pwd`,
       method: 'POST',
       data: { oldPwd, newPwd },
       success(data) {
         if (data.code !== 0) {
-          pop.alert(data.msg)
+          pop.error(data.msg)
         } else {
-          pop.alert('修改成功')
+          pop.success('修改成功')
         }
       },
       error() {
-        pop.alert('修改失败')
+        pop.error('修改失败')
       }
     })
   }, false)
@@ -69,18 +69,18 @@ if (search.set) {
     const pwd = $('.js-reset-password .js-password').value
     const verifyCode = $('.js-reset-password .js-code').value
     ajax({
-      url: BASE_URL + '/api/user/reset_fund_pwd',
+      url: `${BASE_URL}/api/user/reset_fund_pwd`,
       method: 'POST',
       data: { pwd, verifyCode },
       success(data) {
         if (data.code !== 0) {
-          pop.alert(data.msg)
+          pop.error(data.msg)
         } else {
-          pop.alert('重置成功')
+          pop.success('重置成功')
         }
       },
       error() {
-        pop.alert('重置失败')
+        pop.error('重置失败')
       }
     })
   }, false)
@@ -98,15 +98,15 @@ if (search.set) {
     codeBtn.disabled = true
     startTimer()
     ajax({
-      url: BASE_URL + '/api/user/send_code',
+      url: `${BASE_URL}/api/user/send_code`,
       method: 'POST',
       needToken: false,
       data: { phone, type: 1 },
       success(data) {
         if (data.code === 0) {
-          alert('success')
+          pop.success('发送成功')
         } else {
-          alert('error')
+          pop.error(data.msg)
         }
       }
     })

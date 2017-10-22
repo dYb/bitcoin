@@ -21,6 +21,21 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.use(require('webpack-hot-middleware')(compiler))
 
+app.get('/page/:type.html', (req, res, next) => {
+  const type = req.params.type
+  if (!type.match(/map$/)) {
+
+    if (type.match(/(.*)\.html/)) {
+      res.sendFile(path.join(__dirname, 'src', type.match(/(.*)\.html/)[1], 'index.html'))
+    } else {
+      next()
+    }
+
+  } else {
+    next()
+  }
+})
+
 app.get('/page/:type', (req, res, next) => {
   if (!req.params.type.match(/map$/)) {
     res.sendFile(path.join(__dirname, 'src', req.params.type, 'index.html'))

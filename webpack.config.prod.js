@@ -18,11 +18,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'js/[name].[chunkhash].js',
-    publicPath: `/utf8/${packageJson.name}/`
-  },
-  externals: {
-    react: 'React',
-    'react-dom': 'ReactDOM'
+    publicPath: '/'
   },
   module: {
     rules: [

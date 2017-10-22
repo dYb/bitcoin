@@ -36,7 +36,10 @@ export function ajax({
     return
   }
   if (needToken) {
-    body += `&token=${token}`
+    if (body) {
+      body += '&'
+    }
+    body += `token=${token}`
   }
   if (method === 'GET') {
     URL = `${url}?${body}`

@@ -9,20 +9,21 @@ import {
   redirect,
   localParam
 } from '../js/util'
-import Pop from "../js/pop.js"
+import Pop from '../js/pop.js'
 import '../css/reset.less'
 import '../css/detail.less'
+
 const urlData = localParam(),
   price = new Price({
     $wrapper: $('.module-price')
-  });
+  })
 const setTypeText = () => {
-  let text = "购买"
+  let text = '购买'
   if (urlData.search.type == 2) {
-    text = "出售"
+    text = '出售'
   }
-  $$(".c-text").forEach((t) => {
-    t.innerHTML = text;
+  $$('.c-text').forEach((t) => {
+    t.innerHTML = text
   })
 }
 const getDetail = (orderId) => {
@@ -32,8 +33,8 @@ const getDetail = (orderId) => {
       id: urlData.search.id
     },
     success(ajaxData) {
-      var _data = ajaxData.data;
-      $(".w-wrapper").innerHTML = ` <div class="user-info">
+      const _data = ajaxData.data
+      $('.w-wrapper').innerHTML = ` <div class="user-info">
           <div class="headimg">
             <img>
           </div>
@@ -79,18 +80,18 @@ const submit = () => {
       orderMoney: price.getCount()
     },
     success(ajaxData) {
-      if(ajaxData.code !== 0){
-        Pop.alert(ajaxData.msg);
+      if (ajaxData.code !== 0) {
+        Pop.alert(ajaxData.msg)
       }
     }
   })
 }
 
 const init = () => {
-  setTypeText();
-  getDetail();
-  $(".btn-sellbuy").addEventListener("click",(e)=>{
-    submit();
+  setTypeText()
+  getDetail()
+  $('.btn-sellbuy').addEventListener('click', (e) => {
+    submit()
   })
 }
-init();
+init()

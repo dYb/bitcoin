@@ -1,5 +1,17 @@
-import { ajax, $, localParam, BASE_URL } from '../js/util'
+import { ajax, $, BASE_URL } from '../js/util'
+import pop from '../js/pop'
 import '../css/page.less'
+
+const clipboard = new window.Clipboard('.js-copy')
+
+clipboard.on('success', (e) => {
+  e.clearSelection()
+  pop.success('复制成功')
+})
+
+clipboard.on('error', () => {
+  pop.error('复制失败，请手动复制')
+})
 
 ajax({
   url: `${BASE_URL}/api/account/info`,

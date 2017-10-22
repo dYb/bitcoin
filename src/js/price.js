@@ -45,8 +45,8 @@ price.prototype = {
   _checkBtc(value) {
     return /^[0-9]+.?[0-9]*$/.test(value)
   },
-  getCount(){
-    return this._cnyValue;
+  getCount() {
+    return this._cnyValue
   },
   _eventBind() {
     const that = this

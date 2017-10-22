@@ -24,9 +24,9 @@ codeBtn.addEventListener('click', () => {
     data: { phone, type: 1 },
     success(data) {
       if (data.code === 0) {
-        pop.alert('success')
+        pop.success('发送成功')
       } else {
-        pop.alert('error')
+        pop.error(data.msg)
       }
     }
   })
@@ -48,7 +48,7 @@ $('.js-login').addEventListener('click', (e) => {
     },
     success(data) {
       if (data.code !== 0) {
-        pop.alert(data.msg)
+        pop.error(data.msg)
       } else {
         localStorage.setItem('token', data.data.token)
         localStorage.setItem('userInfo', JSON.stringify(data.data))
@@ -59,7 +59,7 @@ $('.js-login').addEventListener('click', (e) => {
       }
     },
     error() {
-      pop.alert('登录失败')
+      pop.error('登录失败')
     }
   })
 }, false)

@@ -23,19 +23,14 @@
       <div class="card-body">
         <div class="form-row">
           <div class="form-group col-10" style="margin-bottom: 0;">
-            <input type="text" class="js-address form-control" readonly placeholder="Password">
+            <input type="text" class="js-address form-control" readonly placeholder="地址加载中...">
           </div>
-          <button class="btn btn-primary col-2">复制</button>
+          <button class="js-copy btn btn-primary col-2" data-clipboard-target=".js-address">复制</button>
         </div>
       </div>
     </div>
-    <div class="card">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">接受BTC</li>
-        <li class="list-group-item">发送BTC</li>
-      </ul>
-    </div>
   </div>
+  <script src="https://cdn.bootcss.com/clipboard.js/1.7.1/clipboard.min.js"></script>
   <!-- build:passwordScript -->
   <script type="text/javascript" src="http://localhost:3100/js/wallet.bundle.js"></script>
   <!-- endbuild -->

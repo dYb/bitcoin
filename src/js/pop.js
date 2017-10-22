@@ -15,7 +15,7 @@ function getDom(message) {
   document.body.appendChild(div)
   return inner
 }
-export default {
+const pop = {
   alert(message) {
     const dom = getDom(message)
     dom.style.display = 'inline-block'
@@ -28,5 +28,16 @@ export default {
     setTimeout(() => {
       dom.style.display = 'none'
     }, 4200)
+  },
+  success(message) {
+    const dom = getDom(message)
+    dom.className = 'pop-alert success'
+    pop.alert(message)
+  },
+  error(message) {
+    const dom = getDom(message)
+    dom.className = 'pop-alert error'
+    pop.alert(message)
   }
 }
+export default pop
