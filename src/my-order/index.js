@@ -1,10 +1,17 @@
-import { localParam, ajax, $, BASE_URL } from '../js/util'
+import {
+  localParam,
+  ajax,
+  $,
+  BASE_URL
+} from '../js/util'
 import pop from '../js/pop'
 import '../css/page.less'
 
-const { id } = localParam().search
+const {
+  id
+} = localParam().search
 ajax({
-  url: `${BASE_URL}/api/ads/info/${id}`,
+  url: `${BASE_URL}/api/order/info/${id}`,
   success(data) {
     if (data.code !== 0) {
       pop.alert(data.msg)
@@ -15,26 +22,29 @@ ajax({
 })
 
 $('.g-container').addEventListener('click', (e) => {
-  if (!e.target.classList.contains('js-btn')) return
-  ajax({
-    url: `${BASE_URL}/api/ads/user/${e.target.dataset.code}`,
-    data: {
-      id
-    },
-    success(data) {
-      if (data.code !== 0) {
-        pop.error(data.msg)
-      } else {
-        pop.success('修改成功')
-        setTimeout(() => {
-          window.location.reload()
-        }, 1000)
+  if (e.target.classList.contains('js-cancel')) {
+    ajax({
+      url: `${BASE_URL}/api/order/cancel/${id}`,
+      success(ajaxData) {
+        if (ajaxData.code == 0) {
+          pop.alert("取消订单成功");
+        } else {
+          pop.alert(ajaxData.msg);
+        }
       }
-    },
-    error() {
-      pop.error('修改失败')
-    }
-  })
+    })
+  } else if (e.target.classList.contains('js-confirm')) {
+    ajax({
+      url: `${BASE_URL}/api/order/markPay/${id}`,
+      success(ajaxData) {
+        if (ajaxData.code == 0) {
+          pop.alert("标记付款成功");
+        } else {
+          pop.alert(ajaxData.msg);
+        }
+      }
+    })
+  }
 }, false)
 
 const ORDER_STATUS = [
@@ -45,7 +55,8 @@ const ORDER_STATUS = [
 ]
 
 function render(data) {
-  let actionHtml = ''
+  debugger;
+  let actionHtml = "";
   if (data.canCancel) {
     actionHtml += `
       <button class="js-cancel btn btn-danger">取消订单</button>
@@ -58,17 +69,17 @@ function render(data) {
   }
   if (data.canPayCoin) {
     actionHtml += `
-      <button class="js-cancel btn btn-outline-danger">确认已收到付款，同意支付比特币</button>
+      <button class="js-pay btn btn-outline-danger">确认已收到付款，同意支付比特币</button>
     `
   }
   if (data.canRemindPayMoney) {
     actionHtml += `
-      <button class="js-cancel btn btn-outline-primary">提醒对方付款</button>
+      <button class="js-remind-money btn btn-outline-primary">提醒对方付款</button>
     `
   }
   if (data.canRemindPayCoin) {
     actionHtml += `
-      <button class="js-cancel btn btn-outline-primary">提醒对方打币</button>
+      <button class="js-remind-coin btn btn-outline-primary">提醒对方打币</button>
     `
   }
   return `

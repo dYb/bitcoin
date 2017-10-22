@@ -82,6 +82,9 @@ const submit = () => {
     success(ajaxData) {
       if (ajaxData.code !== 0) {
         Pop.alert(ajaxData.msg)
+      }else{
+        // debugger;
+        redirect(`../my-order/?type=${urlData.search.type}&id=${ajaxData.data.orderId}`, '订单详情');
       }
     }
   })
