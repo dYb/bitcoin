@@ -37,7 +37,6 @@ gulp.task('assets', ['clean'], () => {
 
 gulp.task('build', ['assets'], () => {
   const assetsNames = webpackStats.assetsByChunkName
-  console.log(assetsNames)
   /* eslint-disable */
   let replacement = {}
   for (const key of Object.keys(assetsNames)) {
@@ -53,13 +52,17 @@ gulp.task('build', ['assets'], () => {
         script = assetsNames[key][1]
       }
     }
-    replacement[`${key}Style`] = {
-      src: `dist/${style}`,
-      tpl: '<style>%s</style>'
+    if (style) {
+      replacement[`${key}Style`] = {
+        src: gulp.src(`dist/${style}`),
+        tpl: '<style>%s</style>'
+      }
     }
-    replacement[`${key}Script`] = {
-      src: `dist/${style}`,
-      tpl: '<script>%s</script>'
+    if (script) {
+      replacement[`${key}Script`] = {
+        src: gulp.src(`dist/${script}`),
+        tpl: '<script>%s</script>'
+      }
     }
   }
   /* eslint-enable */
