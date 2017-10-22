@@ -1,11 +1,11 @@
-import { ajax, $, timer, BASE_URL, redirect } from '../js/util'
+import { ajax, $, timer, BASE_URL, redirect, openTab } from '../js/util'
 import pop from '../js/pop'
 import './index.less'
 
 // localStorage.removeItem('token')
 
 const codeBtn = $('.js-code-btn')
-const startTimer = timer(10, (time) => {
+const startTimer = timer(60, (time) => {
   codeBtn.textContent = `${time}秒后重发`
 }, () => {
   codeBtn.disabled = false
@@ -54,7 +54,9 @@ $('.js-login').addEventListener('click', (e) => {
         localStorage.setItem('userInfo', JSON.stringify(data.data))
         if (!data.data.hasFundPwd) {
           // 未设置密码跳转到设置密码页
-          redirect('../password/?set=1', '设置资金密码')
+          redirect('./password.html?set=1', '设置资金密码')
+        } else {
+          openTab(1)
         }
       }
     },

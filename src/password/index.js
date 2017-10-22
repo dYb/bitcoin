@@ -1,4 +1,4 @@
-import { ajax, $, localParam, timer, getUserInfo, BASE_URL } from '../js/util'
+import { ajax, $, localParam, timer, getUserInfo, BASE_URL, openTab } from '../js/util'
 import pop from '../js/pop'
 import '../css/page.less'
 
@@ -25,6 +25,9 @@ if (search.set) {
           pop.error(data.msg)
         } else {
           pop.success('设置成功')
+          setTimeout(() => {
+            openTab(1)
+          }, 1000)
         }
       },
       error() {
@@ -49,6 +52,9 @@ if (search.set) {
           pop.error(data.msg)
         } else {
           pop.success('修改成功')
+          setTimeout(() => {
+            openTab(1)
+          }, 1000)
         }
       },
       error() {
@@ -77,6 +83,9 @@ if (search.set) {
           pop.error(data.msg)
         } else {
           pop.success('重置成功')
+          setTimeout(() => {
+            openTab(1)
+          }, 1000)
         }
       },
       error() {

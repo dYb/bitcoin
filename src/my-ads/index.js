@@ -30,7 +30,7 @@ $('.js-more').addEventListener('click', () => {
 $('.js-list').addEventListener('click', (e) => {
   const li = e.target
   if (!li.dataset.id) return
-  redirect(`./my-ad?id=${li.dataset.id}`, '我的广告')
+  redirect(`./my-ad.html?id=${li.dataset.id}`, '我的广告')
 })
 
 function loadList(type, status, page = 1, pageSize = 15) {

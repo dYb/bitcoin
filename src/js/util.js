@@ -32,7 +32,7 @@ export function ajax({
   const token = localStorage.getItem('token')
   let URL = url
   if (needToken && !token) {
-    redirect('./login/', '登录')
+    redirect('./login.html', '登录')
     return
   }
   if (needToken) {
@@ -54,7 +54,7 @@ export function ajax({
       const result = JSON.parse(request.responseText)
       // 未登录
       if (needToken && +result.code === 100001) {
-        redirect('./login/', '登录')
+        redirect('./login.html', '登录')
         return
       }
       success(result)
@@ -108,3 +108,14 @@ export function redirect(href, title) {
     window.location.href = `bitcoin://open?title=${encodeURIComponent(title)}&`
   }
 }
+
+export function openTab(index) {
+  if (process.env.NODE_ENV === 'development') {
+    window.location.href = './market.html'
+  } else {
+    window.location.href = `bitcoin://openTab/${index}`
+  }
+}
+
+export const PAY_TYPE = ['', '支付宝', '银行转账']
+export const ORDER_STATUS = ['初始化', '待付款', '交易成功', '订单取消']
