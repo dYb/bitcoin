@@ -7,7 +7,8 @@ import {
   timer,
   BASE_URL,
   redirect,
-  localParam
+  localParam,
+  PAY_TYPE
 } from '../js/util'
 import Pop from '../js/pop.js'
 import '../css/reset.less'
@@ -35,18 +36,18 @@ const getDetail = (orderId) => {
     success(ajaxData) {
       const _data = ajaxData.data
       $('.w-wrapper').innerHTML = ` <div class="user-info">
-          <div class="headimg">
+          <!--<div class="headimg">
             <img>
-          </div>
+          </div>-->
           <div class="info">
-            <p><span class="name">${_data.userId}</span><span class="type">${_data.payType}</span></p>        
+            <p><span class="name">${_data.userId}</span><span class="type">${PAY_TYPE[_data.payType]}</span></p>        
             <p>限额：${_data.minLimitPrice}~${_data.maxLimitPrice}</p>
           </div>
           <div class="action">
             <p class="count">${_data.price} CNY</p>       
           </div>
         </div>
-        <div class="trade-info">
+        <!--<div class="trade-info">
           <ul>
             <li>
               <p>0</p>
@@ -65,7 +66,7 @@ const getDetail = (orderId) => {
               <p>历史成交</p>
             </li>
           </ul>
-        </div>
+        </div>-->
         <div class="banner-text">
           ${_data.adsDescribe}
         </div>`
@@ -84,16 +85,15 @@ const submit = () => {
         Pop.alert(ajaxData.msg)
       } else {
         // debugger;
-        redirect(`../my-order/?type=${urlData.search.type}&id=${ajaxData.data.orderId}`, '订单详情')
+        redirect(`./my-order.html/?type=${urlData.search.type}&id=${ajaxData.data.orderId}`, '订单详情')
       }
     }
   })
 }
-
 const init = () => {
   setTypeText()
   getDetail()
-  $('.btn-sellbuy').addEventListener('click', (e) => {
+  $('.btn-sellbuy').addEventListener('click', () => {
     submit()
   })
 }

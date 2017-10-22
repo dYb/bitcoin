@@ -1,9 +1,13 @@
+import {
+  ajax,
+  BASE_URL
+} from './util.js'
 import '../css/price.less'
 
 export default function price(o) {
   Object.assign(this, {
-    _btcValue: 0,
-    _cnyValue: 0,
+    _btcValue: "",
+    _cnyValue: "",
     _changeValue: 2
   }, o)
   this._init()
@@ -17,11 +21,11 @@ price.prototype = {
     const html = `
 			<div class="price-module-wrapper">
 				<div class="cny">
-					CNY  <input type="text" class="cny-input" value="0"/>
+					CNY  <input type="text" class="cny-input" value=""/>
 				</div>
 				<span><---></span>
 				<div class="btc">
-					BTC  <input type="text" class="btc-input" value="0"/>
+					BTC  <input type="text" class="btc-input" value=""/>
 				</div>
 			</div>
 		`
@@ -29,15 +33,36 @@ price.prototype = {
     this.$cnyInput = this.$wrapper.getElementsByClassName('cny-input')[0]
     this.$btcInput = this.$wrapper.getElementsByClassName('btc-input')[0]
   },
+  _timer: "",
+  _ajaxGetScale(callback) {
+    this._timer = setTimeout(() => {
+      ajax({
+        url: `${BASE_URL}/api/ads/indexPrice`,
+        data: {
+          coin: "btc",
+          currency: "1"
+        },
+        success(ajaxData) {
+          callback(ajaxData.data);
+        }
+      })
+    }, 100);
+  },
   _setCny(value) {
-    this._cnyValue = value
-    this._btcValue = value / this._changeValue
-    this.$btcInput.value = this._btcValue
+    let that = this;
+    that._ajaxGetScale((d) => {
+      that._cnyValue = value
+      that._btcValue = (value / d).toFixed(8)
+      that.$btcInput.value = that._btcValue
+    })
   },
   _setBtc(value) {
-    this._btcValue = value
-    this._cnyValue = value * this._changeValue
-    this.$cnyInput.value = this._cnyValue
+    let that = this;
+    that._ajaxGetScale((d) => {
+      that._btcValue = value
+      that._cnyValue = value * d
+      that.$cnyInput.value = that._cnyValue
+    })
   },
   _checkCny(value) {
     return /^[1-9]{1}\d*(\.\d{1,2})?$/.test(value)
