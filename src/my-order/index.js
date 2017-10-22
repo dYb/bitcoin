@@ -55,7 +55,6 @@ const ORDER_STATUS = [
 ]
 
 function render(data) {
-  debugger;
   let actionHtml = "";
   if (data.canCancel) {
     actionHtml += `
