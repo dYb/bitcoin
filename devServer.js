@@ -11,6 +11,7 @@ app.use(express.static('mocks', {
     res.set('Access-Control-Allow-Origin', '*')
   }
 }))
+app.use(express.static('asserts'))
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
   publicPath: config.output.publicPath,
@@ -24,14 +25,11 @@ app.use(require('webpack-hot-middleware')(compiler))
 app.get('/page/:type.html', (req, res, next) => {
   const { type } = req.params
   if (!type.match(/map$/)) {
-    console.log(type)
-    console.log( type.match(/(.*)\.html/))
     res.sendFile(path.join(__dirname, 'src', type, 'index.html'))
     // if (type.match(/(.*)\.html/)) {
     // } else {
     //   next()
     // }
-
   } else {
     next()
   }

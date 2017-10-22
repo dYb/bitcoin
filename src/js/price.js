@@ -6,8 +6,8 @@ import '../css/price.less'
 
 export default function price(o) {
   Object.assign(this, {
-    _btcValue: "",
-    _cnyValue: "",
+    _btcValue: '',
+    _cnyValue: '',
     _changeValue: 2
   }, o)
   this._init()
@@ -33,23 +33,23 @@ price.prototype = {
     this.$cnyInput = this.$wrapper.getElementsByClassName('cny-input')[0]
     this.$btcInput = this.$wrapper.getElementsByClassName('btc-input')[0]
   },
-  _timer: "",
+  _timer: '',
   _ajaxGetScale(callback) {
     this._timer = setTimeout(() => {
       ajax({
         url: `${BASE_URL}/api/ads/indexPrice`,
         data: {
-          coin: "btc",
-          currency: "1"
+          coin: 'btc',
+          currency: '1'
         },
         success(ajaxData) {
-          callback(ajaxData.data);
+          callback(ajaxData.data)
         }
       })
-    }, 100);
+    }, 100)
   },
   _setCny(value) {
-    let that = this;
+    const that = this
     that._ajaxGetScale((d) => {
       that._cnyValue = value
       that._btcValue = (value / d).toFixed(8)
@@ -57,7 +57,7 @@ price.prototype = {
     })
   },
   _setBtc(value) {
-    let that = this;
+    const that = this
     that._ajaxGetScale((d) => {
       that._btcValue = value
       that._cnyValue = value * d
