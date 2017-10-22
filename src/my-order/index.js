@@ -1,11 +1,14 @@
 import {
-  localParam,
-  ajax,
   $,
+  ajax,
+  localParam,
   BASE_URL
 } from '../js/util'
 import pop from '../js/pop'
+import chat from '../js/chat'
 import '../css/page.less'
+
+chat()
 
 const {
   id
@@ -26,10 +29,10 @@ $('.g-container').addEventListener('click', (e) => {
     ajax({
       url: `${BASE_URL}/api/order/cancel/${id}`,
       success(ajaxData) {
-        if (ajaxData.code == 0) {
-          pop.alert("取消订单成功");
+        if (ajaxData.code === 0) {
+          pop.alert('取消订单成功')
         } else {
-          pop.alert(ajaxData.msg);
+          pop.alert(ajaxData.msg)
         }
       }
     })
@@ -37,10 +40,10 @@ $('.g-container').addEventListener('click', (e) => {
     ajax({
       url: `${BASE_URL}/api/order/markPay/${id}`,
       success(ajaxData) {
-        if (ajaxData.code == 0) {
-          pop.alert("标记付款成功");
+        if (ajaxData.code === 0) {
+          pop.alert('标记付款成功')
         } else {
-          pop.alert(ajaxData.msg);
+          pop.alert(ajaxData.msg)
         }
       }
     })
@@ -55,8 +58,7 @@ const ORDER_STATUS = [
 ]
 
 function render(data) {
-  debugger;
-  let actionHtml = "";
+  let actionHtml = ''
   if (data.canCancel) {
     actionHtml += `
       <button class="js-cancel btn btn-danger">取消订单</button>

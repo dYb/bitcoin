@@ -5,11 +5,11 @@ import {
   $$,
   BASE_URL
 } from '../js/util.js'
-import pop from "../js/pop.js"
+import pop from '../js/pop.js'
 import '../css/reset.less'
 import '../css/ad.less'
 
-var tradeType = 1;
+let tradeType = 1
 const getSubClass = (dom) => {
   const o = {}
   for (let i = 0; i < dom.length; i++) {
@@ -34,32 +34,32 @@ const submit = () => {
       id: ''
     }, subData),
     success(ajaxData) {
-      if(ajaxData.code == 0){
-        pop.alert("发布成功")
-      }else{
+      if (ajaxData.code == 0) {
+        pop.alert('发布成功')
+      } else {
         pop.alert(ajaxData.msg)
       }
     }
   })
 }
-$(".tab").addEventListener("click", (e) => {
-  if (e.target.tagName == "LI") {
-    $$(".tab li").forEach((t) => {
-      t.className = "";
+$('.tab').addEventListener('click', (e) => {
+  if (e.target.tagName == 'LI') {
+    $$('.tab li').forEach((t) => {
+      t.className = ''
     })
-    let className = e.target.className;
-    if (className.indexOf("active") == -1) {
-      e.target.className = "active";
+    const className = e.target.className
+    if (className.indexOf('active') == -1) {
+      e.target.className = 'active'
     }
-    let index = e.target.getAttribute('data-index');
-    tradeType = index;
-    if (index == "1") {
+    const index = e.target.getAttribute('data-index')
+    tradeType = index
+    if (index == '1') {
 
-    } else if (index == "2") {
+    } else if (index == '2') {
 
     }
   }
 })
-$(".btn-publish").addEventListener("click", (e) => {
-  submit();
+$('.btn-publish').addEventListener('click', (e) => {
+  submit()
 })

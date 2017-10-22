@@ -6,19 +6,28 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link href="//cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
   <title>个人信息</title>
+  <style>
+    .g-container {
+      padding: 20px 10px;
+    }
+  </style>
   <!-- build:infoStyle -->
   <!-- endbuild -->
 </head>
 <body>
   <div class="g-container">
-    <ul class="js-list list-group list-group-flush">
-      <li data-href="./my-orders.html" class="list-group-item list-group-item-action">我的订单</li>
-      <li data-href="./my-ads.html" class="list-group-item list-group-item-action">我的广告</li>
-      <li data-href="./wallet.html" class="list-group-item list-group-item-action">我的钱包</li>
-      <li data-href="./extract.html" class="list-group-item list-group-item-action">申请提币</li>
-      <li data-href="./password.html" class="list-group-item list-group-item-action">修改交易密码</li>
-      <li data-href="./password.html?reset=1" class="list-group-item list-group-item-action">重置交易密码</li>
-    </ul>
+    <div class="card">
+      <div class="card-header"></div>
+      <ul class="js-list list-group list-group-flush">
+        <li data-href="./my-orders.html" class="list-group-item list-group-item-action">我的订单</li>
+        <li data-href="./my-ads.html" class="list-group-item list-group-item-action">我的广告</li>
+        <li data-href="./wallet.html" class="list-group-item list-group-item-action">我的钱包</li>
+        <li data-href="./extract.html" class="list-group-item list-group-item-action">申请提币</li>
+        <li data-href="./password.html" class="list-group-item list-group-item-action">修改交易密码</li>
+        <li data-href="./password.html?reset=1" class="list-group-item list-group-item-action">重置交易密码</li>
+      </ul>
+    </div>
+  </div>
   </div>
   <!-- build:infoScript -->
   <script type="text/javascript" src="http://localhost:3100/js/info.bundle.js"></script>

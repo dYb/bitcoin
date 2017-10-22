@@ -119,3 +119,20 @@ export function openTab(index) {
 
 export const PAY_TYPE = ['', '支付宝', '银行转账']
 export const ORDER_STATUS = ['初始化', '待付款', '交易成功', '订单取消']
+
+export function timeFormat(time) {
+  const date = new Date(time)
+  const year = date.getFullYear()
+  const month = date.getMonth()
+  const day = date.getDate()
+  const hour = date.getHours()
+  const minute = date.getMinutes()
+  return `${year}-${fixNumber(month)}-${fixNumber(day)} ${fixNumber(hour)}:${fixNumber(minute)}`
+}
+
+function fixNumber(number) {
+  if (number < 10) {
+    return `0${number}`
+  }
+  return number
+}
