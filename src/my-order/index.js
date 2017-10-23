@@ -87,6 +87,7 @@ function render(data) {
       <button class="js-remind-coin btn btn-outline-primary">提醒对方打币</button>
     `
   }
+  const minutes = Math.floor((data.endTime - Date.now()) / (60 * 1000))
   return `
     <div class="line line-1 d-flex justify-content-between">
       <div class="text-dark">订单编号：${data.id || ''} </div>
@@ -104,10 +105,10 @@ function render(data) {
       </div>
       <div class="intro text-secondary">广告留言：${'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'}</div>
     </div>
-    <div class="line line-4 text-center">
-      <div class="text-secondary" style="margin-bottom: 10px;">比特币将在托管中心保存分钟</div>
+    <div class="line line-4 text-center ${minutes > 0 ? '' : 'd-none'}">
+      <div class="text-secondary tip">比特币将在托管中心保存<span class="text-success">${minutes}</span>分钟</div>
       ${actionHtml}
     </div>
-    <div class="list-group-item js-chat">聊天</div>
+    <div class="js-chat">聊天</div>
   `
 }

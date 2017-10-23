@@ -21,18 +21,21 @@
 .g-order {
   display: flex;
   align-items: center;
-  padding: 10px 0;
   color: rgba(255, 255, 255, .9);
   font-size: 16px;
   // background-color: rgb(21, 136, 217);
   background-color: #0062ff;
-  > div {
-    text-align: center;
+  .wrap {
+    padding: 10px 0;
     width: 50%;
+    text-align: center;
     line-height: 25px;
-  }
-  > div:first-of-type {
-    border-right: 1px solid rgba(221, 221, 221, .5);
+    > div {
+      pointer-events: none;
+    }
+    > div:first-of-type {
+      border-right: 1px solid rgba(221, 221, 221, .5);
+    }
   }
 }
 

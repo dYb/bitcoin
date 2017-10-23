@@ -1,8 +1,9 @@
-import { ajax, $, timer, BASE_URL, redirect } from '../js/util'
+import { ajax, $, BASE_URL, openTab, checkPassword } from '../js/util'
 import pop from '../js/pop'
 import './index.less'
 
-$('.js-extract').addEventListener('click', (e) => {
+checkPassword()
+$('.js-extract').addEventListener('click', () => {
   const toAddress = $('.js-address').value
   const amount = $('.js-amount').value
   const fundPwd = $('.js-pwd').value
@@ -20,11 +21,13 @@ $('.js-extract').addEventListener('click', (e) => {
         pop.alert(data.msg)
       } else {
         pop.alert('修改成功')
+        setTimeout(() => {
+          openTab(4)
+        }, 1000)
       }
     },
     error() {
       pop.alert('修改失败')
     }
   })
-  $('form').reset()
 }, false)
