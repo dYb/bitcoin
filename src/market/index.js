@@ -69,7 +69,7 @@ const init = () => {
   $('.buycoin-list').addEventListener('click', (e) => {
     if (e.target.className == 'btn-buy') {
       const id = e.target.getAttribute('data-id')
-      redirect(`./buysell.html/?type=${tradeType}&id=${id}`, '交易')
+      redirect(`./buysell.html?type=${tradeType}&id=${id}`, '交易')
     }
   })
 }
