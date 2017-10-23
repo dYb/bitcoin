@@ -1,9 +1,16 @@
-import { ajax, $, localParam, timer, getUserInfo, BASE_URL, openTab } from '../js/util'
+import { ajax, $, localParam, timer, redirect, setUserInfo, getUserInfo, BASE_URL, openTab } from '../js/util'
 import pop from '../js/pop'
 import '../css/page.less'
 
 const { search } = localParam()
-if (search.set) {
+const userInfo = getUserInfo()
+
+if (!userInfo.token) {
+  redirect('./login.html', '登录')
+}
+
+// 不存在资金密码，直接设置
+if (!userInfo.hasFundPwd) {
   $('.js-has-no-password').style.display = 'block'
 } else if (search.reset) {
   $('.js-reset-password').style.display = 'block'
@@ -25,6 +32,8 @@ if (search.set) {
           pop.error(data.msg)
         } else {
           pop.success('设置成功')
+          userInfo.hasFundPwd = true
+          setUserInfo(userInfo)
           setTimeout(() => {
             openTab(1)
           }, 1000)
@@ -67,7 +76,6 @@ if (search.set) {
 
 {
   const btn = $('.js-reset-password .js-set')
-  const userInfo = getUserInfo()
   if (userInfo && userInfo.phone) {
     $('.js-phone').value = userInfo.phone
   }

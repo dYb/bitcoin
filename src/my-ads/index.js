@@ -1,4 +1,4 @@
-import { redirect, ajax, $, $$, BASE_URL } from '../js/util'
+import { redirect, ajax, $, $$, BASE_URL, PAY_TYPE } from '../js/util'
 import pop from '../js/pop'
 import './index.less'
 
@@ -75,7 +75,7 @@ function renderList(list) {
         <li class="list-group-item" data-id="${item.id}">
           <div>用户名： ${item.userName}</div>
           <div>单价： ${item.price}</div>
-          <div>付款方式：${item.payType}</div>
+          <div>付款方式：${PAY_TYPE[item.payType]}</div>
           <div>金额：${item.minLimitPrice} ~ ${item.maxLimitPrice}</div>
         </li>
       `

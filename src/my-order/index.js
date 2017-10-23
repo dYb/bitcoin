@@ -2,11 +2,13 @@ import {
   $,
   ajax,
   localParam,
+  PAY_TYPE,
   BASE_URL
 } from '../js/util'
 import pop from '../js/pop'
 import chat from '../js/chat'
-import '../css/page.less'
+import '../css/reset.css'
+import './index.less'
 
 const {
   id
@@ -52,10 +54,10 @@ $('.g-container').addEventListener('click', (e) => {
 }, false)
 
 const ORDER_STATUS = [
-  '<span class="badge badge-secondary">初始化</span>',
-  '<span class="badge badge-info">待付款</span>',
-  '<span class="badge badge-success">交易成功</span>',
-  '<span class="badge badge-danger">订单取消</span>'
+  '<span class="text-secondary">初始化</span>',
+  '<span class="text-info">待付款</span>',
+  '<span class="text-success">交易成功</span>',
+  '<span class="text-danger">订单取消</span>'
 ]
 
 function render(data) {
@@ -86,29 +88,26 @@ function render(data) {
     `
   }
   return `
-    <ul class="list-group">
-      <li class="list-group-item d-flex justify-content-between">
-        <div>订单编号：${data.id || ''} </div>
-        <div>结束状态： ${ORDER_STATUS[data.orderStatus || 0]} </div>
-      </li>
-      <li class="list-group-item">
-        <div class="d-flex justify-content-between"><span>交易单价：</span>${data.adsPrice || ''}</div>
-        <div class="d-flex justify-content-between"><span>交易数量：</span>${data.orderNum || ''} </div>
-        <div class="d-flex justify-content-between"><span>交易金额：</span>${data.orderMoney || ''} </div>
-        <div class="d-flex justify-content-between"><span>平台佣金比例：</span>${data.brokerage || ''} </div>
-      </li>
-      <li class="list-group-item">
-        <div class="row">
-          <div class="col-6">买家：${data.buyUserName || ''} </div>
-          <div class="col-6">卖家：${data.sellUserName || ''} </div>
-        </div>
-        <div>${data.adsDescribe || ''}</div>
-      </li>
-      <li class="list-group-item text-center">
-        <div style="margin-bottom: 10px;">比特币将在托管中心保存分钟</div>
-        ${actionHtml}
-      </li>
-      <li class="list-group-item js-chat">聊天</li>
-    </ul>
+    <div class="line line-1 d-flex justify-content-between">
+      <div class="text-dark">订单编号：${data.id || ''} </div>
+      <div>${ORDER_STATUS[data.orderStatus || 0]} </div>
+    </div>
+    <div class="line line-2">
+      <div class="d-flex text-dark justify-content-between"><span>交易金额</span>${data.orderMoney || 0} CNY</div>
+      <div class="d-flex text-secondary justify-content-between"><span>交易数量</span>${data.orderNum || 0} BTC</div>
+      <div class="d-flex text-secondary justify-content-between"><span>交易单价</span>${data.adsPrice || 0} CNY</div>
+    </div>
+    <div class="line line-3">
+      <div class="row text-dark">
+        <div class="col-6">买家：${data.buyUserName || ''} <span class="badge badge-succes">${PAY_TYPE[data.payType]}</span></div>
+        <div class="col-6">卖家：${data.sellUserName || ''} </div>
+      </div>
+      <div class="intro text-secondary">广告留言：${'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'}</div>
+    </div>
+    <div class="line line-4 text-center">
+      <div class="text-secondary" style="margin-bottom: 10px;">比特币将在托管中心保存分钟</div>
+      ${actionHtml}
+    </div>
+    <div class="list-group-item js-chat">聊天</div>
   `
 }
