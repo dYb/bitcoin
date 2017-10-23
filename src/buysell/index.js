@@ -84,8 +84,7 @@ const submit = () => {
       if (ajaxData.code !== 0) {
         Pop.alert(ajaxData.msg)
       } else {
-        // debugger;
-        redirect(`./my-order.html/?type=${urlData.search.type}&id=${ajaxData.data.orderId}`, '订单详情')
+        redirect(`./my-order.html?type=${urlData.search.type}&id=${ajaxData.data.orderId}`, '订单详情')
       }
     }
   })
