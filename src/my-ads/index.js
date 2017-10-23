@@ -1,3 +1,4 @@
+
 import { redirect, ajax, localParam, $, $$, BASE_URL, PAY_TYPE } from '../js/util'
 import pop from '../js/pop'
 import './index.less'
