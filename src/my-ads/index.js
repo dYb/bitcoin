@@ -1,20 +1,19 @@
-import { redirect, ajax, $, $$, BASE_URL, PAY_TYPE } from '../js/util'
+import { redirect, ajax, localParam, $, $$, BASE_URL, PAY_TYPE } from '../js/util'
 import pop from '../js/pop'
 import './index.less'
 
 let PAGE = 1
 let STATUS = 1
-let TYPE = 2
+const TYPE = localParam().search.type || 2
 
 $('.js-tab').addEventListener('click', (e) => {
-  if (!e.target.classList.contains('list-group-item')) return
+  if (!e.target.classList.contains('item')) return
   if (e.target.classList.contains('active')) return
-  const { status, type } = e.target.dataset
+  const { status } = e.target.dataset
   STATUS = status
-  TYPE = type
   PAGE = 1
-  loadList(type, status)
-  $$('.js-tab .list-group-item').forEach((item) => {
+  loadList(TYPE, STATUS)
+  $$('.js-tab .item').forEach((item) => {
     item.classList.remove('active')
   })
   e.target.classList.add('active')
@@ -35,7 +34,7 @@ $('.js-list').addEventListener('click', (e) => {
 
 function loadList(type, status, page = 1, pageSize = 15) {
   if (page === 1) {
-    $('.js-list').innerHTML = '<li class="list-group-item">加载中...</li>'
+    $('.js-list').innerHTML = '加载中...'
   }
   ajax({
     url: `${BASE_URL}/api/ads/list`,
@@ -68,16 +67,20 @@ function loadList(type, status, page = 1, pageSize = 15) {
 function renderList(list) {
   let html = ''
   if (!list.length) {
-    html = '<li class="list-group-item">暂无数据</li>'
+    html = '暂无数据'
   } else {
     html = list.map((item) => {
       return `
-        <li class="list-group-item" data-id="${item.id}">
-          <div>用户名： ${item.userName}</div>
-          <div>单价： ${item.price}</div>
-          <div>付款方式：${PAY_TYPE[item.payType]}</div>
-          <div>金额：${item.minLimitPrice} ~ ${item.maxLimitPrice}</div>
-        </li>
+        <div class="item" data-id="${item.id}">
+          <div class="line-1 d-flex justify-content-between">
+            <span class="text-dark">
+              ${item.userName}
+              <span class="badge badge-success">${PAY_TYPE[item.payType]}</span>
+            </span>  
+            <span class="text-success">${item.price} CNY</span>
+          </div>
+          <div class="line-2 text-secondary">限额：${item.minLimitPrice} - ${item.maxLimitPrice} CNY</div>
+        </div>
       `
     }).join('')
   }

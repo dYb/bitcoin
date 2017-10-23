@@ -18,35 +18,15 @@
 
 <body>
   <div class="g-container">
-    <div class="row js-tab">
-      <div class="col-6">
-        <div class="card">
-          <div class="card-header">
-            出售
+    <div class="js-tab tab">
+          <div class="inner">
+            <div class="item active" data-status="1">上架中</div>
+            <div class="item" data-status="0">已下架</div>
           </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item active" data-type="2" data-status="1">已上架</li>
-            <li class="list-group-item" data-type="2" data-status="0">未上架</li>
-          </ul>
         </div>
-      </div>
-      <div class="col-6">
-        <div class="card">
-          <div class="card-header">
-            购入
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item" data-type="1" data-status="1">已上架</li>
-            <li class="list-group-item" data-type="1" data-status="0">未上架</li>
-          </ul>
-        </div>
-      </div>
+    <div class="js-list list" style="margin-top: 20px;">
     </div>
-    <div class="card" style="margin-top: 20px;">
-      <ul class="js-list ad-list list-group list-group-flush">
-      </ul>
-    </div>
-    <button class="js-more btn btn-primary btn-sm btn-block" style="margin-top: 20px;">加载更多</button>
+    <button class="js-more btn btn-outline-primary btn-block" style="margin-top: 20px; display: none">加载更多</button>
   </div>
   <!-- build:my-adsScript -->
   <script type="text/javascript" src="//localhost:3100/js/my-ads.bundle.js"></script>
