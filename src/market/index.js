@@ -25,7 +25,7 @@ const getList = (adsType) => {
     },
     success(ajaxData) {
       let temp = '',
-        text = adsType == 1 ? '购买' : '出售'
+        text = (adsType == 2 ? '购买' : '出售')
       ajaxData.data.list.forEach((_data) => {
         temp += `<li class="buycoin-item user-info">
 			        <!--<div class="headimg">
@@ -47,7 +47,7 @@ const getList = (adsType) => {
   })
 }
 const init = () => {
-  getList(1)
+  getList(2)
   $('.tab').addEventListener('click', (e) => {
     if (e.target.tagName == 'LI') {
       $$('.tab li').forEach((t) => {
@@ -60,9 +60,9 @@ const init = () => {
       const index = e.target.getAttribute('data-index')
       tradeType = index
       if (index == '1') {
-        getList(1)
-      } else if (index == '2') {
         getList(2)
+      } else if (index == '2') {
+        getList(1)
       }
     }
   })

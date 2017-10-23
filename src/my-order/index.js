@@ -8,8 +8,6 @@ import pop from '../js/pop'
 import chat from '../js/chat'
 import '../css/page.less'
 
-chat()
-
 const {
   id
 } = localParam().search
@@ -20,6 +18,9 @@ ajax({
       pop.alert(data.msg)
     } else {
       $('.g-container').innerHTML = render(data.data)
+      setTimeout(() => {
+        chat('.js-chat', data.data.adsUserId)
+      }, 0)
     }
   }
 })
@@ -107,7 +108,7 @@ function render(data) {
         <div style="margin-bottom: 10px;">比特币将在托管中心保存分钟</div>
         ${actionHtml}
       </li>
-      <li class="list-group-item">聊天</li>
+      <li class="list-group-item js-chat">聊天</li>
     </ul>
   `
 }
