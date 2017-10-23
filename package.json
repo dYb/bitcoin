@@ -11,6 +11,7 @@
   },
   "pages": [
     "market",
+    "chat",
     "buysell",
     "ad",
     "my-ads",
