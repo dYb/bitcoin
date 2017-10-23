@@ -1,20 +1,19 @@
-import { redirect, ajax, $, $$, BASE_URL, timeFormat } from '../js/util'
+import { redirect, ajax, localParam, $, $$, BASE_URL, ORDER_STATUS, timeFormat } from '../js/util'
 import pop from '../js/pop'
 import './index.less'
 
 let PAGE = 1
 let STATUS = 0
-let TYPE = 2
+const TYPE = localParam().search.type || 2
 
 $('.js-tab').addEventListener('click', (e) => {
-  if (!e.target.classList.contains('list-group-item')) return
+  if (!e.target.classList.contains('item')) return
   if (e.target.classList.contains('active')) return
-  const { status, type } = e.target.dataset
+  const { status } = e.target.dataset
   STATUS = status
-  TYPE = type
   PAGE = 1
-  loadList(type, status)
-  $$('.js-tab .list-group-item').forEach((item) => {
+  loadList(TYPE, STATUS)
+  $$('.js-tab .item').forEach((item) => {
     item.classList.remove('active')
   })
   e.target.classList.add('active')
@@ -35,7 +34,7 @@ $('.js-list').addEventListener('click', (e) => {
 
 function loadList(type, status, page = 1, pageSize = 15) {
   if (page === 1) {
-    $('.js-list').innerHTML = '<li class="list-group-item">加载中...</li>'
+    $('.js-list').innerHTML = '加载中...'
   }
   ajax({
     url: `${BASE_URL}/api/order/list`,
@@ -72,16 +71,16 @@ function renderList(list, type) {
   } else {
     html = list.map((item) => {
       return `
-        <li class="list-group-item" data-id="${item.id}">
-          <div>订单ID： ${item.id}</div>
-          <div>交易单价： ${item.orderType}</div>
-          <div>数量：${item.orderNum}</div>
-          <div>金额：${item.orderMoney}</div>
-          <div>建立时间: ${timeFormat(item.createTime)}</div>
-          <div>交易时间: ${timeFormat(item.finishTime)}</div>
-          ${type === 1 ? `<div>卖家： ${item.sellUserName}</div>` : `<div>买家： ${item.buyUserName}</div>`}
-          <div>平台佣金比例: ${item.brokerage}</div>
-        </li>
+        <div class="item" data-id="${item.id}">
+          <div class="line-1">
+            <span>${type === 1 ? item.sellUserName : item.buyUserName}</span>
+            <span>${ORDER_STATUS[item.orderStatus]}</span>
+          </div>
+          <div class="line-2">
+            <span>交易金额：${item.orderMoney} CNY</span>
+            <span>订单编号：${item.id}</span>
+          </div>
+        </div>
       `
     }).join('')
   }

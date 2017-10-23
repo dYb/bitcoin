@@ -4,30 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link href="//cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
   <title>个人信息</title>
-  <style>
-    .g-container {
-      padding: 20px 10px;
-    }
-  </style>
   <!-- build:infoStyle -->
   <!-- endbuild -->
 </head>
 <body>
   <div class="g-container">
-    <div class="card">
-      <div class="card-header"></div>
-      <ul class="js-list list-group list-group-flush">
-        <li data-href="./my-orders.html" class="list-group-item list-group-item-action">我的订单</li>
-        <li data-href="./my-ads.html" class="list-group-item list-group-item-action">我的广告</li>
-        <li data-href="./wallet.html" class="list-group-item list-group-item-action">我的钱包</li>
-        <li data-href="./extract.html" class="list-group-item list-group-item-action">申请提币</li>
-        <li data-href="./password.html" class="list-group-item list-group-item-action">修改交易密码</li>
-        <li data-href="./password.html?reset=1" class="list-group-item list-group-item-action">重置交易密码</li>
-      </ul>
+    <div class="g-info">
+      <div class="avatar"></div>
+      <div class="phone"></div>
     </div>
-  </div>
+    <div class="g-order">
+      <div data-href="./my-orders.html?type=1">我购买的</div>
+      <div data-href="./my-orders.html?type=2">我出售的</div>
+    </div>
+
+    <div class="g-ad" data-href="./my-ads.html">我的广告</div>
+    <div class="g-coin">
+      <div data-href="./wallet.html">我的钱包</div>
+      <div data-href="./extract.html">申请提币</div>
+    </div>
+    <div class="g-password" style="margin-bottom: 10px;">
+      <div data-href="./password.html">修改交易密码</div>
+      <div data-href="./password.html?reset=1">重置交易密码</div>
+    </div>
+    <div class="g-ad"></div>
   </div>
   <!-- build:infoScript -->
   <script type="text/javascript" src="http://localhost:3100/js/info.bundle.js"></script>

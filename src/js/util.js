@@ -100,12 +100,29 @@ export function getUserInfo() {
   if (!userInfo) return false
   return JSON.parse(userInfo)
 }
+export function setUserInfo(userInfo) {
+  localStorage.setItem('userInfo', JSON.stringify(userInfo))
+}
+
+export function checkPassword() {
+  const { hasFundPwd, token } = getUserInfo()
+  if (!token) {
+    redirect('./login.html', '登录')
+    return false
+  }
+  // 不存在资金密码，跳转去设置
+  if (!hasFundPwd) {
+    redirect('./password.html?set=1', '设置资金密码')
+    return false
+  }
+  return true
+}
 
 export function redirect(href, title) {
   if (process.env.NODE_ENV === 'development') {
     window.location.href = href
   } else {
-    window.location.href = `bitcoin://open?title=${encodeURIComponent(title)}&url=${encodeURIComponent(href)}`
+    window.location.href = `bitcoin://open?title=${encodeURIComponent(title)}&`
   }
 }
 
