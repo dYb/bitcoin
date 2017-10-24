@@ -8,7 +8,8 @@ import {
   BASE_URL,
   redirect,
   localParam,
-  PAY_TYPE
+  PAY_TYPE,
+  checkPassword
 } from '../js/util'
 import Pop from '../js/pop.js'
 import '../css/reset.less'
@@ -33,8 +34,9 @@ const getDetail = (orderId) => {
     data: {
       id: urlData.search.id
     },
-    success(ajaxData) {
-      const _data = ajaxData.data
+    success(ajaxData) {      
+      const _data = ajaxData.data;
+      price.setChangeValue(_data.price);
       $('.w-wrapper').innerHTML = ` <div class="user-info">
           <!--<div class="headimg">
             <img>
@@ -96,4 +98,6 @@ const init = () => {
     submit()
   })
 }
-init()
+checkPassword(() => {
+  init()
+})

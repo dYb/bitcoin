@@ -35,18 +35,19 @@ price.prototype = {
   },
   _timer: '',
   _ajaxGetScale(callback) {
-    this._timer = setTimeout(() => {
-      ajax({
-        url: `${BASE_URL}/api/ads/indexPrice`,
-        data: {
-          coin: 'btc',
-          currency: '1'
-        },
-        success(ajaxData) {
-          callback(ajaxData.data)
-        }
-      })
-    }, 100)
+    callback(this._changeValue);
+    // this._timer = setTimeout(() => {
+    //   ajax({
+    //     url: `${BASE_URL}/api/ads/indexPrice`,
+    //     data: {
+    //       coin: 'btc',
+    //       currency: '1'
+    //     },
+    //     success(ajaxData) {
+    //       callback(ajaxData.data)
+    //     }
+    //   })
+    // }, 100)
   },
   _setCny(value) {
     const that = this
@@ -72,6 +73,9 @@ price.prototype = {
   },
   getCount() {
     return this._cnyValue
+  },
+  setChangeValue(value){
+    this._changeValue = value;
   },
   _eventBind() {
     const that = this
