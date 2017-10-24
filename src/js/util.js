@@ -122,7 +122,7 @@ export function redirect(href, title) {
   if (process.env.NODE_ENV === 'development') {
     window.location.href = href
   } else {
-    window.location.href = `bitcoin://open?title=${encodeURIComponent(title)}&`
+    window.location.href = `bitcoin://open?title=${encodeURIComponent(title)}&url=${encodeURIComponent(href)}`
   }
 }
 
