@@ -34,9 +34,9 @@ const getList = (adsType) => {
                 <img>
               </div>-->
               <div class="info">
-                <p><span class="name">${_data.userId}</span><span class="type">${PAY_TYPE[_data.payType]}</span></p>
+                <p><span class="name">${_data.userName}</span><span class="type">${PAY_TYPE[_data.payType]}</span></p>
                 <!--<p>交易74 | 好评100% | 新人36</p>-->
-                <p>限额：${_data.minLimitPrice}~${_data.maxLimitPrice}</p>
+                <p>限额：${_data.minLimitPrice} CNY ~ ${_data.maxLimitPrice} CNY</p>
               </div>
               <div class="action">
                 <p class="count">${_data.price} CNY</p>
