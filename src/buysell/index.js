@@ -35,7 +35,8 @@ const getDetail = (orderId) => {
       id: urlData.search.id
     },
     success(ajaxData) {      
-      const _data = ajaxData.data
+      const _data = ajaxData.data;
+      price.setChangeValue(_data.price);
       $('.w-wrapper').innerHTML = ` <div class="user-info">
           <!--<div class="headimg">
             <img>

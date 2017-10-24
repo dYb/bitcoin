@@ -35,7 +35,7 @@ price.prototype = {
   },
   _timer: '',
   _ajaxGetScale(callback) {
-    callback();
+    callback(this._changeValue);
     // this._timer = setTimeout(() => {
     //   ajax({
     //     url: `${BASE_URL}/api/ads/indexPrice`,
@@ -48,9 +48,6 @@ price.prototype = {
     //     }
     //   })
     // }, 100)
-  },
-  setChangeValue(value){
-    this._changeValue = value;
   },
   _setCny(value) {
     const that = this
@@ -76,6 +73,9 @@ price.prototype = {
   },
   getCount() {
     return this._cnyValue
+  },
+  setChangeValue(value){
+    this._changeValue = value;
   },
   _eventBind() {
     const that = this

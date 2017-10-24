@@ -94,6 +94,9 @@ function getAccount(callback) {
 }
 
 function renderList(messages, self) {
+  if(!messages || messages.length == 0){
+    return "";
+  }
   const html = messages.map((msg) => {
     if (chatUser.imAccount === msg.from) {
       self = true
