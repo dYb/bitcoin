@@ -12,6 +12,7 @@ app.use(express.static('mocks', {
   }
 }))
 app.use(express.static('asserts'))
+app.use(express.static('src'))
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
   publicPath: config.output.publicPath,

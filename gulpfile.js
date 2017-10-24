@@ -35,7 +35,12 @@ gulp.task('assets', ['clean'], () => {
     })).pipe(gulp.dest('dist'))
 })
 
-gulp.task('build', ['assets'], () => {
+gulp.task('img', ['clean'], () => {
+  return gulp.src('src/imgs/*.*')
+    .pipe(gulp.dest('dist/imgs'))
+})
+
+gulp.task('build', ['assets', 'img'], () => {
   const assetsNames = webpackStats.assetsByChunkName
   /* eslint-disable */
   let replacement = {}
