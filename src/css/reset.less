@@ -98,8 +98,15 @@ hr {
 input, select {
     vertical-align:middle;
 }
+@blueColor: #007BFF;
 .fn-right{
     float: right;
+}
+.fn-t-blue{
+    color: #007BFF;
+}
+.fn-b-blue{
+    background: #007BFF;
 }
 .w-wrapper{
     background: #fff;
@@ -127,7 +134,7 @@ input, select {
         line-height: 0.8rem;
         text-align: center;
         font-size: 0.3rem;
-        border: 0.02rem solid #3F51B5;
+        border: 0.02rem solid @blueColor;
         &:nth-child(1){
             border-top-left-radius: 0.2rem;
             border-bottom-left-radius: 0.2rem;
@@ -137,7 +144,7 @@ input, select {
             border-bottom-right-radius: 0.2rem;
         }
         &.active{
-            background-color: #3F51B5;
+            background-color: @blueColor;
             color: #fff;
         }
     }
@@ -192,8 +199,8 @@ input, select {
             font-size: 0.38rem;
         }
         .btn-buy{
-            background-color: #3F51B5;
-            border-color: #3F51B5;
+            background-color: @blueColor;
+            border-color: @blueColor;
             display: inline-block;
             padding: 0.08rem 0.45rem;
             border-radius: 0.3rem;
