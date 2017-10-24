@@ -103,7 +103,7 @@ function render(data) {
         <div class="col-6">买家：${data.buyUserName || ''} <span class="badge badge-succes">${PAY_TYPE[data.payType]}</span></div>
         <div class="col-6">卖家：${data.sellUserName || ''} </div>
       </div>
-      <div class="intro text-secondary">广告留言：${'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'}</div>
+      <div class="intro text-secondary">广告留言：${data.adsDescribe || ''}</div>
     </div>
     <div class="line line-4 text-center ${minutes > 0 ? '' : 'd-none'}">
       <div class="text-secondary tip">比特币将在托管中心保存<span class="text-success">${minutes}</span>分钟</div>
