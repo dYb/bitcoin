@@ -5,6 +5,7 @@ import {
 } from './util'
 import pop from './pop'
 
+import "../css/chat.less";
 var chatUser = ""
 export default (container, userId) => {
   const onConnect = () => {
@@ -13,15 +14,15 @@ export default (container, userId) => {
   }
   const onOfflineMsgs = (messages) => {
     console.log('offline message')
-    $(container).querySelector('.js-list').appendChild(renderList(messages))
+    $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList(messages))
   }
   const onMsg = (messages) => {
     console.log('message')
-    $(container).querySelector('.js-list').appendChild(renderList(messages))
+    $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList(messages))
   }
   const onRoamingmsgs = (messages) => {
     console.log('roaming message')
-    $(container).querySelector('.js-list').appendChild(renderList(messages.msgs))
+    $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList(messages.msgs))
   }
 
   getAccount((data) => {
@@ -80,10 +81,10 @@ function getAccount(callback) {
     success(data) {
       if (data.code !== 0) {
         pop.error(data.msg)
-        // callback({
-        //   imToken: '10ad68063cd5b7e02e060337e971cc16',
-        //   imAccount: '6'
-        // })
+          // callback({
+          //   imToken: '10ad68063cd5b7e02e060337e971cc16',
+          //   imAccount: '6'
+          // })
       } else {
         chatUser = data.data
         callback(data.data)
@@ -96,20 +97,18 @@ function renderList(messages, self) {
   const html = messages.map((msg) => {
     if (chatUser.imAccount === msg.from) {
       self = true
-    } else {
+    } else{
       self = false
     }
     return `
       <div class="clearfix">
-        <span class="alert ${self ? 'alert-success float-right' : 'alert-secondary'}" style="max-width: 80%">
+        <span class="${self ? 'left' : 'right'}" style="max-width: 80%">
           ${msg.content.replace(/javascript/i, '')}
         </span>
       </div>
     `
-  }).join('')
-  const frag = document.createDocumentFragment()
-  frag.innerHTML = html
-  return frag
+  }).join('');
+  return html
 }
 
 function bindEvent(nim, container, userId) {
@@ -122,7 +121,7 @@ function bindEvent(nim, container, userId) {
       to: userId,
       content,
       done() {
-        $(container).querySelector('.js-list').appendChild(renderList([msg], parseInt(Math.random() * 10) < 5 ? true : false))
+        $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList([msg], parseInt(Math.random() * 10) < 5 ? true : false))
       }
     })
   }, false)
