@@ -8,7 +8,8 @@ import {
   BASE_URL,
   redirect,
   localParam,
-  PAY_TYPE
+  PAY_TYPE,
+  checkPassword
 } from '../js/util'
 import Pop from '../js/pop.js'
 import '../css/reset.less'
@@ -96,4 +97,6 @@ const init = () => {
     submit()
   })
 }
-init()
+checkPassword(() => {
+  init()
+})
