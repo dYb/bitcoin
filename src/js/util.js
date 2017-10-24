@@ -104,18 +104,29 @@ export function setUserInfo(userInfo) {
   localStorage.setItem('userInfo', JSON.stringify(userInfo))
 }
 
-export function checkPassword() {
+export function checkPassword(callback = () => {}) {
   const { hasFundPwd, token } = getUserInfo()
   if (!token) {
     redirect('./login.html', '登录')
-    return false
+    return
   }
-  // 不存在资金密码，跳转去设置
-  if (!hasFundPwd) {
-    redirect('./password.html?set=1', '设置资金密码')
-    return false
+  // 存在资金密码
+  if (hasFundPwd) {
+    callback()
+    return
   }
-  return true
+  ajax({
+    url: `${BASE_URL}/api/user/info`,
+    success(data) {
+      if (data.code !== 0) {
+        redirect('./login.html', '登录')
+      } else if (data.data.hasFundPwd) {
+        callback()
+      } else {
+        redirect('./password.html?set=1', '设置资金密码')
+      }
+    }
+  })
 }
 
 export function redirect(href, title) {
