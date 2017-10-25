@@ -1,4 +1,4 @@
-.price-module-wrapper{
+	.price-module-wrapper{
 	padding: 0.2rem;
 	input{
 		width: 1.6rem;
@@ -7,6 +7,7 @@
 		margin-top: -0.05rem;
 	}
 	>div{
+		display: flex;
 		&.error{
 			color: red;
 			>div{
@@ -17,12 +18,16 @@
 			}
 		}		
 		>div{
-			font-weight: bold;
-			display: inline-block;
+			flex:1;
+			font-weight: bold;			
 			font-size: 0.28rem;
-			padding: 0.16rem 0 ;
+			padding: 0.1rem 0 ;
 			border-bottom: 1px solid #e3e3e3;
-
+			display: flex;
+			input{
+				flex: 1;
+				padding: 0.05rem 0.1rem;
+			}
 		}
 	}	
 	
