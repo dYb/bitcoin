@@ -1,8 +1,18 @@
 .ad-wrapper{
     background: #F4F5F7;
-    height: 100%;
-    padding-bottom: 0.5rem;
+    height: 100%;    
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    .ad-inner{
+        flex: 1;
+        overflow: auto;
+    }
+    .tab{
+        padding-top: 0.3rem;
+        margin-bottom: 0;
+        background: #fff;
+    }
     select{
         height: 0.5rem;
         border: none;
@@ -53,13 +63,11 @@
         border: none;
     }
     .action{       
-        height: 1rem;
         width: 100%;
-        text-align: center;
-        padding-top: 0.1rem;
+        text-align: center;        
         box-sizing: border-box;
-        a{
-            
+        margin: 0.2rem 0;
+        a{            
             color: #fff;
             border-radius: 0.8rem;
             height: 0.8rem;

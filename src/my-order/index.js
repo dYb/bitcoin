@@ -19,7 +19,7 @@ ajax({
     if (data.code !== 0) {
       pop.alert(data.msg)
     } else {
-      $('.g-container').innerHTML = render(data.data)
+      $('.g-container-inner').innerHTML = render(data.data)
       setTimeout(() => {
         chat('.js-chat', data.data.adsUserId)
       }, 0)
@@ -27,7 +27,7 @@ ajax({
   }
 })
 
-$('.g-container').addEventListener('click', (e) => {
+$('.g-container-inner').addEventListener('click', (e) => {
   if (e.target.classList.contains('js-cancel')) {
     ajax({
       url: `${BASE_URL}/api/order/cancel/${id}`,
@@ -99,9 +99,9 @@ function render(data) {
       <div class="d-flex text-secondary justify-content-between"><span>交易单价</span>${data.adsPrice || 0} CNY</div>
     </div>
     <div class="line line-3">
-      <div class="row text-dark">
-        <div class="col-6">买家：${data.buyUserName || ''} <span class="badge badge-succes">${PAY_TYPE[data.payType]}</span></div>
-        <div class="col-6">卖家：${data.sellUserName || ''} </div>
+      <div class="text-dark d-flex">
+        <div>买家：${data.buyUserName || ''} <span class="badge badge-succes">${PAY_TYPE[data.payType]}</span></div>
+        <div>卖家：${data.sellUserName || ''} </div>
       </div>
       <div class="intro text-secondary">广告留言：${data.adsDescribe || ''}</div>
     </div>
