@@ -24,6 +24,7 @@ const getList = (adsType) => {
       page: currentPage,
       pageSize: '10'
     },
+     needToken:false,
     success(ajaxData) {
       let text = (adsType == 1 ? '购买' : '出售'),
         frag = document.createDocumentFragment();
