@@ -1,5 +1,7 @@
 export const BASE_URL = 'http://47.95.234.100:8081'
 
+const isApp = (/bitcoin/i).test(navigator.userAgent)
+
 export function localParam(search, hash) {
   const s = search || window.location.search
   const h = hash || window.location.hash
@@ -130,18 +132,19 @@ export function checkPassword(callback = () => {}) {
 }
 
 export function redirect(href, title) {
-  if (process.env.NODE_ENV === 'development') {
-    window.location.href = href
-  } else {
+  if (isApp) {
+    console.log('redirect in app')
     window.location.href = `bitcoin://open?title=${encodeURIComponent(title)}&url=${encodeURIComponent(href)}`
+  } else {
+    window.location.href = href
   }
 }
 
 export function openTab(index) {
-  if (process.env.NODE_ENV === 'development') {
-    window.location.href = './market.html'
-  } else {
+  if (isApp) {
     window.location.href = `bitcoin://openTab/${index}`
+  } else {
+    window.location.href = './market.html'
   }
 }
 
