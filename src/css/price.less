@@ -7,12 +7,25 @@
 		margin-top: -0.05rem;
 	}
 	>div{
-		font-weight: bold;
-		display: inline-block;
-		font-size: 0.28rem;
-		padding: 0.16rem 0 ;
-		border-bottom: 1px solid #e3e3e3;
-	}
+		&.error{
+			color: red;
+			>div{
+				border-bottom: 1px solid red;
+			}	
+			input{
+				color: red;
+			}
+		}		
+		>div{
+			font-weight: bold;
+			display: inline-block;
+			font-size: 0.28rem;
+			padding: 0.16rem 0 ;
+			border-bottom: 1px solid #e3e3e3;
+
+		}
+	}	
+	
 	span{
 		margin: 0.1rem;
 	}

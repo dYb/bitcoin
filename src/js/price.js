@@ -8,7 +8,9 @@ export default function price(o) {
   Object.assign(this, {
     _btcValue: '',
     _cnyValue: '',
-    _changeValue: 2
+    _changeValue: 2,
+    _min: 0,
+    _max: 0
   }, o)
   this._init()
   this._eventBind()
@@ -20,13 +22,15 @@ price.prototype = {
   _combineDom() {
     const html = `
 			<div class="price-module-wrapper">
-				<div class="cny">
-					CNY  <input type="text" class="cny-input" value=""/>
-				</div>
-				<span><---></span>
-				<div class="btc">
-					BTC  <input type="text" class="btc-input" value=""/>
-				</div>
+        <div>
+          <div class="cny">
+            CNY  <input type="text" class="cny-input" value=""/>
+          </div>
+          <span><---></span>
+          <div class="btc">
+            BTC  <input type="text" class="btc-input" value=""/>
+          </div>
+        </div>				
 			</div>
 		`
     this.$wrapper.innerHTML = html
@@ -62,34 +66,55 @@ price.prototype = {
     that._ajaxGetScale((d) => {
       that._btcValue = value
       that._cnyValue = value * d
-      that.$cnyInput.value = that._cnyValue
+      that.$cnyInput.value = parseInt(that._cnyValue);
     })
   },
   _checkCny(value) {
-    return /^[1-9]{1}\d*(\.\d{1,2})?$/.test(value)
+    return /^[1-9]{1}\d*(\.\d{1,2})?$/.test(value);
   },
   _checkBtc(value) {
     return /^[0-9]+.?[0-9]*$/.test(value)
   },
+  _checkRange(value) {
+    var className = "error",
+      flag = "",
+      parentNode = this.$cnyInput.parentNode.parentNode;
+    if (value <= this._max && value >= this._min) {
+      className = "";
+      flag = true;
+    } else {
+      flag = false;
+    }
+    parentNode.className = className;
+    return flag;
+  },
   getCount() {
     return this._cnyValue
   },
-  setChangeValue(value){
+  setChangeValue(value) {
     this._changeValue = value;
+  },
+  setMaxMin(min, max) {
+    this._min = min;
+    this._max = max;
   },
   _eventBind() {
     const that = this
     this.$cnyInput.addEventListener('keyup', (e) => {
-      const val = e.target.value
+      const val = e.target.value;
       if (that._checkCny(val)) {
         that._setCny(val)
       }
+      //判断是否区间错误
+      this._checkRange(val);
     })
     this.$btcInput.addEventListener('keyup', (e) => {
-      const val = e.target.value
+      const val = e.target.value;
       if (that._checkBtc(val)) {
         that._setBtc(val)
       }
+      //判断是否区间错误
+      this._checkRange(this._cnyValue);
     })
   }
 }

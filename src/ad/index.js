@@ -37,24 +37,38 @@ const getSubData = () => {
   return Object.assign({}, getSubClass(input), getSubClass(select), getSubClass(textarea))
 }
 const submit = () => {
-  const subData = getSubData()
-  ajax({
-    url: `${BASE_URL}/api/ads/user/saveOrUpdate`,
-    data: Object.assign({
-      adsType: tradeType,
-      id: ''
-    }, subData),
-    success(ajaxData) {
-      if (ajaxData.code === 0) {
-        pop.success('发布成功')
-        setTimeout(() => {
-          redirect('./market.html', '列表')
-        }, 1000)
-      } else {
-        pop.alert(ajaxData.msg)
+  const subData = getSubData();  
+  // 校验
+  if (!checkMoney(subData.price)) {
+    pop.alert("请输入正确的金额");
+  } else if (!checkMoney(subData.minLimitPrice)) {
+    pop.alert("请输入正确的最小金额");
+  } else if (!checkMoney(subData.maxLimitPrice)) {
+    pop.alert("请输入正确的最大金额");
+  } else if (parseInt(subData.minLimitPrice) > parseInt(subData.maxLimitPrice)) {
+    pop.alert("最小金额大于最大金额，请重新输入");
+  } else {
+    ajax({
+      url: `${BASE_URL}/api/ads/user/saveOrUpdate`,
+      data: Object.assign({
+        adsType: tradeType,
+        id: ''
+      }, subData),
+      success(ajaxData) {
+        if (ajaxData.code === 0) {
+          pop.success('发布成功')
+          setTimeout(() => {
+            redirect('./market.html', '列表')
+          }, 1000)
+        } else {
+          pop.alert(ajaxData.msg)
+        }
       }
-    }
-  })
+    })
+  }
+}
+const checkMoney = (value) => {
+  return /^[1-9]{1}\d*(\.\d{1,2})?$/.test(value);
 }
 $('.tab').addEventListener('click', (e) => {
   if (e.target.tagName === 'LI') {

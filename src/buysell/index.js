@@ -34,9 +34,10 @@ const getDetail = (orderId) => {
     data: {
       id: urlData.search.id
     },
-    success(ajaxData) {      
+    success(ajaxData) {
       const _data = ajaxData.data;
       price.setChangeValue(_data.price);
+      price.setMaxMin(_data.minLimitPrice, _data.maxLimitPrice);
       $('.w-wrapper').innerHTML = ` <div class="user-info">
           <!--<div class="headimg">
             <img>
