@@ -1,0 +1,81 @@
+.ad-wrapper{
+    background: #F4F5F7;
+    height: 100%;    
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    .ad-inner{
+        flex: 1;
+        overflow: auto;
+    }
+    .tab{
+        padding-top: 0.3rem;
+        margin-bottom: 0;
+        background: #fff;
+    }
+    select{
+        height: 0.5rem;
+        border: none;
+        box-shadow: 0 0 0.05rem #ccc;
+        min-width: 2rem;
+        border-radius: 0.1rem;
+        padding-left: 0.1rem;
+    }
+   .form-item{
+        height: 1.2rem;
+        line-height: 1.2rem;
+        border-bottom: 1px solid #e3e3e3;
+        display: flex;
+        &:last-child{
+            border: none;
+        }
+        .text{                
+            width: 1.4rem;
+            text-align: justify;
+            text-align-last: justify;                                    
+        }
+        .br{
+             margin:0  0.2rem;  
+             color: #e3e3e3;                 
+        }
+        .content{
+            flex: 1;
+            .notice{
+                @s: 0.4rem;
+                width: @s;
+                height: @s;
+                border: 0.01rem solid #70bfb9;
+                color: #70bfb9;
+                border-radius: @s;
+                display: inline-block;
+                line-height: @s;
+                text-align: center;
+            }
+        }
+        input{
+            border: none;
+            outline: none;
+        }
+    }
+    textarea{
+        width: 100%;
+        height: 2.3rem;
+        border: none;
+    }
+    .action{       
+        width: 100%;
+        text-align: center;        
+        box-sizing: border-box;
+        margin: 0.2rem 0;
+        a{            
+            color: #fff;
+            border-radius: 0.8rem;
+            height: 0.8rem;
+            line-height: 0.8rem;           
+            text-align: center;
+            width: 3rem;
+            display: block;
+            margin: 0 auto;
+        }
+    }
+}

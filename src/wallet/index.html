@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>我的钱包</title>
+  <style>
+    .card {
+      margin-bottom: 1rem;
+    }
+  </style>
+  <!-- build:walletStyle -->
+  <!-- endbuild -->
+</head>
+<body>
+  <div class="g-container">
+    <div class="line-1">
+      <div class="total">总资产：<span></span></div>
+      <div class="detail">
+        <div class="usable">可用资产 <span></span></div>  
+        <div class="unusable">冻结资产 <span></span></div>  
+      </div>  
+    </div>
+    <div class="line-2">
+      <div class="title">接受比特币</div>
+      <div class="tip">向如下地址汇入BTC完成充值</div>
+      <div class="js-addr addr"></div>
+    </div>
+  </div>
+  <script src="https://cdn.bootcss.com/clipboard.js/1.7.1/clipboard.min.js"></script>
+  <!-- build:walletScript -->
+  <script type="text/javascript" src="http://localhost:3100/js/wallet.bundle.js"></script>
+  <!-- endbuild -->
+</body>
+</html>

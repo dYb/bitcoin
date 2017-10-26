@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <title>page1</title>
+  <meta id="viewport" name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <link href="//cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .g-container{
+      padding: 20px 10px;
+    }
+  </style>
+  <!-- build:my-adsStyle -->
+  <!-- endbuild -->
+</head>
+
+<body>
+  <div class="g-container">
+    <div class="js-tab tab">
+          <div class="inner">
+            <div class="item active" data-status="1">上架中</div>
+            <div class="item" data-status="0">已下架</div>
+          </div>
+        </div>
+    <div class="js-list list" style="margin-top: 20px;">
+    </div>
+    <button class="js-more btn btn-outline-primary btn-block" style="margin-top: 20px; display: none">加载更多</button>
+  </div>
+  <!-- build:my-adsScript -->
+  <script type="text/javascript" src="//localhost:3100/js/my-ads.bundle.js"></script>
+  <!-- endbuild -->
+</body>
+
+</html>

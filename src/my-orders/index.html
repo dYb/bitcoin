@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <title>page1</title>
+  <meta id="viewport" name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <link href="//cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+  <!-- build:my-ordersStyle -->
+  <!-- endbuild -->
+</head>
+
+<body>
+  <div class="g-container">
+    <div class="js-tab tab">
+      <div class="inner">
+        <div class="item active" data-status="0">进行中</div>
+        <div class="item" data-status="1">已结束</div>
+      </div>
+    </div>
+    <div class="js-list list"></div>
+    <button class="js-more btn btn-outline-primary btn-block" style="display: none; margin-top: 20px;">加载更多</button>
+  </div>
+  <!-- build:my-ordersScript -->
+  <script type="text/javascript" src="//localhost:3100/js/my-orders.bundle.js"></script>
+  <!-- endbuild -->
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+.pop-alert-wrap {
+	position: absolute;
+	top: 0; left:0; right: 0;
+	text-align: center;
+}
+.pop-alert {
+	display: none;
+	max-width: 50%;
+	padding: 8px 16px;
+	border-radius: 4px;
+	box-shadow: 0 2px 8px rgba(0,0,0,.2);
+	opacity: 0;
+	transform: translate3d(0, -100%, 0);
+	background: #fff;
+	pointer-events: none;
+	transition: all .2s ease-out;
+	&.active {
+		opacity: 1;
+		transform: translate3d(0, 30px, 0);
+	}
+	&.success {
+		color: #28a745;
+	}
+	&.error {
+		color: #dc3545;
+	}
+}
