@@ -7,8 +7,11 @@ let PAGE = 1
 let STATUS = 1
 const TYPE = localParam().search.type || 2
 
+<<<<<<< HEAD
 loadList(TYPE, STATUS, 1)
 
+=======
+>>>>>>> d14b374f6d2d7610f282a33ca004abf48d0c6e77
 $('.js-tab').addEventListener('click', (e) => {
   if (!e.target.classList.contains('item')) return
   if (e.target.classList.contains('active')) return
