@@ -50,6 +50,17 @@ $('.g-container-inner').addEventListener('click', (e) => {
         }
       }
     })
+  } else if (e.target.classList.contains('js-pay')) {
+    ajax({
+      url: `${BASE_URL}/api/order/markPay/${id}`,
+      success(ajaxData) {
+        if (ajaxData.code === 0) {
+          pop.alert('释放比特币成功')
+        } else {
+          pop.alert(ajaxData.msg)
+        }
+      }
+    })
   }
 }, false)
 
@@ -74,7 +85,7 @@ function render(data) {
   }
   if (data.canPayCoin) {
     actionHtml += `
-      <button class="js-pay btn btn-outline-danger">确认已收到付款，同意支付比特币</button>
+      <button class="js-pay btn btn-outline-danger">释放比特币</button>
     `
   }
   if (data.canRemindPayMoney) {

@@ -80,6 +80,8 @@ function init({
     onofflinemsgs: onOfflineMsgs,
     onmsg: onMsg,
     onroamingmsgs: onRoamingmsgs,
+    onofflinecustomsysmsgs:onOfflineCustomSysMsgs,
+    onofflinecustomsysmsgs:onCustomSysMsg,
     ondisconnect(error) {
       console.log(error)
       pop.error('聊天已断开')
