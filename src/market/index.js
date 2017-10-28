@@ -24,7 +24,7 @@ const getList = (adsType) => {
       page: currentPage,
       pageSize: '10'
     },
-     needToken:false,
+    needToken: false,
     success(ajaxData) {
       let text = (adsType == 1 ? '购买' : '出售'),
         frag = document.createDocumentFragment();
@@ -36,7 +36,7 @@ const getList = (adsType) => {
               </div>-->
               <div class="info">
                 <p><span class="name">${_data.userName}</span><span class="type">${PAY_TYPE[_data.payType]}</span></p>
-                <!--<p>交易74 | 好评100% | 新人36</p>-->
+                <p>交易${_data.tradeCount} | 信用${_data.creditScore}</p>
                 <p>限额：${_data.minLimitPrice} CNY ~ ${_data.maxLimitPrice} CNY</p>
               </div>
               <div class="action">
@@ -46,7 +46,7 @@ const getList = (adsType) => {
         frag.appendChild(div);
       })
       $('.buycoin-list').appendChild(frag);
-      if(ajaxData.data.currPage * ajaxData.data.pageSize >= ajaxData.data.totalCount){
+      if (ajaxData.data.currPage * ajaxData.data.pageSize >= ajaxData.data.totalCount) {
         $(".btn-more").parentNode.style.display = "none";
       }
     }
@@ -59,7 +59,8 @@ const init = () => {
       $$('.tab li').forEach((t) => {
         t.className = ''
       })
-      const className = e.target.className
+      const className = e.target.className;
+      currentPage = 1;
       if (className.indexOf('active') == -1) {
         e.target.className = 'active'
       }
