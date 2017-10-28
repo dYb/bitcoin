@@ -91,6 +91,9 @@ price.prototype = {
   getCount() {
     return this._cnyValue
   },
+  getBtc(){
+    return this._btcValue
+  },
   setChangeValue(value) {
     this._changeValue = value;
   },

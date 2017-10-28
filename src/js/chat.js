@@ -24,13 +24,23 @@ export default (container, userId) => {
     console.log('roaming message')
     $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList(messages.msgs))
   }
+  const onOfflineCustomSysMsgs = (messages) => {
+    // 收到离线自定义系统通知
+    $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList(messages.msgs, "system"))
+  }
+  const onCustomSysMsg = (messages) => {
+    //收到自定义系统通知
+    $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList(messages.msgs, "system"))
+  }
 
   getAccount((data) => {
     const nim = init(data, {
       onConnect,
       onOfflineMsgs,
       onMsg,
-      onRoamingmsgs
+      onRoamingmsgs,
+      onOfflineCustomSysMsgs,
+      onCustomSysMsg
     })
     bindEvent(nim, container, userId)
   })
@@ -55,7 +65,9 @@ function init({
   onConnect,
   onOfflineMsgs,
   onMsg,
-  onRoamingmsgs
+  onRoamingmsgs,
+  onOfflineCustomSysMsgs,
+  onCustomSysMsg
 }) {
   return window.NIM.getInstance({
     appKey: '10ad68063cd5b7e02e060337e971cc16',
@@ -93,20 +105,37 @@ function getAccount(callback) {
   })
 }
 
-function renderList(messages, self) {
-  if(!messages || messages.length == 0){
+function renderList(messages, type) {
+  if (!messages || messages.length == 0) {
     return "";
   }
   const html = messages.map((msg) => {
-    if (chatUser.imAccount === msg.from) {
-      self = true
-    } else{
-      self = false
+    var _msg = "";
+    if (!type) {
+      _msg = _msg.content.replace(/javascript/i, '')
+      if (chatUser.imAccount === msg.from) {
+        type = "self"
+      } else {
+        type = "other"
+      }
+    } else {
+      type = "system";
+      _msg = JSON.parse(_msg.content).msg;
     }
+
+    var t = Math.random() * 10;
+    if (t < 3) {
+      type = "self";
+    } else if (t > 6) {
+      type = "other"
+    } else {
+      type = "system"
+    }
+
     return `
       <div class="clearfix">
-        <span class="${self ? 'left' : 'right'}" style="max-width: 80%">
-          ${msg.content.replace(/javascript/i, '')}
+        <span class="${type}">
+          ${_msg}
         </span>
       </div>
     `
