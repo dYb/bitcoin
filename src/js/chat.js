@@ -80,6 +80,8 @@ function init({
     onofflinemsgs: onOfflineMsgs,
     onmsg: onMsg,
     onroamingmsgs: onRoamingmsgs,
+    onofflinecustomsysmsgs:onOfflineCustomSysMsgs,
+    onofflinecustomsysmsgs:onCustomSysMsg,
     ondisconnect(error) {
       console.log(error)
       pop.error('聊天已断开')
@@ -123,14 +125,14 @@ function renderList(messages, type) {
       _msg = JSON.parse(_msg.content).msg;
     }
 
-    var t = Math.random() * 10;
-    if (t < 3) {
-      type = "self";
-    } else if (t > 6) {
-      type = "other"
-    } else {
-      type = "system"
-    }
+    // var t = Math.random() * 10;
+    // if (t < 3) {
+    //   type = "self";
+    // } else if (t > 6) {
+    //   type = "other"
+    // } else {
+    //   type = "system"
+    // }
 
     return `
       <div class="clearfix">
