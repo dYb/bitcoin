@@ -1,10 +1,10 @@
-import { redirect, ajax, localParam, $, $$, BASE_URL, ORDER_STATUS, timeFormat } from '../js/util'
+import { redirect, ajax, localParam, $, $$, BASE_URL, ORDER_STATUS, ORDER_TYPE } from '../js/util'
 import pop from '../js/pop'
 import './index.less'
 
 let PAGE = 1
 let STATUS = 0
-const TYPE = localParam().search.type || 2
+const TYPE = localParam().search.type || ''
 
 loadList(TYPE, STATUS, 1)
 
@@ -53,20 +53,21 @@ function loadList(type, status, page = 1, pageSize = 15) {
         if (page === 1) {
           $('.js-list').innerHTML = ''
         }
-        if (data.data.currPage >= data.data.totalPage) {
-          $('.js-more').style.display = 'none'
-        } else {
+        // 没有更多列表
+        if (data.data.currPage < data.data.totalPage && data.data.list === pageSize) {
           $('.js-more').style.display = 'block'
+        } else {
+          $('.js-more').style.display = 'none'
         }
         $('.js-more').disabled = false
         $('.js-more').textContent = '加载更多'
-        renderList(data.data.list, type)
+        renderList(data.data.list)
       }
     }
   })
 }
 
-function renderList(list, type) {
+function renderList(list) {
   let html = ''
   if (!list.length) {
     html = '<div style="padding-top: 10px;text-align: center;">暂无数据</div>'
@@ -75,7 +76,10 @@ function renderList(list, type) {
       return `
         <div class="item" data-id="${item.id}">
           <div class="line-1">
-            <span>${type === 1 ? item.sellUserName : item.buyUserName}</span>
+            <span>
+              ${item.listShowName}
+              <span class="badge badge-success">${ORDER_TYPE[item.orderType]}</span>
+            </span>
             <span>${ORDER_STATUS[item.orderStatus]}</span>
           </div>
           <div class="line-2">

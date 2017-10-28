@@ -48,6 +48,10 @@ function render(data) {
       <span class="text-success">${data.price || 0} CNY</span>
     </div>
     <div class="line line-2">
+      <span>交易 ${data.tradeCount}</span>
+      <span>信用 ${data.creditScore}</span>
+    </div>
+    <div class="line line-2">
       金额：<span>${data.minLimitPrice || ''} - ${data.maxLimitPrice || ''} CNY</span>
     </div>
     <div class="line line-3">

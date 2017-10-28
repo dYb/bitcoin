@@ -29,6 +29,7 @@ export function ajax({
   error = () => {}
 }) {
   let body = Object.keys(data)
+    .filter(key => data[key] !== '')
     .map(key => `${key}=${data[key]}`)
     .join('&')
   const token = getToken()
@@ -151,7 +152,8 @@ export function openTab(index, url = '') {
 }
 
 export const PAY_TYPE = ['', '支付宝', '银行转账']
-export const ORDER_STATUS = ['初始化', '待付款', '交易成功', '订单取消']
+export const ORDER_STATUS = ['待付款', '已付款', '交易成功', '已取消']
+export const ORDER_TYPE = ['', '购买', '出售']
 
 export function timeFormat(time) {
   const date = new Date(time)
