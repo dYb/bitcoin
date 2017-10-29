@@ -34,6 +34,9 @@ $('.g-container-inner').addEventListener('click', (e) => {
       success(ajaxData) {
         if (ajaxData.code === 0) {
           pop.alert('取消订单成功')
+          setTimeout(() => {
+            window.location.reload()
+          }, 1000)
         } else {
           pop.alert(ajaxData.msg)
         }
@@ -45,6 +48,9 @@ $('.g-container-inner').addEventListener('click', (e) => {
       success(ajaxData) {
         if (ajaxData.code === 0) {
           pop.alert('标记付款成功')
+          setTimeout(() => {
+            window.location.reload()
+          }, 1000)
         } else {
           pop.alert(ajaxData.msg)
         }
@@ -52,10 +58,13 @@ $('.g-container-inner').addEventListener('click', (e) => {
     })
   } else if (e.target.classList.contains('js-pay')) {
     ajax({
-      url: `${BASE_URL}/api/order/markPay/${id}`,
+      url: `${BASE_URL}/api/order/transfer/${id}`,
       success(ajaxData) {
         if (ajaxData.code === 0) {
           pop.alert('释放比特币成功')
+          setTimeout(() => {
+            window.location.reload()
+          }, 1000)
         } else {
           pop.alert(ajaxData.msg)
         }
@@ -65,10 +74,10 @@ $('.g-container-inner').addEventListener('click', (e) => {
 }, false)
 
 const ORDER_STATUS = [
-  '<span class="text-secondary">初始化</span>',
-  '<span class="text-info">待付款</span>',
+  '<span class="text-secondary">待付款</span>',
+  '<span class="text-info">已付款</span>',
   '<span class="text-success">交易成功</span>',
-  '<span class="text-danger">订单取消</span>'
+  '<span class="text-danger">已取消</span>'
 ]
 
 function render(data) {
@@ -85,7 +94,7 @@ function render(data) {
   }
   if (data.canPayCoin) {
     actionHtml += `
-      <button class="js-pay btn btn-outline-danger">释放比特币</button>
+      <button class="js-pay btn btn-outline-danger">对方已付款，同意释放比特币</button>
     `
   }
   if (data.canRemindPayMoney) {
@@ -120,6 +129,6 @@ function render(data) {
       <div class="text-secondary tip">比特币将在托管中心保存<span class="text-success">${minutes}</span>分钟</div>
       ${actionHtml}
     </div>
-    <div class="js-chat">聊天</div>
+    <div class="js-chat"></div>
   `
 }
