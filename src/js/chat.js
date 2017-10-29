@@ -80,8 +80,8 @@ function init({
     onofflinemsgs: onOfflineMsgs,
     onmsg: onMsg,
     onroamingmsgs: onRoamingmsgs,
-    onofflinecustomsysmsgs:onOfflineCustomSysMsgs,
-    onofflinecustomsysmsgs:onCustomSysMsg,
+    onofflinecustomsysmsgs: onOfflineCustomSysMsgs,
+    oncustomsysmsg: onCustomSysMsg,
     ondisconnect(error) {
       console.log(error)
       pop.error('聊天已断开')
@@ -113,14 +113,14 @@ function renderList(messages, type) {
   }
   const html = messages.map((msg) => {
     var _msg = "";
-    if (!type) {
-      _msg = _msg.content.replace(/javascript/i, '')
-      if (chatUser.imAccount === msg.from) {
+    if (type !== "system") {
+      _msg = msg.content.replace(/javascript/i, '')
+      if (chatUser.imAccount == msg.from) {
         type = "self"
       } else {
         type = "other"
       }
-    } else {
+    } else if (type == "system") {
       type = "system";
       _msg = JSON.parse(_msg.content).msg;
     }
@@ -155,7 +155,7 @@ function bindEvent(nim, container, userId) {
       to: userId,
       content,
       done() {
-        $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList([msg], parseInt(Math.random() * 10) < 5 ? true : false))
+        $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList([msg]))
       }
     })
   }, false)

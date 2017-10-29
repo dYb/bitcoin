@@ -7,8 +7,10 @@ import {
 } from '../js/util'
 import pop from '../js/pop'
 import chat from '../js/chat'
+import confirm from "../js/confirm.js"
 import '../css/reset.css'
 import './index.less'
+
 
 const {
   id
@@ -29,45 +31,66 @@ ajax({
 
 $('.g-container-inner').addEventListener('click', (e) => {
   if (e.target.classList.contains('js-cancel')) {
-    ajax({
-      url: `${BASE_URL}/api/order/cancel/${id}`,
-      success(ajaxData) {
-        if (ajaxData.code === 0) {
-          pop.alert('取消订单成功')
-          setTimeout(() => {
-            window.location.reload()
-          }, 1000)
-        } else {
-          pop.alert(ajaxData.msg)
-        }
+    confirm({
+      title: "取消订单",
+      content: "确认取消该订单么？",
+      type: "noRem",
+      success() {
+        ajax({
+          url: `${BASE_URL}/api/order/cancel/${id}`,
+          success(ajaxData) {
+            if (ajaxData.code === 0) {
+              pop.alert('取消订单成功')
+              setTimeout(() => {
+                window.location.reload()
+              }, 1000)
+            } else {
+              pop.alert(ajaxData.msg)
+            }
+          }
+        })
       }
     })
   } else if (e.target.classList.contains('js-confirm')) {
-    ajax({
-      url: `${BASE_URL}/api/order/markPay/${id}`,
-      success(ajaxData) {
-        if (ajaxData.code === 0) {
-          pop.alert('标记付款成功')
-          setTimeout(() => {
-            window.location.reload()
-          }, 1000)
-        } else {
-          pop.alert(ajaxData.msg)
-        }
+    confirm({
+      title: "标记付款",
+      content: "确认标记付款订单么？",
+      type: "noRem",
+      success() {
+        ajax({
+          url: `${BASE_URL}/api/order/markPay/${id}`,
+          success(ajaxData) {
+            if (ajaxData.code === 0) {
+              pop.alert('标记付款成功')
+              setTimeout(() => {
+                window.location.reload()
+              }, 1000)
+            } else {
+              pop.alert(ajaxData.msg)
+            }
+          }
+        })
       }
     })
   } else if (e.target.classList.contains('js-pay')) {
-    ajax({
-      url: `${BASE_URL}/api/order/transfer/${id}`,
-      success(ajaxData) {
-        if (ajaxData.code === 0) {
-          pop.alert('释放比特币成功')
-          setTimeout(() => {
-            window.location.reload()
-          }, 1000)
-        } else {
-          pop.alert(ajaxData.msg)
-        }
+    confirm({
+      title: "释放比特币",
+      content: "确认释放比特币么？",
+      type: "noRem",
+      success() {
+        ajax({
+          url: `${BASE_URL}/api/order/transfer/${id}`,
+          success(ajaxData) {
+            if (ajaxData.code === 0) {
+              pop.alert('释放比特币成功')
+              setTimeout(() => {
+                window.location.reload()
+              }, 1000)
+            } else {
+              pop.alert(ajaxData.msg)
+            }
+          }
+        })
       }
     })
   }
