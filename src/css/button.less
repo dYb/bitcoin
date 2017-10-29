@@ -1,0 +1,31 @@
+@import './color.less';
+.btn-outline-primary {
+  border-color: @primary;
+  color: @primary;
+}
+.btn-primary {
+  border-color: @primary;
+  background-color: @primary;
+  color: #fff;
+}
+.btn-primary.disabled, .btn-primary:disabled {
+  background-color: @primary;
+  border-color: @primary;
+}
+.btn-outline-primary:hover {
+  background-color: @primary;
+  border-color: @primary;
+}
+.btn-outline-primary:active {
+  background-color: @primary;
+  border-color: @primary;
+}
+.btn-outline-primary:focus {
+  box-shadow: 0 0 0 3px rgba(222,48,29,.5);
+}
+.form-control:focus {
+  border-color: rgba(222,48,29,.5);
+}
+.text-primary{
+  color: @primary !important;
+}

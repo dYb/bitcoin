@@ -1,7 +1,13 @@
+@import '../css/color.less';
+html {
+  min-height: 100%;
+  background-color: @base;
+}
 .g-container {
   max-width: 414px;
   margin: 0 auto;
   padding-top: 44px;
+  background-color: @base;
 }
 .tab {
   position: fixed;
@@ -16,8 +22,8 @@
     width: 160px;
     height: 38px;
     font-size: 14px;
-    color: #007bff;
-    background-color: #fff;
+    color: @primary;
+    background-color: @base;
   }
   .item:first-of-type {
     border-radius: 6px 0 0 6px;
@@ -31,11 +37,11 @@
     align-items: center;
     height: 100%;
     width: 50%;
-    border: 1px solid #007bff;
+    border: 1px solid @primary;
   }
   .item.active {
-    background-color: #007bff;
-    color: #fff;
+    background-color: @primary;
+    color: @base;
   }
 }
 

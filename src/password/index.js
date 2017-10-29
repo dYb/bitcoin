@@ -1,6 +1,7 @@
 import { ajax, $, localParam, timer, redirect, setUserInfo, getUserInfo, BASE_URL, openTab } from '../js/util'
 import pop from '../js/pop'
 import '../css/page.less'
+import './index.less'
 
 const { search } = localParam()
 const userInfo = getUserInfo()

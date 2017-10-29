@@ -1,7 +1,8 @@
+@import '../css/color.less';
 .g-container {
   max-width: 414px;
   margin: 0 auto;
-  background-color: rgba(244, 244, 244, 1);
+  background-color: @base;
 }
 .g-info {
   display: flex;
@@ -9,13 +10,13 @@
   padding: 25px 12px 30px;
   color: #fff;
   font-size: 18px;
-  background-color: #007bff;
+  background-color: @primary;
   // background-color: rgb(56, 161, 244);
   .avatar {
     width: 60px; height: 60px;
     margin-right: 12px; 
     border-radius: 30px;
-    background-color: rgb(135, 199, 247);
+    background-color: rgba(255, 255, 255, .4);
   }
 }
 .g-order {
@@ -23,8 +24,9 @@
   align-items: center;
   color: rgba(255, 255, 255, .9);
   font-size: 16px;
+  opacity: .7;
   // background-color: rgb(21, 136, 217);
-  background-color: #0062ff;
+  background-color: @primary;
   .wrap {
     padding: 10px 0;
     width: 50%;
