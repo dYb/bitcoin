@@ -11,7 +11,6 @@ import confirm from "../js/confirm.js"
 import '../css/reset.css'
 import './index.less'
 
-
 const {
   id
 } = localParam().search
@@ -31,15 +30,15 @@ const getOrderDetail = () => {
 getOrderDetail();
 var initChatStatus = false;
 const initChat = (data) => {
-  if(initChatStatus){
+  if (initChatStatus) {
     return;
   }
   initChatStatus = true;
-  chat('.js-chat', data.data.adsUserId, {
-    onOfflineCustomSysMsgs(){
+  chat('.js-chat', data.data.userId, data.data.adsUserId, {
+    onOfflineCustomSysMsgs() {
       getOrderDetail()
     },
-    onCustomSysMsg(){
+    onCustomSysMsg() {
       getOrderDetail()
     }
   })
@@ -169,6 +168,5 @@ function render(data) {
       <div class="text-secondary tip">比特币将在托管中心保存<span class="text-success">${minutes}</span>分钟</div>
       ${actionHtml}
     </div>
-    <div class="js-chat"></div>
   `
 }
