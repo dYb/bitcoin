@@ -15,19 +15,36 @@ import './index.less'
 const {
   id
 } = localParam().search
-ajax({
-  url: `${BASE_URL}/api/order/info/${id}`,
-  success(data) {
-    if (data.code !== 0) {
-      pop.alert(data.msg)
-    } else {
-      $('.g-container-inner').innerHTML = render(data.data)
-      setTimeout(() => {
-        chat('.js-chat', data.data.adsUserId)
-      }, 0)
+const getOrderDetail = () => {
+  ajax({
+    url: `${BASE_URL}/api/order/info/${id}`,
+    success(data) {
+      if (data.code !== 0) {
+        pop.alert(data.msg)
+      } else {
+        $('.g-container-inner').innerHTML = render(data.data)
+        initChat(data);
+      }
     }
+  })
+}
+getOrderDetail();
+var initChatStatus = false;
+const initChat = (data) => {
+  if(initChatStatus){
+    return;
   }
-})
+  initChatStatus = true;
+  chat('.js-chat', data.data.adsUserId, {
+    onOfflineCustomSysMsgs(){
+      getOrderDetail()
+    },
+    onCustomSysMsg(){
+      getOrderDetail()
+    }
+  })
+}
+
 
 $('.g-container-inner').addEventListener('click', (e) => {
   if (e.target.classList.contains('js-cancel')) {

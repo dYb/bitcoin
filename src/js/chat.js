@@ -7,7 +7,7 @@ import pop from './pop'
 
 import "../css/chat.less";
 var chatUser = ""
-export default (container, userId) => {
+export default (container, userId, obj) => {
   const onConnect = () => {
     console.log('connect111')
     initDom(container)
@@ -27,10 +27,12 @@ export default (container, userId) => {
   const onOfflineCustomSysMsgs = (messages) => {
     // 收到离线自定义系统通知
     $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList(messages.msgs, "system"))
+    obj.onOfflineCustomSysMsgs && obj.onOfflineCustomSysMsgs();
   }
   const onCustomSysMsg = (messages) => {
     //收到自定义系统通知
     $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList(messages.msgs, "system"))
+    obj.onCustomSysMsg && obj.onCustomSysMsg();
   }
 
   getAccount((data) => {
