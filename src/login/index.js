@@ -1,8 +1,13 @@
-import { ajax, $, timer, BASE_URL, redirect, openTab } from '../js/util'
+import { ajax, $, timer, BASE_URL, redirect, openTab, getUserInfo } from '../js/util'
 import pop from '../js/pop'
 import './index.less'
 
 // localStorage.removeItem('token')
+
+const userInfo = getUserInfo()
+if (userInfo && userInfo.phone) {
+  $('.js-phone').value = userInfo.phone
+}
 
 const codeBtn = $('.js-code-btn')
 const startTimer = timer(60, (time) => {

@@ -45,14 +45,14 @@ function render(data) {
         <span class="badge badge-success">${PAY_TYPE[data.payType]}</span>
       </span>
       
-      <span class="text-success">${data.price || 0} CNY</span>
+      <span class="text-success">${data.price || 0} RMB</span>
     </div>
     <div class="line line-2">
       <span>交易 ${data.tradeCount}</span>
       <span>信用 ${data.creditScore}</span>
     </div>
     <div class="line line-2">
-      金额：<span>${data.minLimitPrice || ''} - ${data.maxLimitPrice || ''} CNY</span>
+      金额：<span>${data.minLimitPrice || ''} - ${data.maxLimitPrice || ''} RMB</span>
     </div>
     <div class="line line-3">
       上架状态：${data.adsStatus === 1 ? '<span class="badge badge-success">已上架</span>' : '<span class="badge badge-danger">已下架</span>'} </div>

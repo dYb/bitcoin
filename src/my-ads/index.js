@@ -80,9 +80,9 @@ function renderList(list) {
               ${item.userName}
               <span class="badge badge-success">${PAY_TYPE[item.payType]}</span>
             </span>  
-            <span class="amount text-success">${item.price} CNY</span>
+            <span class="amount text-success">${item.price} RMB</span>
           </div>
-          <div class="line-2 text-secondary">交易 ${item.tradeCount}   |  信任 ${item.creditScore}</div>
+          <div class="line-2 text-secondary">交易  ${item.tradeCount || 0}   |  信任  ${item.creditScore || 0}</div>
           <div class="line-3 text-secondary">限额：${item.minLimitPrice} - ${item.maxLimitPrice} CNY</div>
         </div>
       `

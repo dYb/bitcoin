@@ -83,7 +83,7 @@ function renderList(list) {
             <span>${ORDER_STATUS[item.orderStatus]}</span>
           </div>
           <div class="line-2">
-            <span>交易金额：${item.orderMoney} CNY</span>
+            <span>交易金额：${item.orderMoney} RMB</span>
             <span>订单编号：${item.id}</span>
           </div>
         </div>

@@ -153,9 +153,9 @@ function render(data) {
       <div>${ORDER_STATUS[data.orderStatus || 0]} </div>
     </div>
     <div class="line line-2">
-      <div class="d-flex text-dark justify-content-between"><span>交易金额</span>${data.orderMoney || 0} CNY</div>
+      <div class="d-flex text-dark justify-content-between"><span>交易金额</span>${data.orderMoney || 0} RMB</div>
       <div class="d-flex text-secondary justify-content-between"><span>交易数量</span>${data.orderNum || 0} BTC</div>
-      <div class="d-flex text-secondary justify-content-between"><span>交易单价</span>${data.adsPrice || 0} CNY</div>
+      <div class="d-flex text-secondary justify-content-between"><span>交易单价</span>${data.adsPrice || 0} RMB</div>
     </div>
     <div class="line line-3">
       <div class="text-dark d-flex">
