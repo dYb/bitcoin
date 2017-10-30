@@ -29,13 +29,14 @@ const getOrderDetail = () => {
   })
 }
 getOrderDetail()
-var initChatStatus = false
+let initChatStatus = false
+let CHAT = ''
 const initChat = (data) => {
   if (initChatStatus) {
-    return;
+    return
   }
-  initChatStatus = true;
-  chat('.js-chat', data.data.userId, data.data.adsUserId, {
+  initChatStatus = true
+  CHAT = chat('.js-chat', data.data.userId, data.data.adsUserId, {
     onOfflineCustomSysMsgs() {
       getOrderDetail()
     },
@@ -49,9 +50,9 @@ const initChat = (data) => {
 $('.g-container-inner').addEventListener('click', (e) => {
   if (e.target.classList.contains('js-cancel')) {
     confirm({
-      title: "取消订单",
-      content: "确认取消该订单么？",
-      type: "noRem",
+      title: '取消订单',
+      content: '确认取消该订单么？',
+      type: 'noRem',
       success() {
         ajax({
           url: `${BASE_URL}/api/order/cancel/${id}`,
@@ -70,9 +71,9 @@ $('.g-container-inner').addEventListener('click', (e) => {
     })
   } else if (e.target.classList.contains('js-confirm')) {
     confirm({
-      title: "标记付款",
-      content: "确认标记付款订单么？",
-      type: "noRem",
+      title: '标记付款',
+      content: '确认标记付款订单么？',
+      type: 'noRem',
       success() {
         ajax({
           url: `${BASE_URL}/api/order/markPay/${id}`,
@@ -91,9 +92,9 @@ $('.g-container-inner').addEventListener('click', (e) => {
     })
   } else if (e.target.classList.contains('js-pay')) {
     confirm({
-      title: "释放比特币",
-      content: "确认释放比特币么？",
-      type: "noRem",
+      title: '释放比特币',
+      content: '确认释放比特币么？',
+      type: 'noRem',
       success() {
         ajax({
           url: `${BASE_URL}/api/order/transfer/${id}`,
@@ -110,11 +111,18 @@ $('.g-container-inner').addEventListener('click', (e) => {
         })
       }
     })
+  } else if (e.target.classList.contains('js-remind-money')) {
+    CHAT.getSend()('请您尽快付款')
+  } else if (e.target.classList.contains('js-remind-coin')) {
+    CHAT.getSend()('我已经付款，请确认后尽快释放货币')
+  } else if (e.target.classList.contains('js-wallet')) {
+    redirect('./wallet.html', '我的钱包')
   }
 }, false)
 
 function render(data) {
   let actionHtml = ''
+  let statusHtml = ''
   if (data.canCancel) {
     actionHtml += `
       <button class="js-cancel btn btn-danger">取消订单</button>
@@ -140,8 +148,19 @@ function render(data) {
       <button class="js-remind-coin btn btn-outline-primary">提醒对方打币</button>
     `
   }
+  if (data.canToWallet) {
+    actionHtml += `
+      <button class="js-wallet btn btn-outline-primary">进入我的钱包</button>
+    `
+  }
   const minutes = Math.floor((data.endTime - Date.now()) / (60 * 1000))
-  const showTips = minutes > 0 && data.orderStatus === 0
+  if (data.orderStatus == 0) {
+    statusHtml = `<div class="text-secondary tip fn-mb10">比特币将在托管中心保存<span class="text-success">${minutes}</span>分钟</div>`
+  }
+  let display = 'block'
+  if (!actionHtml && !statusHtml) {
+    display = 'none'
+  }
   return `
     <div class="line line-1 d-flex justify-content-between">
       <div class="text-dark">订单编号：${data.id || ''} </div>
@@ -159,8 +178,8 @@ function render(data) {
       </div>
       <div class="intro text-secondary">广告留言：${data.adsDescribe || ''}</div>
     </div>
-    <div class="line line-4 text-center ${actionHtml ? '' : 'd-none'}">
-      <div class="text-secondary tip  ${showTips ? '' : 'd-none'}">比特币将在托管中心保存<span class="text-success">${minutes}</span>分钟</div>
+    <div class="line line-3 text-center" style='display:${display}'>
+      ${statusHtml}
       ${actionHtml}
     </div>
   `
