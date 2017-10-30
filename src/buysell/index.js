@@ -104,6 +104,6 @@ const init = () => {
     submit()
   })
 }
-checkPassword(() => {
+// checkPassword(() => {
   init()
-})
+// })

@@ -1,3 +1,4 @@
+@import "color.less";
 html, body, div, span, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 abbr, address, cite, code,
@@ -99,7 +100,6 @@ input, select {
     vertical-align:middle;
 }
 //#007BFF
-@blueColor: rgb(222, 48, 29);
 .fn-right{
     float: right;
 }
@@ -146,14 +146,14 @@ input, select {
         text-align: center;
         font-size: 0.3rem;
         border: 0.02rem solid @blueColor;
-        &:nth-child(1){
-            border-top-left-radius: 0.2rem;
-            border-bottom-left-radius: 0.2rem;
-        }
-        &:nth-child(2){
-            border-top-right-radius: 0.2rem;
-            border-bottom-right-radius: 0.2rem;
-        }
+        // &:nth-child(1){
+        //     border-top-left-radius: 0.2rem;
+        //     border-bottom-left-radius: 0.2rem;
+        // }
+        // &:nth-child(2){
+        //     border-top-right-radius: 0.2rem;
+        //     border-bottom-right-radius: 0.2rem;
+        // }
         &.active{
             background-color: @blueColor;
             color: #fff;
@@ -181,9 +181,9 @@ input, select {
     .info{
         flex:1;        
         p{
-            color: #989DA0;
-            font-size: 0.2rem;
-            margin: 0.04rem 0;
+            color: @greyColor;
+            font-size: 0.25rem;
+            margin: 0.06rem 0;
         }
         .name{
             font-weight: bold;
@@ -192,21 +192,21 @@ input, select {
         }
         .type{
             margin-left: 0.1rem;
-            background: #04D166;
+            background: #FF8E1B;
             display: inline-block;
             font-size: 0.2rem;
             font-weight: normal;
             padding: 0.08rem;
             color: #fff;
             line-height: 0.8;
-            border-radius: 0.05rem;
-            vertical-align: top;
+            // border-radius: 0.05rem;
+            vertical-align: 2px;
         }
        
     }
     .action{
         .count{
-            color: #21A148;
+            color: @greyColor;
             font-size: 0.38rem;
         }
         .btn-buy{
@@ -214,7 +214,7 @@ input, select {
             border-color: @blueColor;
             display: inline-block;
             padding: 0.08rem 0.45rem;
-            border-radius: 0.3rem;
+            // border-radius: 0.3rem;
             color: #fff;
             margin-top: 0.30rem;
             float: right;
