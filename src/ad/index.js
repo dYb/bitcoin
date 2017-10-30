@@ -10,9 +10,9 @@ import {
 import pop from '../js/pop.js'
 import '../css/reset.less'
 import '../css/ad.less'
+document.body.style.height = document.documentElement.clientHeight + "px";
 
 let tradeType = 1
-
 let payTypeHtml = ''
 PAY_TYPE.forEach((_data, i) => {
   if (i == 0) return
@@ -38,12 +38,12 @@ const getSubData = () => {
 }
 const submit = () => {
   const subData = getSubData();  
-  // 校验
+  // 校验  
   if (!checkMoney(subData.price)) {
     pop.alert("请输入正确的金额");
-  } else if (!checkMoney(subData.minLimitPrice)) {
+  } else if (!(checkMoney(subData.minLimitPrice) && parseInt(subData.minLimitPrice, 10) >= 1)) {
     pop.alert("请输入正确的最小金额");
-  } else if (!checkMoney(subData.maxLimitPrice)) {
+  } else if (!(checkMoney(subData.maxLimitPrice) && parseInt(subData.maxLimitPrice, 10) < 100000)) {
     pop.alert("请输入正确的最大金额");
   } else if (parseInt(subData.minLimitPrice) > parseInt(subData.maxLimitPrice)) {
     pop.alert("最小金额大于最大金额，请重新输入");
