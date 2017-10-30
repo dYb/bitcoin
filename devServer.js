@@ -11,7 +11,7 @@ app.use(express.static('mocks', {
     res.set('Access-Control-Allow-Origin', '*')
   }
 }))
-app.use(express.static('asserts'))
+app.use('/js', express.static('asserts'))
 app.use(express.static('src'))
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
