@@ -31,7 +31,7 @@ $(".comfirm-wrapper").addEventListener("click", (e) => {
 })
 const popUp = (o) => {
 	OBJ = Object.assign(OBJ, o)
-	$(".comfirm-wrapper").className = "comfirm-wrapper active";
+	$(".comfirm-wrapper").className = "comfirm-wrapper active "+ OBJ.type;
 	$$(".comfirm-wrapper .header")[0].innerHTML = o.title;
 	$$(".comfirm-wrapper .content")[0].innerHTML = o.content;
 }
