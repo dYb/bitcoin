@@ -43,6 +43,7 @@ const Chat = (_container, _userIdA, _userIdB, _objParams) => {
   const onMsg = (messages) => {
     console.log('message')
     $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList(filterChat([messages])))
+    $(container).scrollTop = '1000000'
   }
   const onRoamingmsgs = (messages) => {
     // 漫游消息
@@ -147,6 +148,7 @@ function renderList(messages, type) {
     return ''
   }
   const html = messages.map((msg) => {
+    msg.content = msg.text;
     if (!msg.content) {
       return
     }
