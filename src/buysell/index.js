@@ -11,10 +11,12 @@ import {
   PAY_TYPE,
   checkPassword
 } from '../js/util'
-import Confirm from "../js/confirm.js"
-import Pop from '../js/pop.js'
+import Confirm from '../js/confirm'
+import Pop from '../js/pop'
 import '../css/reset.less'
 import '../css/detail.less'
+import './index.less'
+
 document.body.style.height = document.documentElement.clientHeight + "px";
 var urlData = localParam(),
   price = new Price({
@@ -50,7 +52,7 @@ const getDetail = (orderId) => {
             <p>限额：${_data.minLimitPrice} RMB ~ ${_data.maxLimitPrice} RMB</p>
           </div>
           <div class="action">
-            <p class="count">${_data.price} RMB</p>       
+            <p class="count">${_data.price} <i>RMB</i></p>       
           </div>
         </div>
         <div class="trade-info">
@@ -61,17 +63,18 @@ const getDetail = (orderId) => {
             </li>
             <li>
               <p>${_data.creditScore}</p>
-              <p>信任</p>
+              <p>信用</p>
             </li>
           </ul>
         </div>
         <div class="banner-text">
-          ${_data.adsDescribe}
+          ${_data.adsDescribe || ''}
         </div>`
     }
   })
 }
 const submit = () => {
+  if($('.error')) return
   $(".price").innerHTML = currentInfo.price;
   $(".price1").innerHTML = price.getCount();
   $(".num").innerHTML = price.getBtc();

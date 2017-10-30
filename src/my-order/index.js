@@ -3,11 +3,12 @@ import {
   ajax,
   localParam,
   PAY_TYPE,
-  BASE_URL
+  BASE_URL,
+  ORDER_STATUS
 } from '../js/util'
 import pop from '../js/pop'
 import chat from '../js/chat'
-import confirm from "../js/confirm.js"
+import confirm from "../js/confirm"
 import '../css/reset.css'
 import './index.less'
 
@@ -22,13 +23,13 @@ const getOrderDetail = () => {
         pop.alert(data.msg)
       } else {
         $('.g-container-inner').innerHTML = render(data.data)
-        initChat(data);
+        initChat(data)
       }
     }
   })
 }
-getOrderDetail();
-var initChatStatus = false;
+getOrderDetail()
+var initChatStatus = false
 const initChat = (data) => {
   if (initChatStatus) {
     return;
@@ -112,13 +113,6 @@ $('.g-container-inner').addEventListener('click', (e) => {
   }
 }, false)
 
-const ORDER_STATUS = [
-  '<span class="text-secondary">待付款</span>',
-  '<span class="text-info">已付款</span>',
-  '<span class="text-success">交易成功</span>',
-  '<span class="text-danger">已取消</span>'
-]
-
 function render(data) {
   let actionHtml = ''
   if (data.canCancel) {
@@ -161,7 +155,7 @@ function render(data) {
     <div class="line line-3">
       <div class="text-dark d-flex">
         <div>买家：${data.buyUserName || ''} <span class="badge badge-succes">${PAY_TYPE[data.payType]}</span></div>
-        <div>卖家：${data.sellUserName || ''} </div>
+        <div style="text-align: right;">卖家：${data.sellUserName || ''} </div>
       </div>
       <div class="intro text-secondary">广告留言：${data.adsDescribe || ''}</div>
     </div>

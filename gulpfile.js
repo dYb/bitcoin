@@ -42,7 +42,7 @@ gulp.task('img', ['clean'], () => {
 })
 
 gulp.task('asserts-js', ['clean'], () => {
-  return gulp.src('src/js/*.*')
+  return gulp.src('asserts/*.*')
     .pipe(gulp.dest('dist/js'))
 })
 
@@ -64,10 +64,10 @@ gulp.task('build', ['assets', 'img', 'asserts-js'], () => {
       }
     }
     if (style) {
-      replacement[`${key}Style`] = `/css/${style}.css`
+      replacement[`${key}Style`] = `/${style}`
     }
     if (script) {
-      replacement[`${key}Script`] = `/js/${script}.js`
+      replacement[`${key}Script`] = `/${script}`
     }
   }
   /* eslint-enable */

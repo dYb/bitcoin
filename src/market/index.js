@@ -3,7 +3,6 @@ import {
   ajax,
   $,
   $$,
-  timer,
   BASE_URL,
   redirect,
   PAY_TYPE,
@@ -36,11 +35,11 @@ const getList = (adsType) => {
               </div>-->
               <div class="info">
                 <p><span class="name">${_data.userName}</span><span class="type">${PAY_TYPE[_data.payType]}</span></p>
-                <p>交易${_data.tradeCount} | 信用${_data.creditScore}</p>
-                <p>限额：${_data.minLimitPrice} RMB ~ ${_data.maxLimitPrice} RMB</p>
+                <p>交易 ${_data.tradeCount} | 信用 ${_data.creditScore}</p>
+                <p>限额：${_data.minLimitPrice} ~ ${_data.maxLimitPrice} RMB</p>
               </div>
               <div class="action">
-                <p class="count">${_data.price} RMB</p>
+                <p class="count">${_data.price} <i>RMB</i></p>
                 <p><a href="javascript:;" data-id="${_data.id}" class="btn-buy">${text}</a></p>
               </div>`;
         frag.appendChild(div);

@@ -1,18 +1,31 @@
-import { ajax, BASE_URL, redirect, $, getUserInfo } from '../js/util'
+import { ajax, BASE_URL, redirect, $, getUserInfo, getToken } from '../js/util'
 import pop from '../js/pop'
 import '../css/reset.css'
 import './index.less'
 
-const { phone, token } = getUserInfo()
-
+const { phone } = getUserInfo()
+const token = getToken()
 if (!token) {
-  redirect('./login.html', '登录')
+  $('.phone').textContent = '登录'
+  $('.g-password').style.display = 'none'
+} else {
+  $('.phone').textContent = phone
 }
-$('.phone').textContent = phone
+$('.g-info').addEventListener('click', () => {
+  if (!token) {
+    redirect('./login.html', '登录')
+  }
+}, false)
+// if (!token) {
+//   redirect('./login.html', '登录')
+// }
 
 
 $('.g-container').addEventListener('click', (e) => {
   if (!e.target.dataset.href) return
+  if (!token) {
+    redirect('./login.html', '登录')
+  }
   redirect(e.target.dataset.href, e.target.textContent)
 }, false)
 

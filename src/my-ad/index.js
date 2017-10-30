@@ -39,26 +39,20 @@ $('.g-container').addEventListener('click', (e) => {
 
 function render(data) {
   return `
-    <div class="line line-1">
-      <span>
-        <span class="text-dark">${data.userName || ''}</span>
-        <span class="badge badge-success">${PAY_TYPE[data.payType]}</span>
-      </span>
-      
-      <span class="text-success">${data.price || 0} RMB</span>
-    </div>
-    <div class="line line-2">
-      <span>交易 ${data.tradeCount}</span>
-      <span>信用 ${data.creditScore}</span>
-    </div>
-    <div class="line line-2">
-      金额：<span>${data.minLimitPrice || ''} - ${data.maxLimitPrice || ''} RMB</span>
-    </div>
-    <div class="line line-3">
-      上架状态：${data.adsStatus === 1 ? '<span class="badge badge-success">已上架</span>' : '<span class="badge badge-danger">已下架</span>'} </div>
+    <div class="item" data-id="45">
+      <div class="line-1 d-flex justify-content-between">
+        <span class="text-dark name">
+          ${data.userName || ''}
+          <span class="badge badge-success">${PAY_TYPE[data.payType]}</span>
+        </span>  
+        <span class="amount">${data.price || 0} <i class="text-secondary">RMB</i></span>
+      </div>
+      <div class="line-2 text-secondary">交易  ${data.tradeCount}   |  信任  ${data.creditScore}</div>
+      <div class="line-3 text-secondary">限额：${data.minLimitPrice || 1} - ${data.maxLimitPrice || '1'} RMB</div>
     </div>
     <div class="line line-4">${data.adsDescribe || ''}</div>
-    <div class="line line-5">
+    <div class="line-5">
+      ${data.adsStatus === 1 ? '<span class="badge badge-success">已上架</span>' : '<span class="badge badge-danger">已下架</span>'}
       ${data.adsStatus === 1 ? '<button data-code="offline" type="button" class="js-btn btn btn-outline-danger">下架</button>' : '<button data-code="online" type="button" class="js-btn btn btn-outline-success">上架</button>'}
     </div>
   `

@@ -76,7 +76,7 @@ function renderList(list) {
       return `
         <div class="item" data-id="${item.id}">
           <div class="line-1">
-            <span>
+            <span class="name">
               ${item.listShowName}
               <span class="badge badge-success">${ORDER_TYPE[item.orderType]}</span>
             </span>

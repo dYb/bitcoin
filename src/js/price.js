@@ -1,7 +1,3 @@
-import {
-  ajax,
-  BASE_URL
-} from './util.js'
 import '../css/price.less'
 
 export default function price(o) {
@@ -24,11 +20,11 @@ price.prototype = {
 			<div class="price-module-wrapper">
         <div>
           <div class="RMB">
-            RMB  <input type="text" class="RMB-input" value=""/>
+            RMB  <input type="text" placeholder="请输入金额" class="RMB-input" value=""/>
           </div>
-          <span><---></span>
+          <span><-></span>
           <div class="btc">
-            BTC  <input type="text" class="btc-input" value=""/>
+            BTC  <input type="text" placeholder="请输入比特币数量" class="btc-input" value=""/>
           </div>
         </div>				
 			</div>
