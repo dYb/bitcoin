@@ -47,10 +47,10 @@ const getDetail = (orderId) => {
           </div>-->
           <div class="info">
             <p><span class="name">${_data.userName}</span><span class="type">${PAY_TYPE[_data.payType]}</span></p>        
-            <p>限额：${_data.minLimitPrice} CNY ~ ${_data.maxLimitPrice} CNY</p>
+            <p>限额：${_data.minLimitPrice} ~ ${_data.maxLimitPrice} RMB</p>
           </div>
           <div class="action">
-            <p class="count">${_data.price} CNY</p>       
+            <p class="count">${_data.price} RMB</p>       
           </div>
         </div>
         <div class="trade-info">
@@ -104,6 +104,6 @@ const init = () => {
     submit()
   })
 }
-checkPassword(() => {
+// checkPassword(() => {
   init()
-})
+// })
