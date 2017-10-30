@@ -15,7 +15,7 @@ import Confirm from "../js/confirm.js"
 import Pop from '../js/pop.js'
 import '../css/reset.less'
 import '../css/detail.less'
-
+document.body.style.height = document.documentElement.clientHeight + "px";
 var urlData = localParam(),
   price = new Price({
     $wrapper: $('.module-price')
@@ -104,6 +104,6 @@ const init = () => {
     submit()
   })
 }
-// checkPassword(() => {
+checkPassword(() => {
   init()
-// })
+})
