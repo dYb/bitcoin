@@ -118,11 +118,12 @@ function init({
     oncustomsysmsg: onCustomSysMsg,
     ondisconnect(error) {
       console.log(error)
-      if (initnum < 4) {
-        Chat(container, userIdA, userIdB, objParams)
-      }else{
-        pop.error('聊天已断开')
-      }
+      pop.error('聊天已断开')
+      // if (initnum < 4) {
+      //   Chat(container, userIdA, userIdB, objParams)
+      // }else{
+      //   pop.error('聊天已断开')
+      // }
     }
   })
 }

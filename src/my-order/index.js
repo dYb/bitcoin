@@ -4,7 +4,8 @@ import {
   localParam,
   PAY_TYPE,
   BASE_URL,
-  ORDER_STATUS
+  ORDER_STATUS,
+  redirect
 } from '../js/util'
 import pop from '../js/pop'
 import chat from '../js/chat'
@@ -59,9 +60,7 @@ $('.g-container-inner').addEventListener('click', (e) => {
           success(ajaxData) {
             if (ajaxData.code === 0) {
               pop.alert('取消订单成功')
-              setTimeout(() => {
-                window.location.reload()
-              }, 1000)
+              getOrderDetail()
             } else {
               pop.alert(ajaxData.msg)
             }
@@ -80,9 +79,7 @@ $('.g-container-inner').addEventListener('click', (e) => {
           success(ajaxData) {
             if (ajaxData.code === 0) {
               pop.alert('标记付款成功')
-              setTimeout(() => {
-                window.location.reload()
-              }, 1000)
+              getOrderDetail()
             } else {
               pop.alert(ajaxData.msg)
             }
@@ -101,9 +98,7 @@ $('.g-container-inner').addEventListener('click', (e) => {
           success(ajaxData) {
             if (ajaxData.code === 0) {
               pop.alert('释放比特币成功')
-              setTimeout(() => {
-                window.location.reload()
-              }, 1000)
+              getOrderDetail()
             } else {
               pop.alert(ajaxData.msg)
             }
