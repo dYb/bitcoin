@@ -147,6 +147,7 @@ function render(data) {
     `
   }
   const minutes = Math.floor((data.endTime - Date.now()) / (60 * 1000))
+  const showTips = minutes > 0 && data.orderStatus === 0
   return `
     <div class="line line-1 d-flex justify-content-between">
       <div class="text-dark">订单编号：${data.id || ''} </div>
@@ -164,8 +165,8 @@ function render(data) {
       </div>
       <div class="intro text-secondary">广告留言：${data.adsDescribe || ''}</div>
     </div>
-    <div class="line line-4 text-center ${minutes > 0 ? '' : 'd-none'}">
-      <div class="text-secondary tip">比特币将在托管中心保存<span class="text-success">${minutes}</span>分钟</div>
+    <div class="line line-4 text-center ${actionHtml ? '' : 'd-none'}">
+      <div class="text-secondary tip  ${showTips ? '' : 'd-none'}">比特币将在托管中心保存<span class="text-success">${minutes}</span>分钟</div>
       ${actionHtml}
     </div>
   `

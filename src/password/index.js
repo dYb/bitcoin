@@ -103,7 +103,7 @@ if (!userInfo.hasFundPwd) {
     })
   }, false)
   const codeBtn = $('.js-code-btn')
-  const startTimer = timer(10, (time) => {
+  const startTimer = timer(60, (time) => {
     codeBtn.textContent = `${time}秒后重发`
   }, () => {
     codeBtn.disabled = false

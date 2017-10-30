@@ -83,7 +83,7 @@ function renderList(list) {
             <span class="amount text-success">${item.price} RMB</span>
           </div>
           <div class="line-2 text-secondary">交易  ${item.tradeCount || 0}   |  信任  ${item.creditScore || 0}</div>
-          <div class="line-3 text-secondary">限额：${item.minLimitPrice} - ${item.maxLimitPrice} CNY</div>
+          <div class="line-3 text-secondary">限额：${item.minLimitPrice} - ${item.maxLimitPrice} RMB</div>
         </div>
       `
     }).join('')
