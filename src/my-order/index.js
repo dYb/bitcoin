@@ -7,7 +7,7 @@ import {
 } from '../js/util'
 import pop from '../js/pop'
 import chat from '../js/chat'
-import confirm from "../js/confirm.js"
+import confirm from '../js/confirm.js'
 import '../css/reset.css'
 import './index.less'
 
@@ -22,19 +22,20 @@ const getOrderDetail = () => {
         pop.alert(data.msg)
       } else {
         $('.g-container-inner').innerHTML = render(data.data)
-        initChat(data);
+        initChat(data)
       }
     }
   })
 }
-getOrderDetail();
-var initChatStatus = false;
+getOrderDetail()
+let initChatStatus = false
+let CHAT = ''
 const initChat = (data) => {
   if (initChatStatus) {
-    return;
+    return
   }
-  initChatStatus = true;
-  chat('.js-chat', data.data.userId, data.data.adsUserId, {
+  initChatStatus = true
+  CHAT = chat('.js-chat', data.data.userId, data.data.adsUserId, {
     onOfflineCustomSysMsgs() {
       getOrderDetail()
     },
@@ -48,9 +49,9 @@ const initChat = (data) => {
 $('.g-container-inner').addEventListener('click', (e) => {
   if (e.target.classList.contains('js-cancel')) {
     confirm({
-      title: "取消订单",
-      content: "确认取消该订单么？",
-      type: "noRem",
+      title: '取消订单',
+      content: '确认取消该订单么？',
+      type: 'noRem',
       success() {
         ajax({
           url: `${BASE_URL}/api/order/cancel/${id}`,
@@ -69,9 +70,9 @@ $('.g-container-inner').addEventListener('click', (e) => {
     })
   } else if (e.target.classList.contains('js-confirm')) {
     confirm({
-      title: "标记付款",
-      content: "确认标记付款订单么？",
-      type: "noRem",
+      title: '标记付款',
+      content: '确认标记付款订单么？',
+      type: 'noRem',
       success() {
         ajax({
           url: `${BASE_URL}/api/order/markPay/${id}`,
@@ -90,9 +91,9 @@ $('.g-container-inner').addEventListener('click', (e) => {
     })
   } else if (e.target.classList.contains('js-pay')) {
     confirm({
-      title: "释放比特币",
-      content: "确认释放比特币么？",
-      type: "noRem",
+      title: '释放比特币',
+      content: '确认释放比特币么？',
+      type: 'noRem',
       success() {
         ajax({
           url: `${BASE_URL}/api/order/transfer/${id}`,
@@ -109,9 +110,14 @@ $('.g-container-inner').addEventListener('click', (e) => {
         })
       }
     })
+  } else if (e.target.classList.contains('js-remind-money')) {
+    CHAT.getSend()('请您尽快付款')
+  } else if (e.target.classList.contains('js-remind-coin')) {
+    CHAT.getSend()('我已经付款，请确认后尽快释放货币')
+  } else if (e.target.classList.contains('js-wallet')) {
+    redirect('./wallet.html', '我的钱包')
   }
 }, false)
-
 const ORDER_STATUS = [
   '<span class="text-secondary">待付款</span>',
   '<span class="text-info">已付款</span>',
@@ -121,6 +127,7 @@ const ORDER_STATUS = [
 
 function render(data) {
   let actionHtml = ''
+  let statusHtml = ''
   if (data.canCancel) {
     actionHtml += `
       <button class="js-cancel btn btn-danger">取消订单</button>
@@ -146,7 +153,19 @@ function render(data) {
       <button class="js-remind-coin btn btn-outline-primary">提醒对方打币</button>
     `
   }
+  if (data.canToWallet) {
+    actionHtml += `
+      <button class="js-wallet btn btn-outline-primary">进入我的钱包</button>
+    `
+  }
   const minutes = Math.floor((data.endTime - Date.now()) / (60 * 1000))
+  if (data.orderStatus == 0) {
+    statusHtml = `<div class="text-secondary tip fn-mb10">比特币将在托管中心保存<span class="text-success">${minutes}</span>分钟</div>`
+  }
+  let display = 'block'
+  if (!actionHtml && !statusHtml) {
+    display = 'none'
+  }
   return `
     <div class="line line-1 d-flex justify-content-between">
       <div class="text-dark">订单编号：${data.id || ''} </div>
@@ -159,13 +178,13 @@ function render(data) {
     </div>
     <div class="line line-3">
       <div class="text-dark d-flex">
-        <div>买家：${data.buyUserName || ''} <span class="badge badge-succes">${PAY_TYPE[data.payType]}</span></div>
-        <div>卖家：${data.sellUserName || ''} </div>
+        <div class="p-buy">买家：${data.buyUserName || ''} <span class="badge badge-succes">${PAY_TYPE[data.payType]}</span></div>
+        <div class="p-sell">卖家：${data.sellUserName || ''} </div>
       </div>
       <div class="intro text-secondary">广告留言：${data.adsDescribe || ''}</div>
     </div>
-    <div class="line line-4 text-center ${minutes > 0 ? '' : 'd-none'}">
-      <div class="text-secondary tip">比特币将在托管中心保存<span class="text-success">${minutes}</span>分钟</div>
+    <div class="line line-3 text-center" style='display:${display}'>
+      ${statusHtml}
       ${actionHtml}
     </div>
   `
