@@ -37,10 +37,10 @@ const getList = (adsType) => {
               <div class="info">
                 <p><span class="name">${_data.userName}</span><span class="type">${PAY_TYPE[_data.payType]}</span></p>
                 <p>交易${_data.tradeCount} | 信用${_data.creditScore}</p>
-                <p>限额：${_data.minLimitPrice} CNY ~ ${_data.maxLimitPrice} CNY</p>
+                <p>限额：${_data.minLimitPrice} RMB ~ ${_data.maxLimitPrice} RMB</p>
               </div>
               <div class="action">
-                <p class="count">${_data.price} CNY</p>
+                <p class="count">${_data.price} RMB</p>
                 <p><a href="javascript:;" data-id="${_data.id}" class="btn-buy">${text}</a></p>
               </div>`;
         frag.appendChild(div);
