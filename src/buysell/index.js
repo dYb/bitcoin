@@ -1,10 +1,9 @@
-import '../js/size.js'
-import Price from '../js/price.js'
+import '../js/size'
+import Price from '../js/price'
 import {
   ajax,
   $,
   $$,
-  timer,
   BASE_URL,
   redirect,
   localParam,
@@ -17,7 +16,7 @@ import '../css/reset.less'
 import '../css/detail.less'
 import './index.less'
 
-document.body.style.height = document.documentElement.clientHeight + "px";
+// document.body.style.height = document.documentElement.clientHeight + "px";
 var urlData = localParam(),
   price = new Price({
     $wrapper: $('.module-price')
@@ -74,7 +73,10 @@ const getDetail = (orderId) => {
   })
 }
 const submit = () => {
-  if($('.error')) return
+  if($('.w-wrapper .error')) {
+    Pop.error('请在限额内交易')
+    return
+  }
   $(".price").innerHTML = currentInfo.price;
   $(".price1").innerHTML = price.getCount();
   $(".num").innerHTML = price.getBtc();

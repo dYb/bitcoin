@@ -80,7 +80,7 @@ function renderList(list) {
               ${item.listShowName}
               <span class="badge badge-success">${ORDER_TYPE[item.orderType]}</span>
             </span>
-            <span>${ORDER_STATUS[item.orderStatus]}</span>
+            <span style="font-size: 16px">${ORDER_STATUS[item.orderStatus]}</span>
           </div>
           <div class="line-2">
             <span>交易金额：${item.orderMoney} RMB</span>

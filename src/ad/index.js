@@ -10,7 +10,7 @@ import {
 import pop from '../js/pop.js'
 import '../css/reset.less'
 import '../css/ad.less'
-document.body.style.height = document.documentElement.clientHeight + "px";
+// document.body.style.height = document.documentElement.clientHeight + "px";
 
 let tradeType = 1
 let payTypeHtml = ''

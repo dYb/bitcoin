@@ -70,7 +70,7 @@ function loadList(type, status, page = 1, pageSize = 15) {
 function renderList(list) {
   let html = ''
   if (!list.length) {
-    html = '暂无数据'
+    html = '<div style="text-align: center;">暂无数据</div>'
   } else {
     html = list.map((item) => {
       return `
