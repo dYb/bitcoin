@@ -6,34 +6,50 @@ import {
 import pop from './pop'
 
 import "../css/chat.less";
-var chatUser = ""
-export default (container, userId) => {
+var chatUser = "",
+  toUserId = "";
+var filterChat = (list) => {
+  chatUser
+  return list.filter((_data) => {
+    if (_data.from == chatUser.imAccount && _data.to == toUserId || _data.from == toUserId && _data.to == chatUser.imAccount) {
+      return true
+    } else {
+      return false;
+    }
+  })
+}
+export default (container, userIdA, userIdB, obj) => {
   const onConnect = () => {
     console.log('connect111')
     initDom(container)
   }
   const onOfflineMsgs = (messages) => {
     console.log('offline message')
-    $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList(messages))
+    $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList(filterChat(messages)))
   }
   const onMsg = (messages) => {
     console.log('message')
-    $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList(messages))
+    $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList(filterChat([messages])))
   }
   const onRoamingmsgs = (messages) => {
+    // 漫游消息
     console.log('roaming message')
-    $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList(messages.msgs))
+    $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList(filterChat(messages.msgs)))
   }
   const onOfflineCustomSysMsgs = (messages) => {
     // 收到离线自定义系统通知
-    $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList(messages.msgs, "system"))
+    $(container).querySelector('.js-list').insertAdjacentHTML('`beforeend', renderList(filterChat(messages), "system"))
+    obj.onOfflineCustomSysMsgs && obj.onOfflineCustomSysMsgs();
   }
   const onCustomSysMsg = (messages) => {
     //收到自定义系统通知
-    $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList(messages.msgs, "system"))
+    $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList(filterChat([messages]), "system"))
+    obj.onCustomSysMsg && obj.onCustomSysMsg();
   }
 
   getAccount((data) => {
+    // 判断什么是自己的id，什么是对手的id
+    toUserId = (data.imAccount == userIdA ? userIdB : userIdA);
     const nim = init(data, {
       onConnect,
       onOfflineMsgs,
@@ -42,7 +58,7 @@ export default (container, userId) => {
       onOfflineCustomSysMsgs,
       onCustomSysMsg
     })
-    bindEvent(nim, container, userId)
+    bindEvent(nim, container, toUserId)
   })
 }
 
@@ -80,8 +96,8 @@ function init({
     onofflinemsgs: onOfflineMsgs,
     onmsg: onMsg,
     onroamingmsgs: onRoamingmsgs,
-    onofflinecustomsysmsgs:onOfflineCustomSysMsgs,
-    onofflinecustomsysmsgs:onCustomSysMsg,
+    onofflinecustomsysmsgs: onOfflineCustomSysMsgs,
+    oncustomsysmsg: onCustomSysMsg,
     ondisconnect(error) {
       console.log(error)
       pop.error('聊天已断开')
@@ -112,17 +128,20 @@ function renderList(messages, type) {
     return "";
   }
   const html = messages.map((msg) => {
+    if(!msg.content){
+      return;
+    }
     var _msg = "";
-    if (!type) {
-      _msg = _msg.content.replace(/javascript/i, '')
-      if (chatUser.imAccount === msg.from) {
+    if (type !== "system") {
+      _msg = msg.content ? msg.content.replace(/javascript/i, '') : "";
+      if (chatUser.imAccount == msg.from) {
         type = "self"
       } else {
         type = "other"
       }
-    } else {
+    } else if (type == "system") {
       type = "system";
-      _msg = JSON.parse(_msg.content).msg;
+      _msg = eval('('+msg.content+')').msg;
     }
 
     // var t = Math.random() * 10;
@@ -155,7 +174,8 @@ function bindEvent(nim, container, userId) {
       to: userId,
       content,
       done() {
-        $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList([msg], parseInt(Math.random() * 10) < 5 ? true : false))
+        $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList([msg]))
+        $(container).querySelector('.js-input').value = "";
       }
     })
   }, false)

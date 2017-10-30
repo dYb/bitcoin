@@ -7,67 +7,106 @@ import {
 } from '../js/util'
 import pop from '../js/pop'
 import chat from '../js/chat'
+import confirm from "../js/confirm.js"
 import '../css/reset.css'
 import './index.less'
 
 const {
   id
 } = localParam().search
-ajax({
-  url: `${BASE_URL}/api/order/info/${id}`,
-  success(data) {
-    if (data.code !== 0) {
-      pop.alert(data.msg)
-    } else {
-      $('.g-container-inner').innerHTML = render(data.data)
-      setTimeout(() => {
-        chat('.js-chat', data.data.adsUserId)
-      }, 0)
+const getOrderDetail = () => {
+  ajax({
+    url: `${BASE_URL}/api/order/info/${id}`,
+    success(data) {
+      if (data.code !== 0) {
+        pop.alert(data.msg)
+      } else {
+        $('.g-container-inner').innerHTML = render(data.data)
+        initChat(data);
+      }
     }
+  })
+}
+getOrderDetail();
+var initChatStatus = false;
+const initChat = (data) => {
+  if (initChatStatus) {
+    return;
   }
-})
+  initChatStatus = true;
+  chat('.js-chat', data.data.userId, data.data.adsUserId, {
+    onOfflineCustomSysMsgs() {
+      getOrderDetail()
+    },
+    onCustomSysMsg() {
+      getOrderDetail()
+    }
+  })
+}
+
 
 $('.g-container-inner').addEventListener('click', (e) => {
   if (e.target.classList.contains('js-cancel')) {
-    ajax({
-      url: `${BASE_URL}/api/order/cancel/${id}`,
-      success(ajaxData) {
-        if (ajaxData.code === 0) {
-          pop.alert('取消订单成功')
-          setTimeout(() => {
-            window.location.reload()
-          }, 1000)
-        } else {
-          pop.alert(ajaxData.msg)
-        }
+    confirm({
+      title: "取消订单",
+      content: "确认取消该订单么？",
+      type: "noRem",
+      success() {
+        ajax({
+          url: `${BASE_URL}/api/order/cancel/${id}`,
+          success(ajaxData) {
+            if (ajaxData.code === 0) {
+              pop.alert('取消订单成功')
+              setTimeout(() => {
+                window.location.reload()
+              }, 1000)
+            } else {
+              pop.alert(ajaxData.msg)
+            }
+          }
+        })
       }
     })
   } else if (e.target.classList.contains('js-confirm')) {
-    ajax({
-      url: `${BASE_URL}/api/order/markPay/${id}`,
-      success(ajaxData) {
-        if (ajaxData.code === 0) {
-          pop.alert('标记付款成功')
-          setTimeout(() => {
-            window.location.reload()
-          }, 1000)
-        } else {
-          pop.alert(ajaxData.msg)
-        }
+    confirm({
+      title: "标记付款",
+      content: "确认标记付款订单么？",
+      type: "noRem",
+      success() {
+        ajax({
+          url: `${BASE_URL}/api/order/markPay/${id}`,
+          success(ajaxData) {
+            if (ajaxData.code === 0) {
+              pop.alert('标记付款成功')
+              setTimeout(() => {
+                window.location.reload()
+              }, 1000)
+            } else {
+              pop.alert(ajaxData.msg)
+            }
+          }
+        })
       }
     })
   } else if (e.target.classList.contains('js-pay')) {
-    ajax({
-      url: `${BASE_URL}/api/order/transfer/${id}`,
-      success(ajaxData) {
-        if (ajaxData.code === 0) {
-          pop.alert('释放比特币成功')
-          setTimeout(() => {
-            window.location.reload()
-          }, 1000)
-        } else {
-          pop.alert(ajaxData.msg)
-        }
+    confirm({
+      title: "释放比特币",
+      content: "确认释放比特币么？",
+      type: "noRem",
+      success() {
+        ajax({
+          url: `${BASE_URL}/api/order/transfer/${id}`,
+          success(ajaxData) {
+            if (ajaxData.code === 0) {
+              pop.alert('释放比特币成功')
+              setTimeout(() => {
+                window.location.reload()
+              }, 1000)
+            } else {
+              pop.alert(ajaxData.msg)
+            }
+          }
+        })
       }
     })
   }
@@ -129,6 +168,5 @@ function render(data) {
       <div class="text-secondary tip">比特币将在托管中心保存<span class="text-success">${minutes}</span>分钟</div>
       ${actionHtml}
     </div>
-    <div class="js-chat"></div>
   `
 }
