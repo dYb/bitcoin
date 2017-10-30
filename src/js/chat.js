@@ -148,13 +148,13 @@ function renderList(messages, type) {
     return ''
   }
   const html = messages.map((msg) => {
-    msg.content = msg.text;
-    if (!msg.content) {
-      return
-    }
+    const content = msg.text || msg.content;
     let _msg = ''
+    if (!content) {
+      return ''
+    }
     if (type !== 'system') {
-      _msg = msg.content ? msg.content.replace(/javascript/i, '') : ''
+      _msg = content ? content.replace(/javascript/i, '') : ''
       if (chatUser.imAccount == msg.from) {
         type = 'self'
       } else {
@@ -162,7 +162,7 @@ function renderList(messages, type) {
       }
     } else if (type == 'system') {
       type = 'system'
-      _msg = eval(`(${msg.content})`).msg
+      _msg = eval(`(${content})`).msg
     }
 
     // var t = Math.random() * 10;
