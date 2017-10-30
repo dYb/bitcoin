@@ -85,7 +85,7 @@ function initDom(container) {
     <div class="js-list"></div>
     <div class="form form-inline">
       <div style="flex:1;">
-        <input type="text" class="js-input form-control" style="margin-bottom: 0" />
+        <input type="text" placeholder="请输入聊天内容" class="js-input form-control" style="margin-bottom: 0" />
       </div>
       <button class="js-btn btn btn-primary col-2">发送</button>
     </div>

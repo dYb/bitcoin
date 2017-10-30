@@ -10,6 +10,13 @@
   border-color: @primary;
   background-color: @primary;
   color: #fff;
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(222,48,29,.5);
+  }
+  &:active, &:hover {
+    background-color: @primary;
+    border-color: @primary;
+  }
 }
 .btn-primary.disabled, .btn-primary:disabled {
   background-color: @primary;
