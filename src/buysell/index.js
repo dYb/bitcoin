@@ -47,7 +47,7 @@ const getDetail = (orderId) => {
           </div>-->
           <div class="info">
             <p><span class="name">${_data.userName}</span><span class="type">${PAY_TYPE[_data.payType]}</span></p>        
-            <p>限额：${_data.minLimitPrice} ~ ${_data.maxLimitPrice} RMB</p>
+            <p>限额：${_data.minLimitPrice} RMB ~ ${_data.maxLimitPrice} RMB</p>
           </div>
           <div class="action">
             <p class="count">${_data.price} RMB</p>       
