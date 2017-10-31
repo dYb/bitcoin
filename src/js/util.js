@@ -1,6 +1,7 @@
 // export const BASE_URL = 'http://116.206.176.112'
 export const BASE_URL = (() => {
-  if (window.location.host.indexOf('localhost') > 0) {
+  if (window.location.host.indexOf('localhost') >= 0) {
+    // return 'http://47.95.234.100:8081'
     return 'http://116.206.176.112'
   }
   return ''
