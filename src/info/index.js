@@ -25,8 +25,9 @@ $('.g-container').addEventListener('click', (e) => {
   if (!e.target.dataset.href) return
   if (!token) {
     redirect('./login.html', '登录')
+  } else {
+    redirect(e.target.dataset.href, e.target.textContent)
   }
-  redirect(e.target.dataset.href, e.target.textContent)
 }, false)
 
 $('.js-logout').addEventListener('click', () => {
