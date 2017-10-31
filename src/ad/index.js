@@ -1,13 +1,14 @@
-import '../js/size.js'
+import '../js/size'
 import {
   ajax,
   $,
   $$,
   BASE_URL,
   PAY_TYPE,
-  redirect
-} from '../js/util.js'
-import pop from '../js/pop.js'
+  openTab,
+  checkPassword
+} from '../js/util'
+import pop from '../js/pop'
 import '../css/reset.less'
 import '../css/ad.less'
 // document.body.style.height = document.documentElement.clientHeight + "px";
@@ -57,8 +58,9 @@ const submit = () => {
       success(ajaxData) {
         if (ajaxData.code === 0) {
           pop.success('发布成功')
+          $('form').reset()
           setTimeout(() => {
-            redirect('./market.html', '列表')
+            openTab(1)
           }, 1000)
         } else {
           pop.alert(ajaxData.msg)
@@ -89,5 +91,8 @@ $('.tab').addEventListener('click', (e) => {
   }
 })
 $('.btn-publish').addEventListener('click', (e) => {
-  submit()
+  checkPassword(() => {
+    submit()
+  })
+
 })

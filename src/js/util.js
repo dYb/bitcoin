@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://47.95.234.100:8081'
+export const BASE_URL = 'http://116.206.176.112'
 
 const isApp = (/bitcoin/i).test(navigator.userAgent)
 
