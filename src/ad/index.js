@@ -13,6 +13,8 @@ import '../css/reset.less'
 import '../css/ad.less'
 // document.body.style.height = document.documentElement.clientHeight + "px";
 
+checkPassword()
+
 let tradeType = 1
 let payTypeHtml = ''
 PAY_TYPE.forEach((_data, i) => {
@@ -91,8 +93,5 @@ $('.tab').addEventListener('click', (e) => {
   }
 })
 $('.btn-publish').addEventListener('click', (e) => {
-  checkPassword(() => {
-    submit()
-  })
-
+  submit()
 })

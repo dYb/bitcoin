@@ -1,4 +1,10 @@
-export const BASE_URL = 'http://116.206.176.112'
+// export const BASE_URL = 'http://116.206.176.112'
+export const BASE_URL = (() => {
+  if (window.location.host.indexOf('localhost') > 0) {
+    return 'http://116.206.176.112'
+  }
+  return ''
+})()
 
 const isApp = (/bitcoin/i).test(navigator.userAgent)
 
