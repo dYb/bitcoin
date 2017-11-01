@@ -13,7 +13,7 @@ import '../css/reset.less'
 import '../css/ad.less'
 // document.body.style.height = document.documentElement.clientHeight + "px";
 
-checkPassword()
+// checkPassword()
 
 let tradeType = 1
 let payTypeHtml = ''
@@ -63,7 +63,7 @@ const submit = () => {
           $('form').reset()
           setTimeout(() => {
             openTab(1)
-          }, 1000)
+          }, 300)
         } else {
           pop.alert(ajaxData.msg)
         }
