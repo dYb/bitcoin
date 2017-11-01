@@ -43,11 +43,11 @@ const submit = () => {
   const subData = getSubData();  
   // 校验  
   if (!checkMoney(subData.price)) {
-    pop.error('未输入比特币价格');
+    pop.error('请正确输入比特币价格');
   } else if (!(checkMoney(subData.minLimitPrice) && parseInt(subData.minLimitPrice, 10) >= 1)) {
-    pop.error('未输入最小交易金额');
-  } else if (!(checkMoney(subData.maxLimitPrice) && parseInt(subData.maxLimitPrice, 10) < 100000)) {
-    pop.error('未输入最大交易金额');
+    pop.error('请正确输入最小交易金额');
+  } else if (!(checkMoney(subData.maxLimitPrice) && parseInt(subData.maxLimitPrice, 10) <= 1000000)) {
+    pop.error('请正确输入最大交易金额');
   } else if (parseInt(subData.minLimitPrice) > parseInt(subData.maxLimitPrice)) {
     pop.error("最小金额大于最大金额，请重新输入");
   } else {
