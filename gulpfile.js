@@ -9,6 +9,7 @@ const htmlreplace = require('gulp-html-replace')
 const webpackStream = require('webpack-stream')
 
 const webpackConfig = require('./webpack.config.prod')
+
 let webpackStats = null
 
 gulp.task('clean', (cb) => {
@@ -40,7 +41,12 @@ gulp.task('img', ['clean'], () => {
     .pipe(gulp.dest('dist/imgs'))
 })
 
-gulp.task('build', ['assets', 'img'], () => {
+gulp.task('asserts-js', ['clean'], () => {
+  return gulp.src('asserts/*.*')
+    .pipe(gulp.dest('dist/js'))
+})
+
+gulp.task('build', ['assets', 'img', 'asserts-js'], () => {
   const assetsNames = webpackStats.assetsByChunkName
   /* eslint-disable */
   let replacement = {}
@@ -58,16 +64,10 @@ gulp.task('build', ['assets', 'img'], () => {
       }
     }
     if (style) {
-      replacement[`${key}Style`] = {
-        src: gulp.src(`dist/${style}`),
-        tpl: '<style>%s</style>'
-      }
+      replacement[`${key}Style`] = `/${style}`
     }
     if (script) {
-      replacement[`${key}Script`] = {
-        src: gulp.src(`dist/${script}`),
-        tpl: '<script>%s</script>'
-      }
+      replacement[`${key}Script`] = `/${script}`
     }
   }
   /* eslint-enable */

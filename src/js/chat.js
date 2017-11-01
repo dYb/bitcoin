@@ -5,31 +5,33 @@ import {
 } from './util'
 import pop from './pop'
 
-import "../css/chat.less";
-var chatUser = "",
-  toUserId = "";
-var filterChat = (list) => {
-  chatUser
+import '../css/chat.less'
+
+let chatUser = ''
+let toUserId = ''
+let SendMSG = () => {}
+let nim = ''
+
+let container = ''
+let userIdA = ''
+let userIdB = ''
+let objParams = ''
+let initnum = 0
+const filterChat = (list) => {
   return list.filter((_data) => {
     if (_data.from == chatUser.imAccount && _data.to == toUserId || _data.from == toUserId && _data.to == chatUser.imAccount) {
       return true
-    } else {
-      return false;
     }
+    return false
   })
 }
-var getRoamMessage = () => {
-  ajax({
-    url: `${BASE_URL}/api/im/my/historyMsg`,
-    data: {
-      otherUserId: toUserId
-    },
-    success(ajaxData){
-      debugger;
-    }
-  })
-}
-export default (container, userIdA, userIdB, obj) => {
+
+const Chat = (_container, _userIdA, _userIdB, _objParams) => {
+  initnum += 1
+  container = _container
+  userIdA = _userIdA
+  userIdB = _userIdB
+  objParams = _objParams
   const onConnect = () => {
     console.log('connect111')
     initDom(container)
@@ -41,6 +43,7 @@ export default (container, userIdA, userIdB, obj) => {
   const onMsg = (messages) => {
     console.log('message')
     $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList(filterChat([messages])))
+    $(container).scrollTop = '1000000'
   }
   const onRoamingmsgs = (messages) => {
     // 漫游消息
@@ -49,19 +52,18 @@ export default (container, userIdA, userIdB, obj) => {
   }
   const onOfflineCustomSysMsgs = (messages) => {
     // 收到离线自定义系统通知
-    $(container).querySelector('.js-list').insertAdjacentHTML('`beforeend', renderList(filterChat(messages), "system"))
-    obj.onOfflineCustomSysMsgs && obj.onOfflineCustomSysMsgs();
+    $(container).querySelector('.js-list').insertAdjacentHTML('`beforeend', renderList(filterChat(messages), 'system'))
+    objParams.onOfflineCustomSysMsgs && objParams.onOfflineCustomSysMsgs()
   }
   const onCustomSysMsg = (messages) => {
-    //收到自定义系统通知
-    $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList(filterChat([messages]), "system"))
-    obj.onCustomSysMsg && obj.onCustomSysMsg();
+    // 收到自定义系统通知
+    $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList(filterChat([messages]), 'system'))
+    objParams.onCustomSysMsg && objParams.onCustomSysMsg()
   }
-
   getAccount((data) => {
     // 判断什么是自己的id，什么是对手的id
-    toUserId = (data.imAccount == userIdA ? userIdB : userIdA);
-    const nim = init(data, {
+    toUserId = (data.imAccount == userIdA ? userIdB : userIdA)
+    nim = init(data, {
       onConnect,
       onOfflineMsgs,
       onMsg,
@@ -70,16 +72,21 @@ export default (container, userIdA, userIdB, obj) => {
       onCustomSysMsg
     })
     bindEvent(nim, container, toUserId)
-    getRoamMessage();
+    SendMSG = sendMSG(nim, container, toUserId)
   })
+  return {
+    getSend() {
+      return SendMSG
+    }
+  }
 }
 
 function initDom(container) {
   $(container).innerHTML = `
     <div class="js-list"></div>
     <div class="form form-inline">
-      <div class="col-10">
-        <input type="text" class="js-input form-control" style="margin-bottom: 0" />
+      <div style="flex:1;">
+        <input type="text" placeholder="请输入聊天内容" class="js-input form-control" style="margin-bottom: 0" />
       </div>
       <button class="js-btn btn btn-primary col-2">发送</button>
     </div>
@@ -91,11 +98,11 @@ function init({
   imAccount
 }, {
   onConnect,
-    onOfflineMsgs,
-    onMsg,
-    onRoamingmsgs,
-    onOfflineCustomSysMsgs,
-    onCustomSysMsg
+  onOfflineMsgs,
+  onMsg,
+  onRoamingmsgs,
+  onOfflineCustomSysMsgs,
+  onCustomSysMsg
 }) {
   return window.NIM.getInstance({
     appKey: '10ad68063cd5b7e02e060337e971cc16',
@@ -113,6 +120,11 @@ function init({
     ondisconnect(error) {
       console.log(error)
       pop.error('聊天已断开')
+      // if (initnum < 4) {
+      //   Chat(container, userIdA, userIdB, objParams)
+      // }else{
+      //   pop.error('聊天已断开')
+      // }
     }
   })
 }
@@ -123,12 +135,8 @@ function getAccount(callback) {
     success(data) {
       if (data.code !== 0) {
         pop.error(data.msg)
-        // callback({
-        //   imToken: '10ad68063cd5b7e02e060337e971cc16',
-        //   imAccount: '6'
-        // })
       } else {
-        chatUser = data.data;
+        chatUser = data.data
         callback(data.data)
       }
     }
@@ -137,23 +145,24 @@ function getAccount(callback) {
 
 function renderList(messages, type) {
   if (!messages || messages.length == 0) {
-    return "";
+    return ''
   }
   const html = messages.map((msg) => {
-    if (!msg.content) {
-      return;
+    const content = msg.text || msg.content;
+    let _msg = ''
+    if (!content) {
+      return ''
     }
-    var _msg = "";
-    if (type !== "system") {
-      _msg = msg.content ? msg.content.replace(/javascript/i, '') : "";
+    if (type !== 'system') {
+      _msg = content ? content.replace(/javascript/i, '') : ''
       if (chatUser.imAccount == msg.from) {
-        type = "self"
+        type = 'self'
       } else {
-        type = "other"
+        type = 'other'
       }
-    } else if (type == "system") {
-      type = "system";
-      _msg = eval('(' + msg.content + ')').msg;
+    } else if (type == 'system') {
+      type = 'system'
+      _msg = eval(`(${content})`).msg
     }
 
     // var t = Math.random() * 10;
@@ -172,23 +181,31 @@ function renderList(messages, type) {
         </span>
       </div>
     `
-  }).join('');
+  }).join('')
   return html
 }
-
+function sendMSG(nim, container, userId) {
+  return function (content) {
+    nim.sendText({
+      scene: 'p2p',
+      to: userId,
+      text: content,
+      done(error, msg) {
+        msg.content = msg.text
+        $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList([msg]))
+        $(container).querySelector('.js-input').value = ''
+        $(container).scrollTop = '1000000'
+      }
+    })
+  }
+}
 function bindEvent(nim, container, userId) {
   $(container).addEventListener('click', (e) => {
     if (!e.target.classList.contains('js-btn')) return
     const content = $(container).querySelector('.js-input').value.trim()
     if (!content) return
-    const msg = nim.sendCustomMsg({
-      scene: 'p2p',
-      to: userId,
-      content,
-      done() {
-        $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList([msg]))
-        $(container).querySelector('.js-input').value = "";
-      }
-    })
+    SendMSG(content)
   }, false)
 }
+
+export default Chat

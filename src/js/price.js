@@ -1,13 +1,9 @@
-import {
-  ajax,
-  BASE_URL
-} from './util.js'
 import '../css/price.less'
 
 export default function price(o) {
   Object.assign(this, {
     _btcValue: '',
-    _cnyValue: '',
+    _RMBValue: '',
     _changeValue: 2,
     _min: 0,
     _max: 0
@@ -23,18 +19,18 @@ price.prototype = {
     const html = `
 			<div class="price-module-wrapper">
         <div>
-          <div class="cny">
-            CNY  <input type="text" class="cny-input" value=""/>
+          <div class="RMB">
+            RMB  <input type="text" placeholder="请输入金额" class="RMB-input" value=""/>
           </div>
-          <span><---></span>
+          <span><-></span>
           <div class="btc">
-            BTC  <input type="text" class="btc-input" value=""/>
+            BTC  <input type="text" placeholder="请输入比特币数量" class="btc-input" value=""/>
           </div>
         </div>				
 			</div>
 		`
     this.$wrapper.innerHTML = html
-    this.$cnyInput = this.$wrapper.getElementsByClassName('cny-input')[0]
+    this.$RMBInput = this.$wrapper.getElementsByClassName('RMB-input')[0]
     this.$btcInput = this.$wrapper.getElementsByClassName('btc-input')[0]
   },
   _timer: '',
@@ -53,10 +49,10 @@ price.prototype = {
     //   })
     // }, 100)
   },
-  _setCny(value) {
+  _setRMB(value) {
     const that = this
     that._ajaxGetScale((d) => {
-      that._cnyValue = value
+      that._RMBValue = value
       that._btcValue = (value / d).toFixed(8)
       that.$btcInput.value = that._btcValue
     })
@@ -65,11 +61,11 @@ price.prototype = {
     const that = this
     that._ajaxGetScale((d) => {
       that._btcValue = value
-      that._cnyValue = value * d
-      that.$cnyInput.value = parseInt(that._cnyValue);
+      that._RMBValue = value * d
+      that.$RMBInput.value = parseInt(that._RMBValue);
     })
   },
-  _checkCny(value) {
+  _checkRMB(value) {
     return /^[1-9]{1}\d*(\.\d{1,2})?$/.test(value);
   },
   _checkBtc(value) {
@@ -78,7 +74,7 @@ price.prototype = {
   _checkRange(value) {
     var className = "error",
       flag = "",
-      parentNode = this.$cnyInput.parentNode.parentNode;
+      parentNode = this.$RMBInput.parentNode.parentNode;
     if (value <= this._max && value >= this._min) {
       className = "";
       flag = true;
@@ -89,7 +85,7 @@ price.prototype = {
     return flag;
   },
   getCount() {
-    return this._cnyValue
+    return this._RMBValue
   },
   getBtc(){
     return this._btcValue
@@ -103,10 +99,10 @@ price.prototype = {
   },
   _eventBind() {
     const that = this
-    this.$cnyInput.addEventListener('keyup', (e) => {
+    this.$RMBInput.addEventListener('keyup', (e) => {
       const val = e.target.value;
-      if (that._checkCny(val)) {
-        that._setCny(val)
+      if (that._checkRMB(val)) {
+        that._setRMB(val)
       }
       //判断是否区间错误
       this._checkRange(val);
@@ -117,7 +113,7 @@ price.prototype = {
         that._setBtc(val)
       }
       //判断是否区间错误
-      this._checkRange(this._cnyValue);
+      this._checkRange(this._RMBValue);
     })
   }
 }

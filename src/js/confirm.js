@@ -25,9 +25,9 @@ $(".comfirm-wrapper").addEventListener("click", (e) => {
 	if (className.indexOf("btn-sure") !== -1) {
 		OBJ.success && OBJ.success();
 	} else if (className.indexOf("btn-cancel") !== -1) {
-		OBJ.cancel && OBJ.cancel();
-		$(".comfirm-wrapper").className = "comfirm-wrapper";
+		OBJ.cancel && OBJ.cancel();		
 	}
+	$(".comfirm-wrapper").className = "comfirm-wrapper";
 })
 const popUp = (o) => {
 	OBJ = Object.assign(OBJ, o)

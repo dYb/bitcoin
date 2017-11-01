@@ -151,7 +151,7 @@ export function openTab(index, url = '') {
   }
 }
 
-export const PAY_TYPE = ['', '支付宝', '银行转账']
+export const PAY_TYPE = ['', '支付宝', '银行转账', '微信支付']
 export const ORDER_STATUS = ['待付款', '已付款', '交易成功', '已取消']
 export const ORDER_TYPE = ['', '购买', '出售']
 

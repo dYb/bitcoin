@@ -1,21 +1,22 @@
-import '../js/size.js'
-import Price from '../js/price.js'
+import '../js/size'
+import Price from '../js/price'
 import {
   ajax,
   $,
   $$,
-  timer,
   BASE_URL,
   redirect,
   localParam,
   PAY_TYPE,
   checkPassword
 } from '../js/util'
-import Confirm from "../js/confirm.js"
-import Pop from '../js/pop.js'
+import Confirm from '../js/confirm'
+import Pop from '../js/pop'
 import '../css/reset.less'
 import '../css/detail.less'
+import './index.less'
 
+// document.body.style.height = document.documentElement.clientHeight + "px";
 var urlData = localParam(),
   price = new Price({
     $wrapper: $('.module-price')
@@ -47,10 +48,10 @@ const getDetail = (orderId) => {
           </div>-->
           <div class="info">
             <p><span class="name">${_data.userName}</span><span class="type">${PAY_TYPE[_data.payType]}</span></p>        
-            <p>限额：${_data.minLimitPrice} CNY ~ ${_data.maxLimitPrice} CNY</p>
+            <p>限额：${_data.minLimitPrice} RMB ~ ${_data.maxLimitPrice} RMB</p>
           </div>
           <div class="action">
-            <p class="count">${_data.price} CNY</p>       
+            <p class="count">${_data.price} <i>RMB</i></p>       
           </div>
         </div>
         <div class="trade-info">
@@ -61,17 +62,21 @@ const getDetail = (orderId) => {
             </li>
             <li>
               <p>${_data.creditScore}</p>
-              <p>信任</p>
+              <p>信用</p>
             </li>
           </ul>
         </div>
         <div class="banner-text">
-          ${_data.adsDescribe}
+          ${_data.adsDescribe || ''}
         </div>`
     }
   })
 }
 const submit = () => {
+  if($('.w-wrapper .error')) {
+    Pop.error('请在限额内交易')
+    return
+  }
   $(".price").innerHTML = currentInfo.price;
   $(".price1").innerHTML = price.getCount();
   $(".num").innerHTML = price.getBtc();

@@ -1,3 +1,4 @@
+@import "color.less";
 .comfirm-wrapper{
 	position: fixed;
 	width: 100%;
@@ -11,29 +12,42 @@
 	}
 	.confirm-inner{
 		background: #fff;
-		width: 5rem;
+		width: 5.2rem;
 		padding: 0.2rem;
 		border-radius: 0.2rem;
 		transform:translate(-50%,-50%);
 		position: absolute;
 		left: 50%;
 		top: 40%;
-		font-size: 0.3rem;
+		font-size: 0.28rem;
 	}	
 	.content{
 		min-height: 2rem;
 	}
 	.header{
-		font-size: 0.4rem;
+		font-size: 0.35rem;
 		margin-bottom: 0.2rem;
 		text-align: center;
 	}
 	.action{
-		margin-top: 0.1rem;
-		text-align: right;
+		margin-top: 0.2rem;
+		text-align: center;
 		a{
 			display: inline-block;
 			margin: 0 0.1rem;
+			border: 1px solid @primary;
+			padding: 5px 10px;
+			margin: 0 10px;
+			font-size: 14px;
+			line-height: 1;
+		}
+		a:first-child{
+			color: @primary;
+			border: 1px solid @primary;
+		}
+		a:last-child{
+			border: 1px solid #aaa;
+			color: #aaa
 		}
 	}
 	&.noRem{
@@ -43,8 +57,14 @@
     		padding: 16px;
 		}
 		.header{
-			font-size: 20px;
+			font-size: 18px;
 			margin-bottom: 10px;
+		}
+		.content{
+			font-size: 14px;
+		}
+		.action{
+			
 		}
 	}
 }

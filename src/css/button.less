@@ -3,10 +3,20 @@
   border-color: @primary;
   color: @primary;
 }
+.btn {
+  border-radius: 0;
+}
 .btn-primary {
   border-color: @primary;
   background-color: @primary;
   color: #fff;
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(222,48,29,.5);
+  }
+  &:active, &:hover {
+    background-color: @primary;
+    border-color: @primary;
+  }
 }
 .btn-primary.disabled, .btn-primary:disabled {
   background-color: @primary;
@@ -23,9 +33,25 @@
 .btn-outline-primary:focus {
   box-shadow: 0 0 0 3px rgba(222,48,29,.5);
 }
+.form-control {
+  border: 0;
+  border-bottom: 1px solid rgba(0,0,0,.15);
+  border-radius: 0;
+  background-color: @base;
+}
 .form-control:focus {
   border-color: rgba(222,48,29,.5);
+  background-color: @base;
 }
 .text-primary{
   color: @primary !important;
+}
+.text-success {
+  color: #FF8E1B;
+}
+.badge {
+  border-radius: 0;
+}
+.badge-success {
+  background-color: #FF8E1B;
 }

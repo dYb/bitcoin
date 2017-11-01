@@ -26,4 +26,9 @@ function render(data) {
   $('.usable span').innerHTML = `&#579;${data.balance.toFixed(8).slice(0, 13)}`
   $('.unusable span').innerHTML = `&#579;${data.freeze.toFixed(8)}`
   $('.js-addr').textContent = data.address
+  new window.QRCode($('.qrcode'), {
+    text: data.address,
+    width: 180,
+    height: 180
+  })
 }

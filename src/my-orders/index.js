@@ -76,14 +76,14 @@ function renderList(list) {
       return `
         <div class="item" data-id="${item.id}">
           <div class="line-1">
-            <span>
+            <span class="name">
               ${item.listShowName}
               <span class="badge badge-success">${ORDER_TYPE[item.orderType]}</span>
             </span>
-            <span>${ORDER_STATUS[item.orderStatus]}</span>
+            <span style="font-size: 16px">${ORDER_STATUS[item.orderStatus]}</span>
           </div>
           <div class="line-2">
-            <span>交易金额：${item.orderMoney} CNY</span>
+            <span>交易金额：${item.orderMoney} RMB</span>
             <span>订单编号：${item.id}</span>
           </div>
         </div>

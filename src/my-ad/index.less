@@ -1,13 +1,42 @@
+@import '../css/button.less';
 .g-container {
   padding: 0 12px;
 }
-.line {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #dbdbdb;
-  height: 80px;
-  &:last-of-type {
-    border-bottom: 0;
+.item {
+  padding: 16px 0 5px;
+}
+.line-1 {
+  font-size: 19px;
+  line-height: 20px;
+  margin: 3px 0;
+  i {
+    font-size: 13px;
+    font-style: normal;
+  }
+  .name {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+  }
+  .badge {
+    margin-left: 5px;
+    font-size: 12px;
+  }
+}
+.line-2 {
+  font-size: 13px;
+  line-height: 20px;
+  margin: 3px 0;
+}
+.line-3 {
+  font-size: 13px;
+  line-height: 20px;
+  margin: 3px 0;    
+}
+.line-5 {
+  line-height: 43px;
+  button {
+    float: right;
+    vertical-align: 1px;
   }
 }
