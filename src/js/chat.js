@@ -43,7 +43,7 @@ const getRoamMessages = () => {
         }
         _data.text = _data.message;
         return _data;
-      })
+      }).reverse();
       $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList(filterChat(_messages)))
     }
   })
