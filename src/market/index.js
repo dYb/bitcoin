@@ -75,16 +75,16 @@ const init = () => {
     }
   })
   $('.buycoin-list').addEventListener('click', (e) => {
-    if (e.target.className == 'btn-buy') {
+    if (e.target.classList.contains('btn-buy')) {
       checkPassword(() => {
-        const id = e.target.getAttribute('data-id')
+        const { id } = e.target.dataset
         redirect(`./buysell.html?type=${tradeType}&id=${id}`, '交易')
       })
     }
   })
-  $('.btn-more').addEventListener('click', (e) => {
-    currentPage++;
-    getList(tradeType);
+  $('.btn-more').addEventListener('click', () => {
+    currentPage++
+    getList(tradeType)
   })
 }
 init()

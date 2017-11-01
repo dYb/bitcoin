@@ -17,6 +17,7 @@ const startTimer = timer(60, (time) => {
   codeBtn.textContent = '发送验证码'
   codeBtn.classList.remove('text-secondary')
   codeBtn.classList.add('text-primary')
+  codeBtn.style.cssText = ''
 })
 codeBtn.addEventListener('click', () => {
   const phone = $('.js-phone').value
@@ -25,6 +26,7 @@ codeBtn.addEventListener('click', () => {
   codeBtn.classList.add('text-secondary')
   codeBtn.classList.remove('text-primary')
   startTimer()
+  codeBtn.style.cssText = 'pointer-events: none'
   ajax({
     url: `${BASE_URL}/api/user/send_code`,
     method: 'POST',

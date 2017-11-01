@@ -3,17 +3,24 @@ import pop from '../js/pop'
 import '../css/reset.css'
 import './index.less'
 
-const { phone } = getUserInfo()
-const token = getToken()
-if (!token) {
-  $('.phone').textContent = '登录'
-  $('.g-password').style.display = 'none'
-} else {
-  $('.phone').textContent = phone
+function renderPage(logout) {
+  const { phone } = getUserInfo()
+  const token = getToken()
+  if (!token || logout) {
+    $('.phone').textContent = '登录'
+    $('.g-password').style.display = 'none'
+  } else {
+    $('.phone').textContent = phone
+    $('.g-password').style.display = 'block'
+  }
 }
+renderPage()
 $('.g-info').addEventListener('click', () => {
+  const token = getToken()
   if (!token) {
     redirect('./login.html', '登录')
+  } else {
+    renderPage()
   }
 }, false)
 // if (!token) {
@@ -23,10 +30,12 @@ $('.g-info').addEventListener('click', () => {
 
 $('.g-container').addEventListener('click', (e) => {
   if (!e.target.dataset.href) return
+  const token = getToken()
   if (!token) {
     redirect('./login.html', '登录')
+  } else {
+    redirect(e.target.dataset.href, e.target.textContent)
   }
-  redirect(e.target.dataset.href, e.target.textContent)
 }, false)
 
 $('.js-logout').addEventListener('click', () => {
@@ -39,9 +48,7 @@ $('.js-logout').addEventListener('click', () => {
         pop.success('退出登录成功')
         localStorage.removeItem('userInfo')
         localStorage.removeItem('token')
-        setTimeout(() => {
-          redirect('./login.html', '登录')
-        }, 1000)
+        renderPage(true)
       }
     }
   })
