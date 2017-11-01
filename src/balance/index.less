@@ -1,0 +1,42 @@
+@import '../css/color.less';
+@import '../css/button.less';
+.g-container {
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 10px 12px;
+}
+ul, li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.btn {
+  width: 70%;
+  margin: 20px auto 0;
+}
+li {
+  display: flex;
+  height: 75px;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  border-bottom: 1px solid #EFEFEF;
+  &:last-of-type {
+    border: 0;
+  }
+  &.nodata {
+    padding-top: 10px;
+    justify-content: center;
+    color: #989da0;
+  }
+}
+.time {
+  font-size: 13px;
+  color: #989da0;
+}
+.positive {
+  color: #28a745;
+}
+.negative {
+  color: @primary;
+}
