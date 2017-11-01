@@ -18,6 +18,17 @@ var filterChat = (list) => {
     }
   })
 }
+var getRoamMessage = () => {
+  ajax({
+    url: `${BASE_URL}/api/im/my/historyMsg`,
+    data: {
+      otherUserId: toUserId
+    },
+    success(ajaxData){
+      debugger;
+    }
+  })
+}
 export default (container, userIdA, userIdB, obj) => {
   const onConnect = () => {
     console.log('connect111')
@@ -59,6 +70,7 @@ export default (container, userIdA, userIdB, obj) => {
       onCustomSysMsg
     })
     bindEvent(nim, container, toUserId)
+    getRoamMessage();
   })
 }
 
@@ -79,11 +91,11 @@ function init({
   imAccount
 }, {
   onConnect,
-  onOfflineMsgs,
-  onMsg,
-  onRoamingmsgs,
-  onOfflineCustomSysMsgs,
-  onCustomSysMsg
+    onOfflineMsgs,
+    onMsg,
+    onRoamingmsgs,
+    onOfflineCustomSysMsgs,
+    onCustomSysMsg
 }) {
   return window.NIM.getInstance({
     appKey: '10ad68063cd5b7e02e060337e971cc16',
@@ -111,12 +123,12 @@ function getAccount(callback) {
     success(data) {
       if (data.code !== 0) {
         pop.error(data.msg)
-          // callback({
-          //   imToken: '10ad68063cd5b7e02e060337e971cc16',
-          //   imAccount: '6'
-          // })
+        // callback({
+        //   imToken: '10ad68063cd5b7e02e060337e971cc16',
+        //   imAccount: '6'
+        // })
       } else {
-        chatUser = data.data
+        chatUser = data.data;
         callback(data.data)
       }
     }
@@ -128,7 +140,7 @@ function renderList(messages, type) {
     return "";
   }
   const html = messages.map((msg) => {
-    if(!msg.content){
+    if (!msg.content) {
       return;
     }
     var _msg = "";
@@ -141,7 +153,7 @@ function renderList(messages, type) {
       }
     } else if (type == "system") {
       type = "system";
-      _msg = eval('('+msg.content+')').msg;
+      _msg = eval('(' + msg.content + ')').msg;
     }
 
     // var t = Math.random() * 10;
