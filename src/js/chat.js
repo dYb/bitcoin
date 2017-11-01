@@ -9,7 +9,7 @@ import '../css/chat.less'
 
 let chatUser = ''
 let toUserId = ''
-let SendMSG = () => {}
+let SendMSG = () => { }
 let nim = ''
 
 let container = ''
@@ -26,6 +26,28 @@ const filterChat = (list) => {
   })
 }
 
+const getRoamMessages = () => {
+  ajax({
+    url: `${BASE_URL}/api/im/my/historyMsg`,
+    data: {
+      otherUserId: toUserId
+    },
+    success(ajaxData) {
+      var _messages = ajaxData.data.map((_data)=>{
+        if(_data.fromUserId == chatUser.imAccount){
+          _data.from = chatUser.imAccount
+          _data.to = toUserId
+        }else {
+          _data.from = toUserId
+          _data.to = chatUser.imAccount
+        }
+        _data.text = _data.message;
+        return _data;
+      })
+      $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList(filterChat(_messages)))
+    }
+  })
+}
 const Chat = (_container, _userIdA, _userIdB, _objParams) => {
   initnum += 1
   container = _container
@@ -35,6 +57,7 @@ const Chat = (_container, _userIdA, _userIdB, _objParams) => {
   const onConnect = () => {
     console.log('connect111')
     initDom(container)
+    getRoamMessages();
   }
   const onOfflineMsgs = (messages) => {
     console.log('offline message')
@@ -47,8 +70,8 @@ const Chat = (_container, _userIdA, _userIdB, _objParams) => {
   }
   const onRoamingmsgs = (messages) => {
     // 漫游消息
-    console.log('roaming message')
-    $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList(filterChat(messages.msgs)))
+    // console.log('roaming message')
+    // $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList(filterChat(messages.msgs)))
   }
   const onOfflineCustomSysMsgs = (messages) => {
     // 收到离线自定义系统通知
@@ -98,11 +121,11 @@ function init({
   imAccount
 }, {
   onConnect,
-  onOfflineMsgs,
-  onMsg,
-  onRoamingmsgs,
-  onOfflineCustomSysMsgs,
-  onCustomSysMsg
+    onOfflineMsgs,
+    onMsg,
+    onRoamingmsgs,
+    onOfflineCustomSysMsgs,
+    onCustomSysMsg
 }) {
   return window.NIM.getInstance({
     appKey: '10ad68063cd5b7e02e060337e971cc16',
