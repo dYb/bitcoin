@@ -1,4 +1,5 @@
 import '../js/size'
+import '../css/common.less'
 import {
   ajax,
   $,

@@ -1,0 +1,93 @@
+@import "color.less";
+.tab{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    li{
+        height: 40px;
+        width: 100px;
+        line-height: 40px;
+        text-align: center;
+        font-size: 15px;
+        color: @primary;
+        border: 1px solid @blueColor;
+        // &:nth-child(1){
+        //     border-top-left-radius: 0.2rem;
+        //     border-bottom-left-radius: 0.2rem;
+        // }
+        // &:nth-child(2){
+        //     border-top-right-radius: 0.2rem;
+        //     border-bottom-right-radius: 0.2rem;
+        // }
+        &.active{
+            background-color: @blueColor;
+            color: #fff;
+        }
+    }
+}
+.user-info{
+    // height: 2rem;   
+    display: flex;    
+    flex-direction: row;
+    padding: 15px 0;
+    box-sizing: border-box;
+    align-items: center;
+    p{
+        height: 20px;
+        line-height: 20px;
+    }
+    .headimg{
+        img{
+            width: 1.2rem;
+            height: 1.2rem;   
+            border-radius: 1.2rem;         
+        }
+    }
+    .info{
+        flex:1;        
+        p{
+            color: @greyColor;
+            font-size: 13px;
+            margin: 3px 0;
+        }
+        .name{
+            font-weight: bold;
+            color: #000;
+            font-size: 19px;           
+        }
+        .type{
+            margin-left: 5px;
+            background: #FF8E1B;
+            display: inline-block;
+            font-size: 12px;
+            font-weight: normal;
+            padding: 4px;
+            color: #fff;
+            line-height: 0.8;
+            // border-radius: 0.05rem;
+            vertical-align: 2px;
+        }
+       
+    }
+    .action{
+        .count{
+            color: #000;
+            font-size: 19px;
+            i {
+                font-style: normal;
+                color: @greyColor;
+                font-size: 13px;
+            }
+        }
+        .btn-buy{
+            border: 1px solid @blueColor;
+            display: inline-block;
+            padding: 4px 23px;
+            // border-radius: 0.3rem;
+            font-size: 14px;
+            color: @blueColor;
+            margin-top: 15px;
+            float: right;
+        }
+    }
+}
