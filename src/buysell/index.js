@@ -16,12 +16,11 @@ import '../css/reset.less'
 import '../css/detail.less'
 import './index.less'
 
-// document.body.style.height = document.documentElement.clientHeight + "px";
-var urlData = localParam(),
-  price = new Price({
-    $wrapper: $('.module-price')
-  }),
-  currentInfo = {};
+const urlData = localParam()
+const price = new Price({
+  $wrapper: $('.module-price')
+})
+let currentInfo = {}
 const setTypeText = () => {
   let text = '购买'
   if (urlData.search.type == 2) {
@@ -31,58 +30,58 @@ const setTypeText = () => {
     t.innerHTML = text
   })
 }
-const getDetail = (orderId) => {
+const getDetail = () => {
   ajax({
     url: `${BASE_URL}/api/ads/info/${urlData.search.id}`,
     data: {
       id: urlData.search.id
     },
     success(ajaxData) {
-      const _data = ajaxData.data;
-      currentInfo = _data;
-      price.setChangeValue(_data.price);
-      price.setMaxMin(_data.minLimitPrice, _data.maxLimitPrice);
+      const data = ajaxData.data
+      currentInfo = data
+      price.setChangeValue(data.price)
+      price.setMaxMin(data.minLimitPrice, data.maxLimitPrice)
       $('.w-wrapper').innerHTML = ` <div class="user-info">
           <!--<div class="headimg">
             <img>
           </div>-->
           <div class="info">
-            <p><span class="name">${_data.userName}</span><span class="type">${PAY_TYPE[_data.payType]}</span></p>        
-            <p>限额：${_data.minLimitPrice} RMB ~ ${_data.maxLimitPrice} RMB</p>
+            <p><span class="name">${data.userName}</span><span class="type">${PAY_TYPE[data.payType]}</span></p>        
+            <p>限额：${data.minLimitPrice} RMB ~ ${data.maxLimitPrice} RMB</p>
           </div>
           <div class="action">
-            <p class="count">${_data.price} <i>RMB</i></p>       
+            <p class="count">${data.price} <i>RMB</i></p>       
           </div>
         </div>
         <div class="trade-info">
           <ul>
             <li>
-              <p>${_data.tradeCount}</p>
+              <p>${data.tradeCount}</p>
               <p>交易次数</p>
             </li>
             <li>
-              <p>${_data.creditScore}</p>
+              <p>${data.creditScore}</p>
               <p>信用</p>
             </li>
           </ul>
         </div>
         <div class="banner-text">
-          ${_data.adsDescribe || ''}
+          ${data.adsDescribe || ''}
         </div>`
     }
   })
 }
 const submit = () => {
-  if($('.w-wrapper .error')) {
+  if ($('.w-wrapper .error')) {
     Pop.error('请在限额内交易')
     return
   }
-  $(".price").innerHTML = currentInfo.price;
-  $(".price1").innerHTML = price.getCount();
-  $(".num").innerHTML = price.getBtc();
+  $('.price').innerHTML = currentInfo.price
+  $('.price1').innerHTML = price.getCount()
+  $('.num').innerHTML = price.getBtc()
   Confirm({
-    title: "下单确认",
-    content: $(".trade-confirm").innerHTML,
+    title: '下单确认',
+    content: $('.trade-confirm').innerHTML,
     success() {
       ajax({
         url: `${BASE_URL}/api/order/createOrder`,
@@ -99,8 +98,7 @@ const submit = () => {
         }
       })
     }
-  });
-
+  })
 }
 const init = () => {
   setTypeText()

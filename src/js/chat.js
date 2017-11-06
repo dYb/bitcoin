@@ -16,7 +16,7 @@ let container = ''
 let userIdA = ''
 let userIdB = ''
 let objParams = ''
-let initnum = 0
+// let initnum = 0
 const filterChat = (list) => {
   return list.filter((_data) => {
     if (_data.from == chatUser.imAccount && _data.to == toUserId || _data.from == toUserId && _data.to == chatUser.imAccount) {
@@ -33,23 +33,24 @@ const getRoamMessages = () => {
       otherUserId: toUserId
     },
     success(ajaxData) {
-      var _messages = ajaxData.data.map((_data)=>{
-        if(_data.fromUserId == chatUser.imAccount){
-          _data.from = chatUser.imAccount
-          _data.to = toUserId
-        }else {
-          _data.from = toUserId
-          _data.to = chatUser.imAccount
+      const messages = ajaxData.data.map((_data) => {
+        const data = _data
+        if (data.fromUserId == chatUser.imAccount) {
+          data.from = chatUser.imAccount
+          data.to = toUserId
+        } else {
+          data.from = toUserId
+          data.to = chatUser.imAccount
         }
-        _data.text = _data.message;
-        return _data;
-      }).reverse();
-      $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList(filterChat(_messages)))
+        data.text = data.message
+        return data
+      }).reverse()
+      $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList(filterChat(messages)))
     }
   })
 }
 const Chat = (_container, _userIdA, _userIdB, _objParams) => {
-  initnum += 1
+  // initnum += 1
   container = _container
   userIdA = _userIdA
   userIdB = _userIdB
@@ -57,7 +58,7 @@ const Chat = (_container, _userIdA, _userIdB, _objParams) => {
   const onConnect = () => {
     console.log('connect111')
     initDom(container)
-    getRoamMessages();
+    getRoamMessages()
   }
   const onOfflineMsgs = (messages) => {
     console.log('offline message')
@@ -68,11 +69,11 @@ const Chat = (_container, _userIdA, _userIdB, _objParams) => {
     $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList(filterChat([messages])))
     $(container).scrollTop = '1000000'
   }
-  const onRoamingmsgs = (messages) => {
-    // 漫游消息
-    // console.log('roaming message')
-    // $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList(filterChat(messages.msgs)))
-  }
+  // const onRoamingmsgs = (_messages) => {
+  //   // 漫游消息
+  //   console.log('roaming message')
+  //   $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList(filterChat(messages.msgs)))
+  // }
   const onOfflineCustomSysMsgs = (messages) => {
     // 收到离线自定义系统通知
     $(container).querySelector('.js-list').insertAdjacentHTML('`beforeend', renderList(filterChat(messages), 'system'))
@@ -90,7 +91,7 @@ const Chat = (_container, _userIdA, _userIdB, _objParams) => {
       onConnect,
       onOfflineMsgs,
       onMsg,
-      onRoamingmsgs,
+      // onRoamingmsgs,
       onOfflineCustomSysMsgs,
       onCustomSysMsg
     })
@@ -104,8 +105,8 @@ const Chat = (_container, _userIdA, _userIdB, _objParams) => {
   }
 }
 
-function initDom(container) {
-  $(container).innerHTML = `
+function initDom(_container) {
+  $(_container).innerHTML = `
     <div class="js-list"></div>
     <div class="form form-inline">
       <div style="flex:1;">
@@ -121,11 +122,11 @@ function init({
   imAccount
 }, {
   onConnect,
-    onOfflineMsgs,
-    onMsg,
-    onRoamingmsgs,
-    onOfflineCustomSysMsgs,
-    onCustomSysMsg
+  onOfflineMsgs,
+  onMsg,
+  onRoamingmsgs,
+  onOfflineCustomSysMsgs,
+  onCustomSysMsg
 }) {
   return window.NIM.getInstance({
     appKey: '10ad68063cd5b7e02e060337e971cc16',
@@ -171,7 +172,7 @@ function renderList(messages, type) {
     return ''
   }
   const html = messages.map((msg) => {
-    const content = msg.text || msg.content;
+    const content = msg.text || msg.content
     let _msg = ''
     if (!content) {
       return ''
@@ -207,17 +208,17 @@ function renderList(messages, type) {
   }).join('')
   return html
 }
-function sendMSG(nim, container, userId) {
+function sendMSG(_nim, _container, _userId) {
   return function (content) {
-    nim.sendText({
+    _nim.sendText({
       scene: 'p2p',
-      to: userId,
+      to: _userId,
       text: content,
       done(error, msg) {
         msg.content = msg.text
-        $(container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList([msg]))
-        $(container).querySelector('.js-input').value = ''
-        $(container).scrollTop = '1000000'
+        $(_container).querySelector('.js-list').insertAdjacentHTML('beforeend', renderList([msg]))
+        $(_container).querySelector('.js-input').value = ''
+        $(_container).scrollTop = '1000000'
       }
     })
   }
