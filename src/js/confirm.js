@@ -4,7 +4,7 @@ import {
 } from './util.js'
 import '../css/confirm.less'
 
-const OBJ = {
+var OBJ = {
   title: 'title',
   content: 'content'
 }
