@@ -72,7 +72,7 @@ price.prototype = {
     return /^[0-9]+.?[0-9]*$/.test(value)
   },
   _checkRange(value) {
-    const className = 'error'
+    let className = 'error'
     let flag = ''
     const parentNode = this.$RMBInput.parentNode.parentNode
     if (value <= this._max && value >= this._min) {
